@@ -1,4 +1,7 @@
-# endlessfrontier_rest
+# Endless Frontier API
+[![Build Status](https://travis-ci.org/macgregor/endlessfrontier_api.svg?branch=master)](https://travis-ci.org/macgregor/endlessfrontier_api)
+[![Heroku](http://heroku-badge.herokuapp.com/?app=endlessfrontier-api&style=flat&svg=1)](https://endlessfrontier-api.herokuapp.com/hello-world)
+
 Unofficial Rest API for a mobile game (Endless Frontier - https://play.google.com/store/apps/details?id=com.ekkorr.endlessfrontier.global&amp;hl=en)
 
 ## Planning

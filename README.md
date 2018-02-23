@@ -42,10 +42,3 @@ From the root directory of the git repo:
 1. `./gradlew build`
 2. `heroku local`
 3. visit localhost:$PORT, make note of the port in the server logs. Mine always picks 5000 but that number could change.
-
-
-## Planning
-### Unanswered Questions
-* api documentation
-* data storage - small data set that wont grow by much or very quickly. Theres a game update a few times a year that adds a handful of new pets/artifacts. Current dataset is 450k raw, would be surprised if it ever got close to 1M. So some kind of local storage, no need for standalone infrastructure. Research small local, queryable datastores. SQLite?
-* authorization - OAuth? Free for all? Decision may be influenced by deployment platform, want to make sure someone cant hammer me into a huge bill. 

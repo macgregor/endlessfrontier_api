@@ -1,0 +1,5 @@
+{
+  "name": "Endless Frontier Data Service",
+  "description": "Unofficial rest service for accessing Endless Frontier data",
+  "image": "heroku/gradle"
+}

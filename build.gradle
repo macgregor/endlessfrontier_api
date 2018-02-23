@@ -1,0 +1,22 @@
+group 'com.macgregor'
+version '0.0.1'
+
+apply plugin: 'java'
+apply from: 'https://raw.github.com/akhikhl/gradle-onejar/master/pluginScripts/gradle-onejar.plugin'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+ext {
+    dropwizardVersion = '1.0.5'
+    mainClass = 'com.macgregor.restjava.RestJava'
+}
+
+dependencies {
+    compile group: 'io.dropwizard', name: 'dropwizard-core', version: dropwizardVersion
+
+    testCompile group: 'junit', name: 'junit', version: '4.11'
+}

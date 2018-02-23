@@ -14,12 +14,33 @@ repositories {
 
 ext {
     dropwizardVersion = '1.2.3'
-    mainClass = 'com.macgregor.restjava.RestJava'
+    mainClass = 'com.macgregor.ef.RestJava'
 }
 
 dependencies {
-    compile group: 'io.dropwizard', name: 'dropwizard-core', version: dropwizardVersion
-    testCompile 'junit:junit:4.12'
+    compile (
+            "io.dropwizard:dropwizard-core:${dropwizardVersion}"
+    )
+    testCompile(
+            'junit:junit:4.12',
+            "io.dropwizard:dropwizard-testing:${dropwizardVersion}",
+            "org.assertj:assertj-core:3.9.0"
+    )
+
+}
+
+sourceSets {
+    test {
+        java.srcDirs = ['src/test/java']
+    }
+}
+
+tasks.withType(Test) {
+    testLogging {
+        exceptionFormat "full"
+        events "started", "skipped", "passed", "failed"
+        showStandardStreams true
+    }
 }
 
 task stage(dependsOn: ['build', 'clean']) {

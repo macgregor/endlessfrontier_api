@@ -1,4 +1,4 @@
-package com.macgregor.restjava.health;
+package com.macgregor.ef.health;
 
 import com.codahale.metrics.health.HealthCheck;
 

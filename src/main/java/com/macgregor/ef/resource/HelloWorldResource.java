@@ -1,4 +1,4 @@
-package com.macgregor.restjava.resource;
+package com.macgregor.ef.resource;
 
 import com.codahale.metrics.annotation.Timed;
 

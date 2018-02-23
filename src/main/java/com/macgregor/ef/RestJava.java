@@ -1,7 +1,7 @@
-package com.macgregor.restjava;
+package com.macgregor.ef;
 
-import com.macgregor.restjava.health.RestJavaHealthCheck;
-import com.macgregor.restjava.resource.HelloWorldResource;
+import com.macgregor.ef.health.RestJavaHealthCheck;
+import com.macgregor.ef.resource.HelloWorldResource;
 import io.dropwizard.Application;
 import io.dropwizard.setup.Environment;
 

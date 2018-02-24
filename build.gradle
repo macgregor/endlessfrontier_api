@@ -4,6 +4,8 @@ plugins {
     id 'com.benjaminsproule.swagger' version '1.0.0'
 }
 
+version = '0.0.1'
+group = 'com.macgregor'
 sourceCompatibility = 1.8
 
 repositories {
@@ -12,9 +14,8 @@ repositories {
 
 ext {
     dropwizardVersion = '1.2.3'
-    version = '0.0.1'
-    group = 'com.macgregor'
     apiVersion = 'v1'
+    mainClassName = 'com.macgregor.ef.RestJava' //gradle-shadow fat jar main class
 }
 
 dependencies {
@@ -31,17 +32,7 @@ dependencies {
 
 }
 
-sourceSets {
-    main {
-        resources {
-            srcDirs = ["src/main/resources"]
-        }
-    }
-    test {
-        java.srcDirs = ['src/test/java']
-    }
-}
-
+// gives us better output when running tests
 tasks.withType(Test) {
     testLogging {
         exceptionFormat "full"
@@ -50,20 +41,14 @@ tasks.withType(Test) {
     }
 }
 
-shadowJar {
-    mergeServiceFiles()
-    manifest {
-        attributes 'Main-Class': 'com.macgregor.ef.RestJava'
-    }
-}
-
+//defines the swagger project used by generateSwaggerDocumentation
 swagger {
     apiSource {
         springmvc = false
-        locations = ['com.macgregor.ef.resource']
+        locations = ['com.macgregor.ef.resource'] //package containing swagger swagger @Api annotations
         schemes = ['https']
-        host = 'endlessfrontier-api.herokuapp.com'
-        swaggerDirectory = './docs/'
+        host = "${rootProject.name}.herokuapp.com"
+        swaggerDirectory = "${projectDir}/docs/"
         basePath = '/'
         info {
             title = "${rootProject.name}"
@@ -81,11 +66,19 @@ swagger {
     }
 }
 
+/*
+ * converts swagger.json produced by generateSwaggerDocumentation into a hostable html5 website
+ * requires spectacle be installed: `npm install -g spectacle-docs`
+ *
+ * input: ${projectDir}/docs/swagger.json
+ * output dir: ${projectDir}/docs/
+ */
 task generateDocs(type: Exec, dependsOn: generateSwaggerDocumentation) {
     executable "spectacle"
-    args "-t", "docs/","docs/swagger.json"
+    args "-t", "${projectDir}/docs/","${projectDir}/docs/swagger.json"
 }
 
+// heroku build runs ./gradlew stage for its build
 task stage(dependsOn: ['build', 'clean']) {
     shadowJar
 }

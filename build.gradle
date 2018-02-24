@@ -1,5 +1,6 @@
 plugins {
     id "java"
+    id "application"
     id 'com.github.johnrengelman.shadow' version '2.0.2'
     id 'com.benjaminsproule.swagger' version '1.0.0'
 }
@@ -7,6 +8,7 @@ plugins {
 version = '0.0.1'
 group = 'com.macgregor'
 sourceCompatibility = 1.8
+mainClassName = 'com.macgregor.ef.RestJava'
 
 repositories {
     mavenCentral()
@@ -15,7 +17,6 @@ repositories {
 ext {
     dropwizardVersion = '1.2.3'
     apiVersion = 'v1'
-    mainClassName = 'com.macgregor.ef.RestJava' //gradle-shadow fat jar main class
 }
 
 dependencies {
@@ -30,6 +31,13 @@ dependencies {
             "org.assertj:assertj-core:3.9.0"
     )
 
+}
+
+shadowJar {
+    destinationDir = new File("${project.buildDir}") //weird quirk, requires a file not a string
+    baseName = "${rootProject.name}"
+    classifier = null
+    version = null
 }
 
 // gives us better output when running tests
@@ -79,7 +87,5 @@ task generateDocs(type: Exec, dependsOn: generateSwaggerDocumentation) {
 }
 
 // heroku build runs ./gradlew stage for its build
-task stage(dependsOn: ['build', 'clean']) {
-    shadowJar
-}
+task stage(dependsOn: ['build', 'clean', 'shadowJar']) {}
 build.mustRunAfter clean

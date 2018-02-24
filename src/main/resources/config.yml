@@ -1,0 +1,10 @@
+server:
+  type: simple
+  applicationContextPath: /
+  connector:
+    type: ${CONNECTOR_TYPE:http}
+    port: ${PORT:8080}
+swagger:
+  resourcePackage: com.macgregor.ef.resource
+logging:
+  level: INFO

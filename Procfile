@@ -1,1 +1,1 @@
-web: java -Ddw.server.applicationConnectors[0].port=$PORT -jar build/output/endlessfrontier-rest-0.0.1/endlessfrontier-rest.jar server
+web: java -jar build/output/endlessfrontier-rest-0.0.1/endlessfrontier-rest.jar server src/main/resources/config.yml

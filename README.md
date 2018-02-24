@@ -3,6 +3,8 @@
 
 Unofficial Rest API for a mobile game ([Endless Frontier](https://play.google.com/store/apps/details?id=com.ekkorr.endlessfrontier.global&amp;hl=en))
 
+[Rest API Documentation](https://macgregor.github.io/endlessfrontier_api/)
+
 ## Tech
 * Java 8
 * [Gradle](https://macgregor.gitbooks.io/developer-notes/content/software-dev/build_tools/gradle.html)
@@ -16,6 +18,14 @@ This application produces a standalone jar which contains a Jetty server so it d
 1. `./gradlew build`
 2. `java -jar build/output/endlessfrontier-rest-0.0.1/endlessfrontier-rest.jar server`
 
+
+## API Documentation
+Swagger is used to automatically generate API documentation, unfortunately it isnt completely automated yet since part of the process requires having an npn application installed. Once that is installed, however, generating the documentation is simple.
+
+1. `npm install -g spectacle-docs`
+2. `./gradleq generateDocs`
+
+This relies on the [swagger gradle plugin](https://github.com/gigaSproule/swagger-gradle-plugin) to generate swagger.json, the swagger documentation specification file. Next I use a command line tool called [spectacle](https://github.com/sourcey/spectacle) to turn swagger.json into a decent looking html web site. This can then be deployed wherever. I have this repositories Github Pages set up to host it, you just add the push the files.
 
 ## Heroku
 If you have never worked with Heroku before their [getting started guide](https://devcenter.heroku.com/articles/getting-started-with-java#introduction) is a good crash course.

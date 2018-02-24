@@ -1,0 +1,41 @@
+{
+  "swagger" : "2.0",
+  "info" : {
+    "version" : "v1",
+    "title" : "endlessfrontier-api",
+    "license" : {
+      "name" : "MIT",
+      "url" : "https://opensource.org/licenses/MIT"
+    }
+  },
+  "host" : "endlessfrontier-api.herokuapp.com",
+  "tags" : [ {
+    "name" : "hello-world"
+  } ],
+  "schemes" : [ "https" ],
+  "paths" : {
+    "/hello-world" : {
+      "get" : {
+        "tags" : [ "hello-world" ],
+        "summary" : "Sample endpoint with query param",
+        "description" : "",
+        "operationId" : "sayHello",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "name",
+          "in" : "query",
+          "required" : false,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

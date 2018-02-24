@@ -1,1 +1,1 @@
-web: java -jar build/output/endlessfrontier-rest-0.0.1/endlessfrontier-rest.jar server src/main/resources/config.yml
+web: java -jar build/libs/endlessfrontier-api.jar server src/main/resources/config.yml

@@ -5,5 +5,10 @@ server:
             port: 8080
 swagger:
   resourcePackage: com.macgregor.ef.resource
+  title: endlessfrontier-api
+  version: v1
+  contact: matthew.m.stratton@gmail.com
+  license: MIT
+  licenseUrl: https://opensource.org/licenses/MIT
 logging:
   level: INFO

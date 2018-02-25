@@ -34,6 +34,8 @@ dependencies {
 }
 
 shadowJar {
+    mergeServiceFiles()
+    mainClassName = 'com.macgregor.ef.RestJava'
     destinationDir = new File("${project.buildDir}") //weird quirk, requires a file not a string
     baseName = "${rootProject.name}"
     classifier = null

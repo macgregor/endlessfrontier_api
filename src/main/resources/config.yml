@@ -1,3 +1,8 @@
+server:
+    type: default
+    applicationConnectors:
+        -   type: http
+            port: 8080
 swagger:
   resourcePackage: com.macgregor.ef.resource
 logging:

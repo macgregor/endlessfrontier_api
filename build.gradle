@@ -16,14 +16,21 @@ repositories {
 
 ext {
     dropwizardVersion = '1.2.3'
+    dropwizardSwaggerVersion = '1.2.3-3' //uses dropwizard 1.2.3
     apiVersion = 'v1'
 }
 
 dependencies {
-    compile (
-            "io.dropwizard:dropwizard-core:${dropwizardVersion}",
-            "com.smoketurner:dropwizard-swagger:1.2.3-3"
-    )
+    compile ("io.dropwizard:dropwizard-core:${dropwizardVersion}")
+    compile("com.smoketurner:dropwizard-swagger:${dropwizardSwaggerVersion}"){
+        exclude group: 'org.reflections', module: 'reflections'
+    }
+
+    // see https://groups.google.com/forum/#!topic/dropwizard-user/I0K4e0APudY
+    compile("org.reflections:reflections:0.9.10"){
+        exclude group: "com.google.guava", module: "guava"
+        exclude group: "com.google.code.findbugs", module: "annotations"
+    }
     testCompile(
             'junit:junit:4.12',
             "io.dropwizard:dropwizard-testing:${dropwizardVersion}",

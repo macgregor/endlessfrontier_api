@@ -1,10 +1,14 @@
 package com.macgregor.ef;
 
+import com.codahale.metrics.servlets.AdminServlet;
+import com.codahale.metrics.servlets.HealthCheckServlet;
+import com.codahale.metrics.servlets.MetricsServlet;
 import com.macgregor.ef.health.RestJavaHealthCheck;
 import com.macgregor.ef.resource.HelloWorldResource;
 import io.dropwizard.Application;
 import io.dropwizard.configuration.EnvironmentVariableSubstitutor;
 import io.dropwizard.configuration.SubstitutingSourceProvider;
+import io.dropwizard.jetty.NonblockingServletHolder;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
 import io.federecio.dropwizard.swagger.SwaggerBundle;
@@ -44,15 +48,17 @@ public class RestJava extends Application<RestJavaConfiguration> {
 
     @Override
     public void run(RestJavaConfiguration configuration, Environment environment) throws Exception {
-        registerResources(environment);
-        registerHealthChecks(environment);
-    }
 
-    private void registerResources(Environment environment) {
         environment.jersey().register(HelloWorldResource.class);
-    }
+        environment.healthChecks().register("rest java healthcheck", new RestJavaHealthCheck());
 
-    private void registerHealthChecks(Environment environment) {
-        environment.healthChecks().register("restjava", new RestJavaHealthCheck());
+        environment.getApplicationContext().setAttribute(
+                MetricsServlet.METRICS_REGISTRY,
+                environment.metrics());
+        environment.getApplicationContext().setAttribute(
+                HealthCheckServlet.HEALTH_CHECK_REGISTRY,
+                environment.healthChecks());
+        environment.getApplicationContext().addServlet(
+                new NonblockingServletHolder(new AdminServlet()), "/admin/*");
     }
 }

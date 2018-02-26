@@ -31,3 +31,6 @@ logs/
 
 # Java class files
 *.class
+
+# h2 database
+*.db

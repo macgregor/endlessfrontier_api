@@ -3,12 +3,18 @@ plugins {
     id "application"
     id 'com.github.johnrengelman.shadow' version '2.0.2'
     id 'com.benjaminsproule.swagger' version '1.0.0'
+    id "org.flywaydb.flyway" version "5.0.7"
+    id "idea"
 }
 
 version = '0.0.1'
 group = 'com.macgregor'
 sourceCompatibility = 1.8
+targetCompatibility = '1.8'
 mainClassName = 'com.macgregor.ef.RestJava'
+
+// UTF-8 should be standard by now. So use it!
+[compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
 
 repositories {
     mavenCentral()
@@ -21,7 +27,12 @@ ext {
 }
 
 dependencies {
-    compile ("io.dropwizard:dropwizard-core:${dropwizardVersion}")
+    compile ("io.dropwizard:dropwizard-core:${dropwizardVersion}",
+             "io.dropwizard:dropwizard-db:${dropwizardVersion}",
+             "io.dropwizard:dropwizard-hibernate:${dropwizardVersion}",
+             "io.dropwizard:dropwizard-validation:${dropwizardVersion}",
+             "com.h2database:h2:1.4.196"
+    )
     compile("com.smoketurner:dropwizard-swagger:${dropwizardSwaggerVersion}"){
         exclude group: 'org.reflections', module: 'reflections'
     }
@@ -35,7 +46,7 @@ dependencies {
             'junit:junit:4.12',
             "io.dropwizard:dropwizard-testing:${dropwizardVersion}",
             "io.dropwizard:dropwizard-client:${dropwizardVersion}",
-            "org.assertj:assertj-core:3.9.0"
+            "org.mockito:mockito-core:2.15.0"
     )
 
 }
@@ -93,6 +104,11 @@ swagger {
 task generateDocs(type: Exec, dependsOn: generateSwaggerDocumentation) {
     executable "spectacle"
     args "-t", "${projectDir}/docs/","${projectDir}/docs/swagger.json"
+}
+
+flyway {
+    url = 'jdbc:h2:file:./persondb'
+    user = 'sa'
 }
 
 // heroku build runs ./gradlew stage for its build

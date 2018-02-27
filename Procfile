@@ -1,1 +1,1 @@
-web: java -Ddw.server.applicationConnectors[0].port=$PORT -Ddw.server.applicationConnectors[0].type=https -jar build/endlessfrontier-api.jar server src/main/resources/config.yml
+web: java -Ddw.server.applicationConnectors[0].port=$PORT -jar build/endlessfrontier-api.jar server src/main/resources/config.yml

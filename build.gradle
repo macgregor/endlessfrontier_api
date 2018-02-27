@@ -113,7 +113,7 @@ task generateDocs(type: Exec, dependsOn: generateSwaggerDocumentation) {
  * Create or update h2 database
  */
 flyway {
-    url = 'jdbc:h2:file:./persondb'
+    url = 'jdbc:h2:file:./efdb'
     user = 'sa'
 }
 

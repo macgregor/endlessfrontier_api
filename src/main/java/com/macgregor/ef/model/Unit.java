@@ -3,6 +3,8 @@ package com.macgregor.ef.model;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import org.hibernate.validator.constraints.NotBlank;
 
 import javax.persistence.Column;
@@ -14,6 +16,7 @@ import javax.validation.constraints.NotNull;
 @Entity
 @Table(name = "unit")
 @JacksonXmlRootElement(localName = "unit")
+@ApiModel(value="Unit", description="Unit model describing units in Endless Frontier (e.g. infantry, Ice Spirit, Sword Dancer, etc.)")
 public class Unit {
 
     @Id
@@ -27,6 +30,7 @@ public class Unit {
     @NotNull
     @JsonProperty
     @JacksonXmlProperty(localName = "tribe")
+    @ApiModelProperty(value = "what tribe a unit is in", allowableValues = "1,2,3,4,5")
     private Integer tribe;
 
     @Column(name = "class_name", nullable = false)

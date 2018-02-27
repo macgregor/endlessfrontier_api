@@ -79,8 +79,4 @@ public class EndlessFrontierAPI extends Application<EndlessFrontierAPIConfigurat
         environment.getApplicationContext().addServlet(
                 new NonblockingServletHolder(new AdminServlet()), "/admin/*");
     }
-
-    private void initializeUnits(UnitDAO unitDAO){
-
-    }
 }

@@ -1,6 +1,6 @@
 create table unit (
     id int not null,
-    tribe varchar not null,
+    tribe int not null,
     class_name varchar not null,
     name varchar not null,
     cost int not null,

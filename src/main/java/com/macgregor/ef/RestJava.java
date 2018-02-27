@@ -3,10 +3,10 @@ package com.macgregor.ef;
 import com.codahale.metrics.servlets.AdminServlet;
 import com.codahale.metrics.servlets.HealthCheckServlet;
 import com.codahale.metrics.servlets.MetricsServlet;
-import com.macgregor.ef.dao.PersonDAO;
+import com.macgregor.ef.dao.UnitDAO;
 import com.macgregor.ef.health.RestJavaHealthCheck;
-import com.macgregor.ef.model.Person;
-import com.macgregor.ef.resource.PersonResource;
+import com.macgregor.ef.model.Unit;
+import com.macgregor.ef.resource.UnitResource;
 import io.dropwizard.Application;
 import io.dropwizard.configuration.EnvironmentVariableSubstitutor;
 import io.dropwizard.configuration.SubstitutingSourceProvider;
@@ -25,7 +25,7 @@ public class RestJava extends Application<RestJavaConfiguration> {
         new RestJava().run(args);
     }
 
-    private final HibernateBundle<RestJavaConfiguration> hibernate = new HibernateBundle<RestJavaConfiguration>(Person.class) {
+    private final HibernateBundle<RestJavaConfiguration> hibernate = new HibernateBundle<RestJavaConfiguration>(Unit.class) {
         @Override
         public DataSourceFactory getDataSourceFactory(RestJavaConfiguration configuration) {
             return configuration.getDataSourceFactory();
@@ -62,9 +62,9 @@ public class RestJava extends Application<RestJavaConfiguration> {
     @Override
     public void run(RestJavaConfiguration configuration, Environment environment) throws Exception {
 
-        final PersonDAO personDAO = new PersonDAO(hibernate.getSessionFactory());
-        final PersonResource personResource = new PersonResource(personDAO);
-        environment.jersey().register(personResource);
+        final UnitDAO unitDAO = new UnitDAO(hibernate.getSessionFactory());
+        final UnitResource unitResource = new UnitResource(unitDAO);
+        environment.jersey().register(unitResource);
 
         //set up healthchecks
         environment.healthChecks().register("rest java healthcheck", new RestJavaHealthCheck());

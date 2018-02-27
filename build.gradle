@@ -11,7 +11,7 @@ version = '0.0.1'
 group = 'com.macgregor'
 sourceCompatibility = 1.8
 targetCompatibility = '1.8'
-mainClassName = 'com.macgregor.ef.RestJava'
+mainClassName = 'com.macgregor.ef.EndlessFrontierAPI'
 
 // UTF-8 should be standard by now. So use it!
 [compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
@@ -31,6 +31,8 @@ dependencies {
              "io.dropwizard:dropwizard-db:${dropwizardVersion}",
              "io.dropwizard:dropwizard-hibernate:${dropwizardVersion}",
              "io.dropwizard:dropwizard-validation:${dropwizardVersion}",
+             "com.fasterxml.jackson.dataformat:jackson-dataformat-xml:2.9.4",
+             "org.codehaus.woodstox:woodstox-core-asl:4.4.1",
              "com.h2database:h2:1.4.196"
     )
     compile("com.smoketurner:dropwizard-swagger:${dropwizardSwaggerVersion}"){
@@ -53,7 +55,7 @@ dependencies {
 
 shadowJar {
     mergeServiceFiles()
-    mainClassName = 'com.macgregor.ef.RestJava'
+    mainClassName = 'com.macgregor.ef.EndlessFrontierAPI'
     destinationDir = new File("${project.buildDir}") //weird quirk, requires a file not a string
     baseName = "${rootProject.name}"
     classifier = null
@@ -74,13 +76,14 @@ swagger {
     apiSource {
         springmvc = false
         locations = ['com.macgregor.ef.resource'] //package containing swagger swagger @Api annotations
-        schemes = ['https']
+        schemes = ['http','https']
         host = "${rootProject.name}.herokuapp.com"
         swaggerDirectory = "${projectDir}/docs/"
         basePath = '/'
         info {
             title = "${rootProject.name}"
             version = "${apiVersion}"
+            description = "Unofficial rest service for accessing Endless Frontier data"
             contact {
                 email = 'matthew.m.stratton@gmail.com'
                 name = 'Matthew Stratton'

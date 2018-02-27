@@ -8,7 +8,7 @@ import io.federecio.dropwizard.swagger.SwaggerBundleConfiguration;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
-public class RestJavaConfiguration extends Configuration {
+public class EndlessFrontierAPIConfiguration extends Configuration {
 
     @JsonProperty("swagger")
     private SwaggerBundleConfiguration swaggerBundleConfiguration;

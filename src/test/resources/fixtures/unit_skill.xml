@@ -1,0 +1,7 @@
+<unitSkill>
+    <id>11</id>
+    <skillCode>THU</skillCode>
+    <imgIndex>9</imgIndex>
+    <baseValue>1</baseValue>
+    <desc>자기종족 체력 증가</desc>
+</unitSkill>

@@ -161,4 +161,15 @@ public final class TestModels {
 
         return artifactSet;
     }
+
+    public static UnitSkill getUnitSkill(){
+        UnitSkill unitSkill = new UnitSkill();
+        unitSkill.setId(11);
+        unitSkill.setSkillCode("THU");
+        unitSkill.setImgIndex(9);
+        unitSkill.setBaseValue(1);
+        unitSkill.setDesc("자기종족 체력 증가");
+
+        return unitSkill;
+    }
 }

@@ -8,6 +8,8 @@ import com.macgregor.ef.health.EndlessFrontierAPIHealthCheck;
 import com.macgregor.ef.model.Unit;
 import com.macgregor.ef.resource.*;
 import io.dropwizard.Application;
+import io.dropwizard.bundles.redirect.PathRedirect;
+import io.dropwizard.bundles.redirect.RedirectBundle;
 import io.dropwizard.configuration.EnvironmentVariableSubstitutor;
 import io.dropwizard.configuration.SubstitutingSourceProvider;
 import io.dropwizard.db.DataSourceFactory;
@@ -55,6 +57,10 @@ public class EndlessFrontierAPI extends Application<EndlessFrontierAPIConfigurat
                 return configuration.getSwaggerBundleConfiguration();
             }
         });
+
+        bootstrap.addBundle(new RedirectBundle(
+                new PathRedirect("/", "/swagger")
+        ));
 
         bootstrap.addBundle(hibernate);
     }

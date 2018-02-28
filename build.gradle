@@ -31,6 +31,7 @@ dependencies {
              "io.dropwizard:dropwizard-db:${dropwizardVersion}",
              "io.dropwizard:dropwizard-hibernate:${dropwizardVersion}",
              "io.dropwizard:dropwizard-validation:${dropwizardVersion}",
+             "io.dropwizard-bundles:dropwizard-redirect-bundle:1.0.5",
              "com.fasterxml.jackson.dataformat:jackson-dataformat-xml:2.9.4",
              "org.codehaus.woodstox:woodstox-core-asl:4.4.1",
              "com.h2database:h2:1.4.196"

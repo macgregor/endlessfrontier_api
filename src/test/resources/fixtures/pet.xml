@@ -1,0 +1,19 @@
+<pet>
+    <kindNum>1</kindNum>
+    <className>Mambo</className>
+    <name>맘보</name>
+    <tribe>1</tribe>
+    <type>ground</type>
+    <rank>1</rank>
+    <skill1>1</skill1>
+    <value1>300|800|3000|8000|15000</value1>
+    <skill2>102</skill2>
+    <value2>3|6|9|12|15</value2>
+    <value3>0|0|0|0|0</value3>
+    <masterSkill>291</masterSkill>
+    <couple>14</couple>
+    <incGoldLevel>2|4|6|8|10</incGoldLevel>
+    <treasure>0</treasure>
+    <isPercent>Y</isPercent>
+    <isAlpha>N</isAlpha>
+</pet>

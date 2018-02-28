@@ -3,9 +3,13 @@ package com.macgregor.ef;
 import com.codahale.metrics.servlets.AdminServlet;
 import com.codahale.metrics.servlets.HealthCheckServlet;
 import com.codahale.metrics.servlets.MetricsServlet;
+import com.macgregor.ef.dao.PetDAO;
+import com.macgregor.ef.dao.TribeDAO;
 import com.macgregor.ef.dao.UnitDAO;
 import com.macgregor.ef.health.EndlessFrontierAPIHealthCheck;
 import com.macgregor.ef.model.Unit;
+import com.macgregor.ef.resource.PetResource;
+import com.macgregor.ef.resource.TribeResource;
 import com.macgregor.ef.resource.UnitResource;
 import io.dropwizard.Application;
 import io.dropwizard.configuration.EnvironmentVariableSubstitutor;
@@ -65,6 +69,14 @@ public class EndlessFrontierAPI extends Application<EndlessFrontierAPIConfigurat
         final UnitDAO unitDAO = new UnitDAO(hibernate.getSessionFactory());
         final UnitResource unitResource = new UnitResource(unitDAO);
         environment.jersey().register(unitResource);
+
+        final TribeDAO tribeDAO = new TribeDAO(hibernate.getSessionFactory());
+        final TribeResource tribeResource = new TribeResource(tribeDAO);
+        environment.jersey().register(tribeResource);
+
+        final PetDAO petDAO = new PetDAO(hibernate.getSessionFactory());
+        final PetResource petResource = new PetResource(petDAO);
+        environment.jersey().register(petResource);
 
         //set up healthchecks
         environment.healthChecks().register("ef healthcheck", new EndlessFrontierAPIHealthCheck());

@@ -74,4 +74,34 @@ public final class TestModels {
 
         return unit;
     }
+
+    public static Tribe getTribe(){
+        Tribe tribe = new Tribe();
+        tribe.setId(1);
+        tribe.setName("human");
+        return tribe;
+    }
+
+    public static Pet getPet(){
+        Pet pet = new Pet();
+        pet.setId(1);
+        pet.setClassName("Mambo");
+        pet.setName("맘보");
+        pet.setTribe(1);
+        pet.setType("ground");
+        pet.setRank(1);
+        pet.setSkill1(1);
+        pet.setValue1("300|800|3000|8000|15000");
+        pet.setSkill2(102);
+        pet.setValue2("3|6|9|12|15");
+        pet.setValue3("0|0|0|0|0");
+        pet.setMasterSkill(291);
+        pet.setCouple(14);
+        pet.setIncGoldLevel("2|4|6|8|10");
+        pet.setTreasure(0);
+        pet.setIsPercent("Y");
+        pet.setIsAlpha("N");
+
+        return pet;
+    }
 }

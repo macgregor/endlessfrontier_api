@@ -104,4 +104,17 @@ public final class TestModels {
 
         return pet;
     }
+
+    public static PetSkill getPetSkill(){
+        PetSkill petSkill = new PetSkill();
+        petSkill.setId(514);
+        petSkill.setNamedId("OFR");
+        petSkill.setName("Orc FriendShip Up");
+        petSkill.setType("SUPPORT");
+        petSkill.setDesc("오크종족의 우호도 증가");
+        petSkill.setSub("");
+        petSkill.setMisc("");
+
+        return petSkill;
+    }
 }

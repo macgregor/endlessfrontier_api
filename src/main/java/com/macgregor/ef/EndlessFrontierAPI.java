@@ -4,11 +4,13 @@ import com.codahale.metrics.servlets.AdminServlet;
 import com.codahale.metrics.servlets.HealthCheckServlet;
 import com.codahale.metrics.servlets.MetricsServlet;
 import com.macgregor.ef.dao.PetDAO;
+import com.macgregor.ef.dao.PetSkillDAO;
 import com.macgregor.ef.dao.TribeDAO;
 import com.macgregor.ef.dao.UnitDAO;
 import com.macgregor.ef.health.EndlessFrontierAPIHealthCheck;
 import com.macgregor.ef.model.Unit;
 import com.macgregor.ef.resource.PetResource;
+import com.macgregor.ef.resource.PetSkillResource;
 import com.macgregor.ef.resource.TribeResource;
 import com.macgregor.ef.resource.UnitResource;
 import io.dropwizard.Application;
@@ -77,6 +79,10 @@ public class EndlessFrontierAPI extends Application<EndlessFrontierAPIConfigurat
         final PetDAO petDAO = new PetDAO(hibernate.getSessionFactory());
         final PetResource petResource = new PetResource(petDAO);
         environment.jersey().register(petResource);
+
+        final PetSkillDAO petSkillDAO = new PetSkillDAO(hibernate.getSessionFactory());
+        final PetSkillResource petSkillResource = new PetSkillResource(petSkillDAO);
+        environment.jersey().register(petSkillResource);
 
         //set up healthchecks
         environment.healthChecks().register("ef healthcheck", new EndlessFrontierAPIHealthCheck());

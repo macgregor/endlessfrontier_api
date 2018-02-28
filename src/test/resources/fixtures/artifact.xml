@@ -1,0 +1,23 @@
+<treasure>
+    <kindNum>29</kindNum>
+    <name>늑대가죽 부츠</name>
+    <mainCode>S</mainCode>
+    <subCode>2</subCode>
+    <grade>3</grade>
+    <maxLv>20</maxLv>
+    <desc>언데드,오크 병사출진 시간감소|던전보스 체력감소|</desc>
+    <openCost>10000|10000|0|0|0</openCost>
+    <skillCode1>unitBattleTime_UO</skillCode1>
+    <ability1>77</ability1>
+    <ability11>0</ability11>
+    <ability21>0</ability21>
+    <skillCode2>dungeonBossHp_A</skillCode2>
+    <ability2>77</ability2>
+    <ability12>0</ability12>
+    <ability22>0</ability22>
+    <skillCode3></skillCode3>
+    <ability3>0</ability3>
+    <upgradeCostType>3</upgradeCostType>
+    <showDesc>Y</showDesc>
+    <sortId>29</sortId>
+</treasure>

@@ -117,4 +117,31 @@ public final class TestModels {
 
         return petSkill;
     }
+
+    public static Artifact getArtifact(){
+        Artifact artifact = new Artifact();
+        artifact.setId(29);
+        artifact.setName("늑대가죽 부츠");
+        artifact.setMainCode("S");
+        artifact.setSubCode(2);
+        artifact.setGrade(3);
+        artifact.setMaxLv(20);
+        artifact.setDesc("언데드,오크 병사출진 시간감소|던전보스 체력감소|");
+        artifact.setOpenCost("10000|10000|0|0|0");
+        artifact.setSkillCode1("unitBattleTime_UO");
+        artifact.setAbility1(77);
+        artifact.setAbility11(0);
+        artifact.setAbility21(0);
+        artifact.setSkillCode2("dungeonBossHp_A");
+        artifact.setAbility2(77);
+        artifact.setAbility12(0);
+        artifact.setAbility22(0);
+        artifact.setSkillCode3("");
+        artifact.setAbility3(0);
+        artifact.setUpgradeCostType(3);
+        artifact.setShowDesc("Y");
+        artifact.setSortId(29);
+
+        return artifact;
+    }
 }

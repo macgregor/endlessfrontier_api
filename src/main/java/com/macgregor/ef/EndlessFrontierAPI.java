@@ -3,16 +3,10 @@ package com.macgregor.ef;
 import com.codahale.metrics.servlets.AdminServlet;
 import com.codahale.metrics.servlets.HealthCheckServlet;
 import com.codahale.metrics.servlets.MetricsServlet;
-import com.macgregor.ef.dao.PetDAO;
-import com.macgregor.ef.dao.PetSkillDAO;
-import com.macgregor.ef.dao.TribeDAO;
-import com.macgregor.ef.dao.UnitDAO;
+import com.macgregor.ef.dao.*;
 import com.macgregor.ef.health.EndlessFrontierAPIHealthCheck;
 import com.macgregor.ef.model.Unit;
-import com.macgregor.ef.resource.PetResource;
-import com.macgregor.ef.resource.PetSkillResource;
-import com.macgregor.ef.resource.TribeResource;
-import com.macgregor.ef.resource.UnitResource;
+import com.macgregor.ef.resource.*;
 import io.dropwizard.Application;
 import io.dropwizard.configuration.EnvironmentVariableSubstitutor;
 import io.dropwizard.configuration.SubstitutingSourceProvider;
@@ -83,6 +77,10 @@ public class EndlessFrontierAPI extends Application<EndlessFrontierAPIConfigurat
         final PetSkillDAO petSkillDAO = new PetSkillDAO(hibernate.getSessionFactory());
         final PetSkillResource petSkillResource = new PetSkillResource(petSkillDAO);
         environment.jersey().register(petSkillResource);
+
+        final ArtifactDAO artifactDAO = new ArtifactDAO(hibernate.getSessionFactory());
+        final ArtifactResource artifactResource = new ArtifactResource(artifactDAO);
+        environment.jersey().register(artifactResource);
 
         //set up healthchecks
         environment.healthChecks().register("ef healthcheck", new EndlessFrontierAPIHealthCheck());

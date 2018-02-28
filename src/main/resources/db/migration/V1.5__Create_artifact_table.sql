@@ -1,0 +1,23 @@
+create table artifact (
+    id int not null,
+    name varchar not null,
+    main_code varchar not null,
+    sub_code int not null,
+    grade int not null,
+    max_lv int not null,
+    desc varchar not null,
+    open_cost varchar not null,
+    skill_code1 varchar not null,
+    ability1 int not null,
+    ability11 int not null,
+    ability21 int not null,
+    skill_code2 varchar,
+    ability2 int not null,
+    ability12 int not null,
+    ability22 int not null,
+    skill_code3 varchar,
+    ability3 int not null,
+    upgrade_cost_type int not null,
+    show_desc varchar not null,
+    sort_id int not null
+);

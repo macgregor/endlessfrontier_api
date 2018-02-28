@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
 import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import org.hibernate.validator.constraints.NotBlank;
 
 import javax.persistence.Column;
@@ -30,7 +29,6 @@ public class Unit {
     @NotNull
     @JsonProperty
     @JacksonXmlProperty(localName = "tribe")
-    @ApiModelProperty(value = "what tribe a unit is in", allowableValues = "1,2,3,4,5")
     private Integer tribe;
 
     @Column(name = "class_name", nullable = false)

@@ -16,7 +16,7 @@ import javax.validation.constraints.NotNull;
 @Entity
 @Table(name = "pet_skill")
 @JacksonXmlRootElement(localName = "petSkill")
-@ApiModel(value="PetSkill", description="Pet model describing pets in Endless Frontier (e.g. Mambo, Lime, etc.)")
+@ApiModel(value="PetSkill", description="PetSkill model describing pet skills in Endless Frontier")
 public class PetSkill {
 
     @Id

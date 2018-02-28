@@ -1,12 +1,12 @@
 {
   "swagger" : "2.0",
   "info" : {
-    "description" : "Unofficial rest service for accessing Endless Frontier data",
+    "description" : "Unofficial rest service for accessing Endless Frontier data. Please submit issues to https://github.com/macgregor/endlessfrontier_api/issues",
     "version" : "v1",
     "title" : "endlessfrontier-api",
     "contact" : {
       "name" : "Matthew Stratton",
-      "url" : "https://github.com/macgregor/",
+      "url" : "https://github.com/macgregor",
       "email" : "matthew.m.stratton@gmail.com"
     },
     "license" : {
@@ -29,7 +29,7 @@
   }, {
     "name" : "unit"
   } ],
-  "schemes" : [ "http", "https" ],
+  "schemes" : [ "https", "http" ],
   "paths" : {
     "/artifact" : {
       "get" : {

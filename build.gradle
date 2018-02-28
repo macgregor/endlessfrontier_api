@@ -76,18 +76,18 @@ swagger {
     apiSource {
         springmvc = false
         locations = ['com.macgregor.ef.resource'] //package containing swagger swagger @Api annotations
-        schemes = ['http','https']
+        schemes = ['https','http']
         host = "${rootProject.name}.herokuapp.com"
         swaggerDirectory = "${projectDir}/docs/"
         basePath = '/'
         info {
             title = "${rootProject.name}"
             version = "${apiVersion}"
-            description = "Unofficial rest service for accessing Endless Frontier data"
+            description = "Unofficial rest service for accessing Endless Frontier data. Please submit issues to https://github.com/macgregor/endlessfrontier_api/issues"
             contact {
                 email = 'matthew.m.stratton@gmail.com'
                 name = 'Matthew Stratton'
-                url = 'https://github.com/macgregor/'
+                url = 'https://github.com/macgregor'
             }
             license {
                 name='MIT'

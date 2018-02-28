@@ -25,13 +25,13 @@ database:
 swagger:
   resourcePackage: com.macgregor.ef.resource
   title: endlessfrontier-api
-  description: Unofficial rest service for accessing Endless Frontier data
+  description: Unofficial rest service for accessing Endless Frontier data. Please submit issues to https://github.com/macgregor/endlessfrontier_api/issues
   version: v1
   contact: Matthew Stratton
   contactEmail: matthew.m.stratton@gmail.com
-  contactUrl: https://github.com/macgregor/
+  contactUrl: https://github.com/macgregor
   license: MIT
   licenseUrl: https://opensource.org/licenses/MIT
-  schemes: ['http', 'https']
+  schemes: ['https', 'http']
 logging:
   level: INFO

@@ -144,4 +144,21 @@ public final class TestModels {
 
         return artifact;
     }
+
+    public static ArtifactSet getArtifactSet(){
+        ArtifactSet artifactSet = new ArtifactSet();
+        artifactSet.setId(1);
+        artifactSet.setTitle("음양 정령도 세트");
+        artifactSet.setItemList("47|48");
+        artifactSet.setNumSetList(2);
+        artifactSet.setSkillList("questGoldGain_A#attackSpeed_A");
+        artifactSet.setValueList("3725#6");
+        artifactSet.setValueList1("2880000#7");
+        artifactSet.setValueList2("4425000#8");
+        artifactSet.setDesc("퀘스트 골드획득 증가#공격속도 증가");
+        artifactSet.setHistory("");
+        artifactSet.setShowDesc("Y");
+
+        return artifactSet;
+    }
 }

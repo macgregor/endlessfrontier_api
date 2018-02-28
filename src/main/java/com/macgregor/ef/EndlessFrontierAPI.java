@@ -82,6 +82,10 @@ public class EndlessFrontierAPI extends Application<EndlessFrontierAPIConfigurat
         final ArtifactResource artifactResource = new ArtifactResource(artifactDAO);
         environment.jersey().register(artifactResource);
 
+        final ArtifactSetDAO artifactSetDAO = new ArtifactSetDAO(hibernate.getSessionFactory());
+        final ArtifactSetResource artifactSetResource = new ArtifactSetResource(artifactSetDAO);
+        environment.jersey().register(artifactSetResource);
+
         //set up healthchecks
         environment.healthChecks().register("ef healthcheck", new EndlessFrontierAPIHealthCheck());
 

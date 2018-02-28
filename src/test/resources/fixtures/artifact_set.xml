@@ -1,0 +1,13 @@
+<treasureSet>
+    <kindNum>1</kindNum>
+    <title>음양 정령도 세트</title>
+    <itemList>47|48</itemList>
+    <numSetList>2</numSetList>
+    <skillList>questGoldGain_A#attackSpeed_A</skillList>
+    <valueList>3725#6</valueList>
+    <valueList1>2880000#7</valueList1>
+    <valueList2>4425000#8</valueList2>
+    <desc>퀘스트 골드획득 증가#공격속도 증가</desc>
+    <history></history>
+    <showDesc>Y</showDesc>
+</treasureSet>

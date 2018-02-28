@@ -1,6 +1,7 @@
 {
   "swagger" : "2.0",
   "info" : {
+    "description" : "Unofficial rest service for accessing Endless Frontier data",
     "version" : "v1",
     "title" : "endlessfrontier-api",
     "contact" : {
@@ -16,14 +17,24 @@
   "host" : "endlessfrontier-api.herokuapp.com",
   "basePath" : "/",
   "tags" : [ {
-    "name" : "person"
+    "name" : "artifact"
+  }, {
+    "name" : "artifactset"
+  }, {
+    "name" : "pet"
+  }, {
+    "name" : "petskill"
+  }, {
+    "name" : "tribe"
+  }, {
+    "name" : "unit"
   } ],
-  "schemes" : [ "https" ],
+  "schemes" : [ "http", "https" ],
   "paths" : {
-    "/person" : {
+    "/artifact" : {
       "get" : {
-        "tags" : [ "person" ],
-        "summary" : "Get a list of all persons",
+        "tags" : [ "artifact" ],
+        "summary" : "Get a list of all artifacts",
         "description" : "",
         "operationId" : "getAll",
         "consumes" : [ "application/json" ],
@@ -34,33 +45,38 @@
             "schema" : {
               "type" : "array",
               "items" : {
-                "$ref" : "#/definitions/Person"
+                "$ref" : "#/definitions/Artifact"
               }
             }
           }
         }
-      },
-      "post" : {
-        "tags" : [ "person" ],
-        "summary" : "Add a new person",
+      }
+    },
+    "/artifact/set" : {
+      "get" : {
+        "tags" : [ "artifactset" ],
+        "summary" : "Get a list of all artifact sets",
         "description" : "",
-        "operationId" : "add",
+        "operationId" : "getAll",
         "consumes" : [ "application/json" ],
         "produces" : [ "application/json" ],
         "responses" : {
           "200" : {
             "description" : "successful operation",
             "schema" : {
-              "$ref" : "#/definitions/Person"
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/ArtifactSet"
+              }
             }
           }
         }
       }
     },
-    "/person/{id}" : {
+    "/artifact/set/{id}" : {
       "get" : {
-        "tags" : [ "person" ],
-        "summary" : "Find a single person by id",
+        "tags" : [ "artifactset" ],
+        "summary" : "Find a single artifact set by id",
         "description" : "",
         "operationId" : "get",
         "consumes" : [ "application/json" ],
@@ -68,6 +84,7 @@
         "parameters" : [ {
           "name" : "id",
           "in" : "path",
+          "description" : "id of artifact set to find",
           "required" : true,
           "type" : "integer",
           "format" : "int32"
@@ -76,21 +93,27 @@
           "200" : {
             "description" : "successful operation",
             "schema" : {
-              "$ref" : "#/definitions/Person"
+              "$ref" : "#/definitions/ArtifactSet"
             }
+          },
+          "404" : {
+            "description" : "ArtifactSet not found"
           }
         }
-      },
-      "put" : {
-        "tags" : [ "person" ],
-        "summary" : "Update an existing person by id",
+      }
+    },
+    "/artifact/{id}" : {
+      "get" : {
+        "tags" : [ "artifact" ],
+        "summary" : "Find a single artifact by id",
         "description" : "",
-        "operationId" : "update",
+        "operationId" : "get",
         "consumes" : [ "application/json" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "id",
           "in" : "path",
+          "description" : "id of artifact to find",
           "required" : true,
           "type" : "integer",
           "format" : "int32"
@@ -99,35 +122,438 @@
           "200" : {
             "description" : "successful operation",
             "schema" : {
-              "$ref" : "#/definitions/Person"
+              "$ref" : "#/definitions/Artifact"
+            }
+          },
+          "404" : {
+            "description" : "Artifact not found"
+          }
+        }
+      }
+    },
+    "/pet" : {
+      "get" : {
+        "tags" : [ "pet" ],
+        "summary" : "Get a list of all pets",
+        "description" : "",
+        "operationId" : "getAll",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/Pet"
+              }
             }
           }
         }
-      },
-      "delete" : {
-        "tags" : [ "person" ],
-        "summary" : "Delete a person",
+      }
+    },
+    "/pet/skill" : {
+      "get" : {
+        "tags" : [ "petskill" ],
+        "summary" : "Get a list of all pet skills",
         "description" : "",
-        "operationId" : "delete",
+        "operationId" : "getAll",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/PetSkill"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/pet/skill/{id}" : {
+      "get" : {
+        "tags" : [ "petskill" ],
+        "summary" : "Find a single pet skill by id",
+        "description" : "",
+        "operationId" : "get",
         "consumes" : [ "application/json" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "id",
           "in" : "path",
+          "description" : "id of pet skill to find",
           "required" : true,
           "type" : "integer",
           "format" : "int32"
         } ],
         "responses" : {
-          "default" : {
-            "description" : "successful operation"
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/PetSkill"
+            }
+          },
+          "404" : {
+            "description" : "PetSkill not found"
+          }
+        }
+      }
+    },
+    "/pet/{id}" : {
+      "get" : {
+        "tags" : [ "pet" ],
+        "summary" : "Find a single pet by id",
+        "description" : "",
+        "operationId" : "get",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "description" : "id of pet to find",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int32"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/Pet"
+            }
+          },
+          "404" : {
+            "description" : "Pet not found"
+          }
+        }
+      }
+    },
+    "/tribe" : {
+      "get" : {
+        "tags" : [ "tribe" ],
+        "summary" : "Get a list of all tribes",
+        "description" : "",
+        "operationId" : "getAll",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/Tribe"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/tribe/{id}" : {
+      "get" : {
+        "tags" : [ "tribe" ],
+        "summary" : "Find a single tribe by id",
+        "description" : "",
+        "operationId" : "get",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "description" : "id of tribe to find",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int32"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/Tribe"
+            }
+          },
+          "404" : {
+            "description" : "Tribe not found"
+          }
+        }
+      }
+    },
+    "/unit" : {
+      "get" : {
+        "tags" : [ "unit" ],
+        "summary" : "Get a list of all units",
+        "description" : "",
+        "operationId" : "getAll",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/Unit"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/unit/{id}" : {
+      "get" : {
+        "tags" : [ "unit" ],
+        "summary" : "Find a single unit by id",
+        "description" : "",
+        "operationId" : "get",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "description" : "id of unit to find",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int32"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/Unit"
+            }
+          },
+          "404" : {
+            "description" : "Unit not found"
           }
         }
       }
     }
   },
   "definitions" : {
-    "Person" : {
+    "Artifact" : {
+      "type" : "object",
+      "required" : [ "ability1", "ability11", "ability12", "ability2", "ability21", "ability22", "ability3", "grade", "id", "maxLv", "sortId", "subCode", "upgradeCostType" ],
+      "properties" : {
+        "id" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "name" : {
+          "type" : "string"
+        },
+        "mainCode" : {
+          "type" : "string"
+        },
+        "subCode" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "grade" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "maxLv" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "desc" : {
+          "type" : "string"
+        },
+        "openCost" : {
+          "type" : "string"
+        },
+        "skillCode1" : {
+          "type" : "string"
+        },
+        "ability1" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "ability11" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "ability21" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "skillCode2" : {
+          "type" : "string"
+        },
+        "ability2" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "ability12" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "ability22" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "skillCode3" : {
+          "type" : "string"
+        },
+        "ability3" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "upgradeCostType" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "showDesc" : {
+          "type" : "string"
+        },
+        "sortId" : {
+          "type" : "integer",
+          "format" : "int32"
+        }
+      },
+      "description" : "Artifact model describing artifacts in Endless Frontier (e.g. Necromancer's Boots, Salim's Claw, etc.)"
+    },
+    "ArtifactSet" : {
+      "type" : "object",
+      "required" : [ "id", "numSetList" ],
+      "properties" : {
+        "id" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "title" : {
+          "type" : "string"
+        },
+        "itemList" : {
+          "type" : "string"
+        },
+        "numSetList" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "skillList" : {
+          "type" : "string"
+        },
+        "valueList" : {
+          "type" : "string"
+        },
+        "valueList1" : {
+          "type" : "string"
+        },
+        "valueList2" : {
+          "type" : "string"
+        },
+        "desc" : {
+          "type" : "string"
+        },
+        "history" : {
+          "type" : "string"
+        },
+        "showDesc" : {
+          "type" : "string"
+        }
+      },
+      "description" : "ArtifactSet model describing sets of artifacts in Endless Frontier (e.g. Oath of Heaven Set, Bone Wyvern's Arms Set, etc.)"
+    },
+    "Pet" : {
+      "type" : "object",
+      "required" : [ "id", "masterSkill", "rank", "skill1", "skill2", "tribe" ],
+      "properties" : {
+        "id" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "className" : {
+          "type" : "string"
+        },
+        "name" : {
+          "type" : "string"
+        },
+        "tribe" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "type" : {
+          "type" : "string"
+        },
+        "rank" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "skill1" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "value1" : {
+          "type" : "string"
+        },
+        "skill2" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "value2" : {
+          "type" : "string"
+        },
+        "value3" : {
+          "type" : "string"
+        },
+        "masterSkill" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "couple" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "incGoldLevel" : {
+          "type" : "string"
+        },
+        "treasure" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "isPercent" : {
+          "type" : "string"
+        },
+        "isAlpha" : {
+          "type" : "string"
+        }
+      },
+      "description" : "Pet model describing pets in Endless Frontier (e.g. Mambo, Lime, etc.)"
+    },
+    "PetSkill" : {
+      "type" : "object",
+      "required" : [ "id" ],
+      "properties" : {
+        "id" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "namedId" : {
+          "type" : "string"
+        },
+        "name" : {
+          "type" : "string"
+        },
+        "sub" : {
+          "type" : "string"
+        },
+        "type" : {
+          "type" : "string"
+        },
+        "desc" : {
+          "type" : "string"
+        },
+        "misc" : {
+          "type" : "string"
+        }
+      },
+      "description" : "Pet model describing pets in Endless Frontier (e.g. Mambo, Lime, etc.)"
+    },
+    "Tribe" : {
       "type" : "object",
       "required" : [ "id" ],
       "properties" : {
@@ -136,9 +562,267 @@
           "format" : "int32"
         },
         "name" : {
-          "type" : "string"
+          "type" : "string",
+          "description" : "name of the tribe"
         }
-      }
+      },
+      "description" : "Tribes in Endless Frontier (e.g. elf, orc, etc.)"
+    },
+    "Unit" : {
+      "type" : "object",
+      "required" : [ "attackRange", "attackSpeed", "blockPercent", "coin", "cost", "criticalDamage", "criticalPercent", "evadePercent", "evolKindNum", "evolveGem", "honorNumber", "id", "incDamage", "incHp", "incMagDef", "incPhyDef", "initDamage", "initHp", "initMagDef", "initPhyDef", "isHonor", "jewelBuff", "material1", "material2", "material3", "moveSpeed", "numUnitBlock", "offlineSpeed", "offlineTime", "passiveSkill", "powerList", "rank", "rare", "ratingPosition", "reviveTime", "shop", "shopGem", "size", "skillList", "skillRange", "skillSpeed", "specialSkill", "splashDamage", "splashRange", "starBuff", "starBuffFromPet", "trans", "tribe" ],
+      "properties" : {
+        "id" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "tribe" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "className" : {
+          "type" : "string"
+        },
+        "name" : {
+          "type" : "string"
+        },
+        "cost" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "shopGem" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "evolveGem" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "coin" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "rare" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "size" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "evolKindNum" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "attackType" : {
+          "type" : "string"
+        },
+        "isAirUnit" : {
+          "type" : "string"
+        },
+        "damageType" : {
+          "type" : "string"
+        },
+        "hasSkill" : {
+          "type" : "string"
+        },
+        "skillAttackType" : {
+          "type" : "string"
+        },
+        "skillDamageType" : {
+          "type" : "string"
+        },
+        "initHp" : {
+          "type" : "number",
+          "format" : "double"
+        },
+        "incHp" : {
+          "type" : "number",
+          "format" : "double"
+        },
+        "initDamage" : {
+          "type" : "number",
+          "format" : "double"
+        },
+        "incDamage" : {
+          "type" : "number",
+          "format" : "double"
+        },
+        "initPhyDef" : {
+          "type" : "number",
+          "format" : "double"
+        },
+        "incPhyDef" : {
+          "type" : "number",
+          "format" : "double"
+        },
+        "initMagDef" : {
+          "type" : "number",
+          "format" : "double"
+        },
+        "incMagDef" : {
+          "type" : "number",
+          "format" : "double"
+        },
+        "numUnitBlock" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "moveSpeed" : {
+          "type" : "number",
+          "format" : "double"
+        },
+        "attackSpeed" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "skillSpeed" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "attackRange" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "skillRange" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "evadePercent" : {
+          "type" : "number",
+          "format" : "double"
+        },
+        "blockPercent" : {
+          "type" : "number",
+          "format" : "double"
+        },
+        "criticalPercent" : {
+          "type" : "number",
+          "format" : "double"
+        },
+        "criticalDamage" : {
+          "type" : "number",
+          "format" : "double"
+        },
+        "splashRange" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "splashDamage" : {
+          "type" : "number",
+          "format" : "double"
+        },
+        "specialSkill" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "passiveSkill" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "reviveTime" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "bloody" : {
+          "type" : "string"
+        },
+        "explodeDie" : {
+          "type" : "string"
+        },
+        "des" : {
+          "type" : "string"
+        },
+        "message" : {
+          "type" : "string"
+        },
+        "skillList" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "powerList" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "rank" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "sex" : {
+          "type" : "string"
+        },
+        "orthoGrade" : {
+          "type" : "string"
+        },
+        "shop" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "showBook" : {
+          "type" : "string"
+        },
+        "ratingPosition" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "trans" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "material1" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "material2" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "material3" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "starBuff" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "jewelBuff" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "groundAir" : {
+          "type" : "string"
+        },
+        "offlineSpeed" : {
+          "type" : "number",
+          "format" : "double"
+        },
+        "offlineTime" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "hasHeart" : {
+          "type" : "string"
+        },
+        "canDetect" : {
+          "type" : "string"
+        },
+        "cloaking" : {
+          "type" : "string"
+        },
+        "starBuffFromPet" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "isHonor" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "honorNumber" : {
+          "type" : "integer",
+          "format" : "int32"
+        }
+      },
+      "description" : "Unit model describing units in Endless Frontier (e.g. infantry, Ice Spirit, Sword Dancer, etc.)"
     }
   }
 }

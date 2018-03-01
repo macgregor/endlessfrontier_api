@@ -19,7 +19,7 @@ public class XmlPOJOExtractorTest {
 
     @Before
     public void setUp(){
-        extractor = new XmlPOJOExtractor<TestModel>(TestModel.class);
+        extractor = new XmlPOJOExtractor();
         tm1 = new TestModel();
         tm1.id = 1;
         tm1.name = "foo";
@@ -28,20 +28,25 @@ public class XmlPOJOExtractorTest {
         tm2.id = 2;
         tm2.name = "bar";
     }
-    
+
     @Test(expected = DataLoadException.class)
     public void shouldThrowDataLoadExceptionWhenFileNotFound() throws DataLoadException {
-        extractor.extract("", "");
+        extractor.extract("", "", TestModel.class);
     }
 
     @Test(expected = DataLoadException.class)
     public void shouldThrowDataLoadExceptionWithInvalidXPath() throws DataLoadException {
-        extractor.extract(testFile, "");
+        extractor.extract(testFile, "", TestModel.class);
+    }
+
+    @Test(expected = DataLoadException.class)
+    public void shouldThrowDataLoadExceptionWithInvalidXPath() throws DataLoadException {
+        extractor.extract(testFile, "", TestModel.class);
     }
 
     @Test
     public void shouldExtractListOfTestModels() throws DataLoadException {
-        List<TestModel> extracted = extractor.extract(testFile, "/TestModels/TestModel");
+        List<TestModel> extracted = extractor.extract(testFile, "/TestModels/TestModel", TestModel.class);
         assertEquals(2, extracted.size());
         assertEquals(tm1, extracted.get(0));
         assertEquals(tm2, extracted.get(1));

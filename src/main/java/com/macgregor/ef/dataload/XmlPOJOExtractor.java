@@ -22,15 +22,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
-public class XmlPOJOExtractor<T> {
+public class XmlPOJOExtractor {
     private static final Logger logger = Logger.getLogger(XmlPOJOExtractor.class.getName());
     private static final ObjectMapper XML_MAPPER = new XmlMapper();
-
-    private Class<T> t;
-
-    public XmlPOJOExtractor(Class<T> t){
-        this.t = t;
-    }
 
     private Document loadXml(String uri) throws DataLoadException {
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
@@ -63,7 +57,7 @@ public class XmlPOJOExtractor<T> {
         }
     }
 
-    public List<T> extract(String uri, String rawXPath) throws DataLoadException {
+    public <T> List<T> extract(String uri, String rawXPath, Class<T> type) throws DataLoadException {
         Document doc = loadXml(uri);
         XPathExpression expr = compileXPathExpression(rawXPath);
         try {
@@ -73,10 +67,10 @@ public class XmlPOJOExtractor<T> {
             for(int i = 0; i < nodes.getLength(); i++){
                 try {
                     logger.info(String.format("Node %d: %s", i, nodeToString(nodes.item(i))));
-                    T parsed = XML_MAPPER.readValue(nodeToString(nodes.item(i)), t);
+                    T parsed = XML_MAPPER.readValue(nodeToString(nodes.item(i)), type);
                     extracted.add(parsed);
                 } catch (IOException e) {
-                    throw new DataLoadException("Error mapping xml to " + t.getSimpleName(), e);
+                    throw new DataLoadException("Error mapping xml to " + type.getSimpleName(), e);
                 }
             }
             return extracted;

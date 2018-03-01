@@ -39,11 +39,6 @@ public class XmlPOJOExtractorTest {
         extractor.extract(testFile, "", TestModel.class);
     }
 
-    @Test(expected = DataLoadException.class)
-    public void shouldThrowDataLoadExceptionWithInvalidXPath() throws DataLoadException {
-        extractor.extract(testFile, "", TestModel.class);
-    }
-
     @Test
     public void shouldExtractListOfTestModels() throws DataLoadException {
         List<TestModel> extracted = extractor.extract(testFile, "/TestModels/TestModel", TestModel.class);

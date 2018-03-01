@@ -48,8 +48,8 @@ public final class TestModels {
         unit.setExplodeDie("N");
         unit.setDes("AA");
         unit.setMessage("BB");
-        unit.setSkillList(0);
-        unit.setPowerList(0);
+        unit.setSkillList("0");
+        unit.setPowerList("0");
         unit.setRank(6);
         unit.setSex("N");
         unit.setOrthoGrade("N");
@@ -57,9 +57,9 @@ public final class TestModels {
         unit.setShowBook("N");
         unit.setRatingPosition(0);
         unit.setTrans(0);
-        unit.setMaterial1(0);
-        unit.setMaterial2(0);
-        unit.setMaterial3(0);
+        unit.setMaterial1("0");
+        unit.setMaterial2("0");
+        unit.setMaterial3("0");
         unit.setStarBuff(0);
         unit.setJewelBuff(0);
         unit.setGroundAir("N");

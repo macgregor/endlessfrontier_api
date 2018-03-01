@@ -284,16 +284,16 @@ public class Unit {
     private String message; //TODO: needs to be translated?
 
     @Column(name = "skill_list", nullable = false)
-    @NotNull
+    @NotBlank
     @JsonProperty
     @JacksonXmlProperty(localName = "skillList")
-    private Integer skillList;
+    private String skillList;
 
     @Column(name = "power_list", nullable = false)
-    @NotNull
+    @NotBlank
     @JsonProperty
     @JacksonXmlProperty(localName = "powerList")
-    private Integer powerList;
+    private String powerList;
 
     @Column(name = "rank", nullable = false)
     @NotNull
@@ -338,22 +338,22 @@ public class Unit {
     private Integer trans;
 
     @Column(name = "material1", nullable = false)
-    @NotNull
+    @NotBlank
     @JsonProperty
     @JacksonXmlProperty(localName = "material1")
-    private Integer material1;
+    private String material1;
 
     @Column(name = "material2", nullable = false)
-    @NotNull
+    @NotBlank
     @JsonProperty
     @JacksonXmlProperty(localName = "material2")
-    private Integer material2;
+    private String material2;
 
     @Column(name = "material3", nullable = false)
-    @NotNull
+    @NotBlank
     @JsonProperty
     @JacksonXmlProperty(localName = "material3")
-    private Integer material3;
+    private String material3;
 
     @Column(name = "star_buff", nullable = false)
     @NotNull
@@ -774,19 +774,19 @@ public class Unit {
         this.message = message;
     }
 
-    public Integer getSkillList() {
+    public String getSkillList() {
         return skillList;
     }
 
-    public void setSkillList(Integer skillList) {
+    public void setSkillList(String skillList) {
         this.skillList = skillList;
     }
 
-    public Integer getPowerList() {
+    public String getPowerList() {
         return powerList;
     }
 
-    public void setPowerList(Integer powerList) {
+    public void setPowerList(String powerList) {
         this.powerList = powerList;
     }
 
@@ -846,27 +846,27 @@ public class Unit {
         this.trans = trans;
     }
 
-    public Integer getMaterial1() {
+    public String getMaterial1() {
         return material1;
     }
 
-    public void setMaterial1(Integer material1) {
+    public void setMaterial1(String material1) {
         this.material1 = material1;
     }
 
-    public Integer getMaterial2() {
+    public String getMaterial2() {
         return material2;
     }
 
-    public void setMaterial2(Integer material2) {
+    public void setMaterial2(String material2) {
         this.material2 = material2;
     }
 
-    public Integer getMaterial3() {
+    public String getMaterial3() {
         return material3;
     }
 
-    public void setMaterial3(Integer material3) {
+    public void setMaterial3(String material3) {
         this.material3 = material3;
     }
 
@@ -1005,8 +1005,8 @@ public class Unit {
                 ", explodeDie='" + explodeDie + '\'' +
                 ", des='" + des + '\'' +
                 ", message='" + message + '\'' +
-                ", skillList=" + skillList +
-                ", powerList=" + powerList +
+                ", skillList='" + skillList + '\'' +
+                ", powerList='" + powerList + '\'' +
                 ", rank=" + rank +
                 ", sex='" + sex + '\'' +
                 ", orthoGrade='" + orthoGrade + '\'' +
@@ -1014,9 +1014,9 @@ public class Unit {
                 ", showBook='" + showBook + '\'' +
                 ", ratingPosition=" + ratingPosition +
                 ", trans=" + trans +
-                ", material1=" + material1 +
-                ", material2=" + material2 +
-                ", material3=" + material3 +
+                ", material1='" + material1 + '\'' +
+                ", material2='" + material2 + '\'' +
+                ", material3='" + material3 + '\'' +
                 ", starBuff=" + starBuff +
                 ", jewelBuff=" + jewelBuff +
                 ", groundAir='" + groundAir + '\'' +

@@ -47,7 +47,7 @@ public class PetSkill {
     @JacksonXmlProperty(localName = "type")
     private String type;
 
-    @Column(name = "desc")
+    @Column(name = "desc", length = 1000)
     @JsonProperty
     @JacksonXmlProperty(localName = "desc")
     private String desc; //TODO: convert to english

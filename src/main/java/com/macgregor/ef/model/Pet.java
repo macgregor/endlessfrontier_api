@@ -92,7 +92,7 @@ public class Pet {
     private Integer masterSkill; //TODO: FK to ?? PetSkill
 
     @Column(name = "couple", nullable = false)
-    @NotBlank
+    @NotNull
     @JsonProperty
     @JacksonXmlProperty(localName = "couple")
     private Integer couple; //TODO: FK to Unit
@@ -104,7 +104,7 @@ public class Pet {
     private String incGoldLevel;
 
     @Column(name = "treasure", nullable = false)
-    @NotBlank
+    @NotNull
     @JsonProperty
     @JacksonXmlProperty(localName = "treasure")
     private Integer treasure; //TODO: FK to artifact

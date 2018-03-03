@@ -277,7 +277,7 @@ public class Unit {
     @JacksonXmlProperty(localName = "des")
     private String des; //TODO: needs to be translated?
 
-    @Column(name = "message", nullable = false)
+    @Column(name = "message", nullable = false, length = 1000)
     @NotBlank
     @JsonProperty
     @JacksonXmlProperty(localName = "message")

@@ -38,10 +38,10 @@ public class ArtifactSet {
     private String itemList; //TODO: pipe separated FK list to artifact
 
     @Column(name="num_set_list", nullable = false)
-    @NotNull
+    @NotBlank
     @JsonProperty
     @JacksonXmlProperty(localName = "numSetList")
-    private Integer numSetList;
+    private String numSetList;
 
 
     @Column(name = "skill_list", nullable = false)
@@ -74,7 +74,7 @@ public class ArtifactSet {
     @JacksonXmlProperty(localName = "desc")
     private String desc; //TODO: needs to be translated to english
 
-    @Column(name = "history", nullable = false)
+    @Column(name = "history")
     @JsonProperty
     @JacksonXmlProperty(localName = "history")
     private String history;
@@ -109,11 +109,11 @@ public class ArtifactSet {
         this.itemList = itemList;
     }
 
-    public Integer getNumSetList() {
+    public String getNumSetList() {
         return numSetList;
     }
 
-    public void setNumSetList(Integer numSetList) {
+    public void setNumSetList(String numSetList) {
         this.numSetList = numSetList;
     }
 

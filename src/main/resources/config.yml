@@ -7,7 +7,7 @@ database:
   driverClass: org.h2.Driver
   user: sa
 #  password:
-  url: jdbc:h2:./build/efdb
+  url: jdbc:h2:./build/efdb;AUTO_SERVER=TRUE
   properties:
     charSet: UTF-8
   maxWaitForConnection: 1s
@@ -19,7 +19,7 @@ database:
   minIdleTime: 1 minute
   properties:
     hibernate.dialect: org.hibernate.dialect.H2Dialect
-    hibernate.show_sql: true
+    hibernate.show_sql: false
     hibernate.generate_statistics: false
     hibernate.hbm2ddl.auto: validate # validates schema when service is started
 swagger:
@@ -35,3 +35,11 @@ swagger:
   schemes: ['https', 'http']
 logging:
   level: INFO
+  loggers:
+      "io.dropwizard": INFO
+      "org.hibernate.SQL":
+        level: ERROR
+      "hibernate":
+        level: ERROR
+      "com.macgregor.ef":
+        level: DEBUG

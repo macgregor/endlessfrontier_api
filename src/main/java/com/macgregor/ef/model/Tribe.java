@@ -22,7 +22,6 @@ public class Tribe {
     @JsonProperty
     private Integer id;
 
-    @Id
     @Column(name="name", nullable = false)
     @JsonProperty
     @ApiModelProperty(value = "name of the tribe")

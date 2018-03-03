@@ -3,6 +3,8 @@ package com.macgregor.ef.dataload;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import com.macgregor.ef.exceptions.DataLoadException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -12,7 +14,10 @@ import org.xml.sax.SAXException;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.*;
+import javax.xml.transform.OutputKeys;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.xpath.*;
@@ -20,10 +25,9 @@ import java.io.IOException;
 import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Logger;
 
 public class XmlPOJOExtractor {
-    private static final Logger logger = Logger.getLogger(XmlPOJOExtractor.class.getName());
+    private static final Logger logger = LoggerFactory.getLogger(XmlPOJOExtractor.class);
     private static final ObjectMapper XML_MAPPER = new XmlMapper();
 
     private Document loadXml(String uri) throws DataLoadException {
@@ -58,19 +62,25 @@ public class XmlPOJOExtractor {
     }
 
     public <T> List<T> extract(String uri, String rawXPath, Class<T> type) throws DataLoadException {
+        logger.debug(String.format("[%s extractor] - Attempting to extract data from %s using xpath %s", type.getSimpleName(), uri, rawXPath));
+
         Document doc = loadXml(uri);
         XPathExpression expr = compileXPathExpression(rawXPath);
         try {
             NodeList nodes = (NodeList) expr.evaluate(doc, XPathConstants.NODESET);
-            logger.info(String.format("Matched %d nodes", nodes.getLength()));
+            logger.debug(String.format("[%s extractor] - Matched %d nodes", type.getSimpleName(), nodes.getLength()));
             List<T> extracted = new ArrayList<T>();
             for(int i = 0; i < nodes.getLength(); i++){
                 try {
-                    logger.info(String.format("Node %d: %s", i, nodeToString(nodes.item(i))));
                     T parsed = XML_MAPPER.readValue(nodeToString(nodes.item(i)), type);
                     extracted.add(parsed);
                 } catch (IOException e) {
-                    throw new DataLoadException("Error mapping xml to " + type.getSimpleName(), e);
+                    logger.error(String.format("[%s extractor] - error attempting to map node %d", type.getSimpleName(), i), e);
+                    try{
+                        logger.error(nodeToString(nodes.item(i)));
+                    } catch (DataLoadException e2){
+                        logger.error(String.format("[%s extractor] - tried but failed to print the node to help you debug"), e2);
+                    }
                 }
             }
             return extracted;

@@ -150,7 +150,7 @@ public final class TestModels {
         artifactSet.setId(1);
         artifactSet.setTitle("음양 정령도 세트");
         artifactSet.setItemList("47|48");
-        artifactSet.setNumSetList(2);
+        artifactSet.setNumSetList("2");
         artifactSet.setSkillList("questGoldGain_A#attackSpeed_A");
         artifactSet.setValueList("3725#6");
         artifactSet.setValueList1("2880000#7");

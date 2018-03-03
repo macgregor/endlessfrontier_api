@@ -12,7 +12,7 @@ import static org.junit.Assert.assertEquals;
 
 public class XmlPOJOExtractorTest {
 
-    private static final String testFile = "src/test/resources/fixtures/test_model.xml";
+    private static final String testFile = "src/test/resources/dataloader/test_model.xml";
     private XmlPOJOExtractor extractor;
     private TestModel tm1;
     private TestModel tm2;
@@ -41,7 +41,15 @@ public class XmlPOJOExtractorTest {
 
     @Test
     public void shouldExtractListOfTestModels() throws DataLoadException {
-        List<TestModel> extracted = extractor.extract(testFile, "/TestModels/TestModel", TestModel.class);
+        List<TestModel> extracted = extractor.extract(testFile, "//TestModel", TestModel.class);
+        assertEquals(2, extracted.size());
+        assertEquals(tm1, extracted.get(0));
+        assertEquals(tm2, extracted.get(1));
+    }
+
+    @Test
+    public void shouldContinueWhenFailingToParseNodeInList() throws DataLoadException {
+        List<TestModel> extracted = extractor.extract("src/test/resources/dataloader/test_model_with_bad_node.xml", "//TestModel", TestModel.class);
         assertEquals(2, extracted.size());
         assertEquals(tm1, extracted.get(0));
         assertEquals(tm2, extracted.get(1));

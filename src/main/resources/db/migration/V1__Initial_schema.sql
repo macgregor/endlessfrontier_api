@@ -81,7 +81,7 @@ insert into tribe (id, name) values (5, 'Dungeon');
 
 create table pet (
     id int not null,
-    className varchar not null,
+    class_name varchar not null,
     name varchar not null,
     tribe int not null,
     type varchar not null,

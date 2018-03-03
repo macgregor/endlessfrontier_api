@@ -54,6 +54,10 @@ dependencies {
 
 }
 
+clean.doFirst {
+    delete "${rootDir}/out/"
+}
+
 shadowJar {
     mergeServiceFiles()
     mainClassName = 'com.macgregor.ef.EndlessFrontierAPI'

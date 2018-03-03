@@ -38,7 +38,7 @@ public class ArtifactSetResource {
     @Timed
     @ApiOperation(value = "Find a single artifact set by id", response = ArtifactSet.class)
     @ApiResponses( value = {
-            @ApiResponse(code = 404, message = "ArtifactSet not found")
+            @ApiResponse(code = 204, message = "ArtifactSet not found")
     })
     public ArtifactSet get(@ApiParam(value = "id of artifact set to find", required = true) @PathParam("id") Integer id){
         return artifactSetDAO.findById(id);

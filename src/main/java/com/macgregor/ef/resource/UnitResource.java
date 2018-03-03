@@ -39,7 +39,7 @@ public class UnitResource {
     @Timed
     @ApiOperation(value = "Find a single unit by id", response = Unit.class)
     @ApiResponses( value = {
-        @ApiResponse(code = 404, message = "Unit not found")
+        @ApiResponse(code = 204, message = "Unit not found")
     })
     public Unit get(@ApiParam(value = "id of unit to find", required = true) @PathParam("id") Integer id){
         return unitDAO.findById(id);

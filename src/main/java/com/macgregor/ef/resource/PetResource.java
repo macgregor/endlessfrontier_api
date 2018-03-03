@@ -38,7 +38,7 @@ public class PetResource {
     @Timed
     @ApiOperation(value = "Find a single pet by id", response = Pet.class)
     @ApiResponses( value = {
-            @ApiResponse(code = 404, message = "Pet not found")
+            @ApiResponse(code = 204, message = "Pet not found")
     })
     public Pet get(@ApiParam(value = "id of pet to find", required = true) @PathParam("id") Integer id){
         return petDAO.findById(id);

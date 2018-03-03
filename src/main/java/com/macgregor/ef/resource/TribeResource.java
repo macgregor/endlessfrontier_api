@@ -39,7 +39,7 @@ public class TribeResource {
     @Timed
     @ApiOperation(value = "Find a single tribe by id", response = Tribe.class)
     @ApiResponses( value = {
-            @ApiResponse(code = 404, message = "Tribe not found")
+            @ApiResponse(code = 204, message = "Tribe not found")
     })
     public Tribe get(@ApiParam(value = "id of tribe to find", required = true) @PathParam("id") Integer id){
         return tribeDAO.findById(id);

@@ -38,7 +38,7 @@ public class PetSkillResource {
     @Timed
     @ApiOperation(value = "Find a single pet skill by id", response = PetSkill.class)
     @ApiResponses( value = {
-            @ApiResponse(code = 404, message = "PetSkill not found")
+            @ApiResponse(code = 204, message = "PetSkill not found")
     })
     public PetSkill get(@ApiParam(value = "id of pet skill to find", required = true) @PathParam("id") Integer id){
         return petSkillDAO.findById(id);

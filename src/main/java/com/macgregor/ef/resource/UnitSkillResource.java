@@ -38,9 +38,11 @@ public class UnitSkillResource {
     @Timed
     @ApiOperation(value = "Find a single unit skill by id", response = UnitSkill.class)
     @ApiResponses( value = {
-            @ApiResponse(code = 404, message = "UnitSkill not found")
+            @ApiResponse(code = 204, message = "UnitSkill not found")
     })
     public UnitSkill get(@ApiParam(value = "id of unit skill to find", required = true) @PathParam("id") Integer id){
         return unitSkillDAO.findById(id);
     }
+
+
 }

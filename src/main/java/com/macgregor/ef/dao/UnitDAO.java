@@ -3,6 +3,7 @@ package com.macgregor.ef.dao;
 import com.macgregor.ef.model.Unit;
 import io.dropwizard.hibernate.AbstractDAO;
 import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
 
 import java.util.List;
 
@@ -29,5 +30,17 @@ public class UnitDAO extends AbstractDAO<Unit>  {
 
     public Unit insert(Unit unit) {
         return persist(unit);
+    }
+
+    public int count() {
+        Query q = currentSession().createQuery(String.format("select count(*) from %s", Unit.class.getSimpleName()));
+        return ((Long)q.uniqueResult()).intValue();
+    }
+
+    public List<Unit> find(Integer page, Integer size){
+        Query query = currentSession().createQuery(String.format("From %s", Unit.class.getSimpleName()));
+        query.setFirstResult((page-1)*size);
+        query.setMaxResults(size);
+        return query.list();
     }
 }

@@ -51,6 +51,10 @@ dependencies {
             "io.dropwizard:dropwizard-client:${dropwizardVersion}",
             "org.mockito:mockito-core:2.15.0"
     )
+    testCompile('org.glassfish.jersey.test-framework.providers:jersey-test-framework-provider-grizzly2:2.25.1'){
+        exclude group: "javax.servlet", module: "javax.servlet-api"
+        exclude group: "junit", module: "junit"
+    }
 
 }
 
@@ -74,6 +78,7 @@ tasks.withType(Test) {
         events "started", "skipped", "passed", "failed"
         showStandardStreams true
     }
+    maxParallelForks = 2
 }
 
 //defines the swagger project used by generateSwaggerDocumentation

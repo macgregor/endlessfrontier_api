@@ -6,6 +6,7 @@ import com.codahale.metrics.servlets.MetricsServlet;
 import com.macgregor.ef.dao.*;
 import com.macgregor.ef.dataload.EndlessFrontierDataLoader;
 import com.macgregor.ef.dataload.XmlPOJOExtractor;
+import com.macgregor.ef.exceptions.PageinationExceptionMapper;
 import com.macgregor.ef.health.EndlessFrontierAPIHealthCheck;
 import com.macgregor.ef.model.*;
 import com.macgregor.ef.resource.*;
@@ -85,9 +86,11 @@ public class EndlessFrontierAPI extends Application<EndlessFrontierAPIConfigurat
     public void run(EndlessFrontierAPIConfiguration configuration, Environment environment) throws Exception {
         SessionFactory sessionFactory = hibernate.getSessionFactory();
 
+        //load xml data into h2 database
         EndlessFrontierDataLoader dataLoader = new EndlessFrontierDataLoader(sessionFactory);
         dataLoader.loadAll();
 
+        //register all resources
         environment.jersey().register(new UnitResource(new UnitDAO(sessionFactory)));
         environment.jersey().register(new TribeResource(new TribeDAO(sessionFactory)));
         environment.jersey().register(new PetResource(new PetDAO(sessionFactory)));
@@ -96,6 +99,9 @@ public class EndlessFrontierAPI extends Application<EndlessFrontierAPIConfigurat
         environment.jersey().register(new ArtifactSetResource(new ArtifactSetDAO(sessionFactory)));
         environment.jersey().register(new UnitSkillResource(new UnitSkillDAO(sessionFactory)));
         environment.jersey().register(new TranslationResource(new TranslationDAO(sessionFactory)));
+
+        //register custom exception mappers
+        environment.jersey().register(new PageinationExceptionMapper());
 
         //set up healthchecks
         environment.healthChecks().register("ef healthcheck", new EndlessFrontierAPIHealthCheck());

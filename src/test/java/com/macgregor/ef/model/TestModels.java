@@ -172,4 +172,12 @@ public final class TestModels {
 
         return unitSkill;
     }
+
+    public static Translation getTranslation(){
+        Translation translation = new Translation();
+        translation.setId("ACHIEVE_DESC_2");
+        translation.setValue("Maximum Unit Number");
+
+        return translation;
+    }
 }

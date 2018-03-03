@@ -41,6 +41,7 @@ public class EndlessFrontierDataLoader {
         loadArtifactSets();
         loadPets();
         loadPetSkills();
+        loadTranslations();
     }
 
     public void loadUnits() throws DataLoadException {
@@ -65,5 +66,9 @@ public class EndlessFrontierDataLoader {
 
     public void loadPetSkills() throws DataLoadException {
         loadData("src/main/resources/ef/petbook.xml", "//petSkill", PetSkill.class);
+    }
+
+    public void loadTranslations() throws DataLoadException {
+        loadData("src/main/resources/ef/global.1.9.5-book.en.xml", "//text", Translation.class);
     }
 }

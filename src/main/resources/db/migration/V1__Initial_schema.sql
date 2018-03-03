@@ -154,3 +154,8 @@ create table unit_skill(
     base_value int not null,
     desc varchar not null
 );
+
+create table translation(
+    id varchar not null,
+    value varchar
+);

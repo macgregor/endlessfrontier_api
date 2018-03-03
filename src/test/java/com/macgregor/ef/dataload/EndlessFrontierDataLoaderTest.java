@@ -26,6 +26,7 @@ public class EndlessFrontierDataLoaderTest {
             .addEntityClass(ArtifactSet.class)
             .addEntityClass(Pet.class)
             .addEntityClass(PetSkill.class)
+            .addEntityClass(Translation.class)
             .build();
 
     private EndlessFrontierDataLoader dataLoader;
@@ -76,6 +77,12 @@ public class EndlessFrontierDataLoaderTest {
     public void testLoadDataExtractsPetSkills() throws DataLoadException {
         dataLoader.loadPetSkills();
         assertEquals(456, count(PetSkill.class));
+    }
+
+    @Test
+    public void testLoadDataExtractsTranslations() throws DataLoadException {
+        dataLoader.loadTranslations();
+        assertEquals(2044, count(Translation.class));
     }
 
     private <T> int count(Class<T> type){

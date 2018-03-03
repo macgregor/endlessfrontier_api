@@ -40,7 +40,8 @@ public class EndlessFrontierAPI extends Application<EndlessFrontierAPIConfigurat
             ArtifactSet.class,
             Pet.class,
             PetSkill.class,
-            Tribe.class) {
+            Tribe.class,
+            Translation.class) {
         @Override
         public DataSourceFactory getDataSourceFactory(EndlessFrontierAPIConfiguration configuration) {
             return configuration.getDataSourceFactory();
@@ -94,6 +95,7 @@ public class EndlessFrontierAPI extends Application<EndlessFrontierAPIConfigurat
         environment.jersey().register(new ArtifactResource(new ArtifactDAO(sessionFactory)));
         environment.jersey().register(new ArtifactSetResource(new ArtifactSetDAO(sessionFactory)));
         environment.jersey().register(new UnitSkillResource(new UnitSkillDAO(sessionFactory)));
+        environment.jersey().register(new TranslationResource(new TranslationDAO(sessionFactory)));
 
         //set up healthchecks
         environment.healthChecks().register("ef healthcheck", new EndlessFrontierAPIHealthCheck());

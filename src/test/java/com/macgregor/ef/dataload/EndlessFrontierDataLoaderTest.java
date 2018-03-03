@@ -3,6 +3,7 @@ package com.macgregor.ef.dataload;
 import ch.qos.logback.classic.Level;
 import com.macgregor.ef.exceptions.DataLoadException;
 import com.macgregor.ef.model.*;
+import com.macgregor.ef.util.TestModels;
 import io.dropwizard.logging.BootstrapLogging;
 import io.dropwizard.testing.junit.DAOTestRule;
 import org.hibernate.Session;

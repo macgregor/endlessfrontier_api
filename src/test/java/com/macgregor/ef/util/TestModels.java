@@ -1,4 +1,6 @@
-package com.macgregor.ef.model;
+package com.macgregor.ef.util;
+
+import com.macgregor.ef.model.*;
 
 public final class TestModels {
 

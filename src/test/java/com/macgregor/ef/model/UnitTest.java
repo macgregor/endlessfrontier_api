@@ -2,6 +2,7 @@ package com.macgregor.ef.model;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
+import com.macgregor.ef.util.TestModels;
 import io.dropwizard.jackson.Jackson;
 import org.junit.BeforeClass;
 import org.junit.Test;

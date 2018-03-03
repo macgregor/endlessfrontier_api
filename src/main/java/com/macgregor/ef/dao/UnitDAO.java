@@ -1,46 +1,10 @@
 package com.macgregor.ef.dao;
 
 import com.macgregor.ef.model.Unit;
-import io.dropwizard.hibernate.AbstractDAO;
 import org.hibernate.SessionFactory;
-import org.hibernate.query.Query;
 
-import java.util.List;
-
-public class UnitDAO extends AbstractDAO<Unit>  {
+public class UnitDAO extends AbstractEFDAO<Unit>  {
     public UnitDAO(SessionFactory factory) {
         super(factory);
-    }
-
-    public List<Unit> getAll() {
-        return (List<Unit>) currentSession().createCriteria(Unit.class).list();
-    }
-
-    public Unit findById(int id) {
-        return (Unit) currentSession().get(Unit.class, id);
-    }
-
-    public void delete(Unit unit) {
-        currentSession().delete(unit);
-    }
-
-    public void update(Unit unit) {
-        currentSession().saveOrUpdate(unit);
-    }
-
-    public Unit insert(Unit unit) {
-        return persist(unit);
-    }
-
-    public int count() {
-        Query q = currentSession().createQuery(String.format("select count(*) from %s", Unit.class.getSimpleName()));
-        return ((Long)q.uniqueResult()).intValue();
-    }
-
-    public List<Unit> find(Integer page, Integer size){
-        Query query = currentSession().createQuery(String.format("From %s", Unit.class.getSimpleName()));
-        query.setFirstResult((page-1)*size);
-        query.setMaxResults(size);
-        return query.list();
     }
 }

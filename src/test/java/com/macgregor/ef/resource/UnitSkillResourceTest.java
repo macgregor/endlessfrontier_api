@@ -1,9 +1,12 @@
 package com.macgregor.ef.resource;
 
 import com.macgregor.ef.dao.UnitSkillDAO;
+import com.macgregor.ef.exceptions.PageinationExceptionMapper;
 import com.macgregor.ef.model.UnitSkill;
 import io.dropwizard.testing.junit.ResourceTestRule;
+import org.glassfish.jersey.test.grizzly.GrizzlyWebTestContainerFactory;
 import org.junit.After;
+import org.junit.Before;
 import org.junit.ClassRule;
 import org.junit.Test;
 
@@ -15,49 +18,53 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.*;
 
-public class UnitSkillResourceTest {
+public class UnitSkillResourceTest extends ResourceTest {
     private static final UnitSkillDAO unitSkillDAO = mock(UnitSkillDAO.class);
 
     @ClassRule
-    public static final ResourceTestRule resources = ResourceTestRule.builder()
+    public static final ResourceTestRule resources =ResourceTestRule.builder()
+            .setTestContainerFactory(new GrizzlyWebTestContainerFactory())
             .addResource(new UnitSkillResource(unitSkillDAO))
+            .addProvider(PageinationExceptionMapper.class)
             .build();
+
+    public UnitSkillResourceTest(){
+        super(resources, UnitSkillResource.BASE_URI, "unitSkill");
+    }
 
     @After
     public void tearDown() {
         reset(unitSkillDAO);
     }
 
-    @Test
-    public void testFindAllUnitSkills() throws Exception {
+    @Before
+    public void setUp(){
         List<UnitSkill> unitSkills = new ArrayList<>();
-        UnitSkill u1 = new UnitSkill();
-        u1.setId(1);
-        u1.setDesc("unitskill1");
-        unitSkills.add(u1);
-
-        UnitSkill u2 = new UnitSkill();
-        u2.setId(2);
-        u2.setDesc("unitskill2");
-        unitSkills.add(u2);
+        for(int i = 0; i < 100; i++){
+            UnitSkill u = new UnitSkill();
+            u.setId(i);
+            u.setDesc(String.format("%s%d", entityName, i));
+            unitSkills.add(u);
+        }
 
         when(unitSkillDAO.getAll()).thenReturn(unitSkills);
-
-        List<UnitSkill> result = resources.target("/unit/skill").request().get(new GenericType<List<UnitSkill>>() {});
-
-        assertEquals(2, result.size());
-        assertEquals("unitskill1", result.get(0).getDesc());
+        when(unitSkillDAO.findById(1)).thenReturn(unitSkills.get(1));
+        when(unitSkillDAO.count()).thenReturn(unitSkills.size());
+        when(unitSkillDAO.page(any(), any())).thenReturn(unitSkills.subList(0,10));
     }
 
     @Test
-    public void testFindUnitSkillById() throws Exception {
-        UnitSkill u1 = new UnitSkill();
-        u1.setId(1);
-        u1.setDesc("unitskill1");
-        when(unitSkillDAO.findById(1)).thenReturn(u1);
+    public void testFindAllUnits() throws Exception {
+        List<UnitSkill> result = resources.target(baseURI).request().get(new GenericType<List<UnitSkill>>() {});
 
-        UnitSkill unit = resources.target("/unit/skill/1").request().get(UnitSkill.class);
+        assertEquals(10, result.size());
+        assertEquals(String.format("%s%d", entityName, 0), result.get(0).getDesc());
+    }
+
+    @Test
+    public void testFindUnitById() throws Exception {
+        UnitSkill unit = resources.target(baseURI + "/1").request().get(UnitSkill.class);
         assertThat(unit.getId()).isEqualTo(1);
-        assertThat(unit.getDesc()).isEqualTo("unitskill1");
+        assertThat(unit.getDesc()).isEqualTo(String.format("%s%d", entityName, 1));
     }
 }

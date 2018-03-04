@@ -1,9 +1,12 @@
 package com.macgregor.ef.resource;
 
 import com.macgregor.ef.dao.PetDAO;
+import com.macgregor.ef.exceptions.PageinationExceptionMapper;
 import com.macgregor.ef.model.Pet;
 import io.dropwizard.testing.junit.ResourceTestRule;
+import org.glassfish.jersey.test.grizzly.GrizzlyWebTestContainerFactory;
 import org.junit.After;
+import org.junit.Before;
 import org.junit.ClassRule;
 import org.junit.Test;
 
@@ -15,49 +18,53 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.*;
 
-public class PetResourceTest {
+public class PetResourceTest extends ResourceTest {
     private static final PetDAO petDAO = mock(PetDAO.class);
 
     @ClassRule
-    public static final ResourceTestRule resources = ResourceTestRule.builder()
+    public static final ResourceTestRule resources =ResourceTestRule.builder()
+            .setTestContainerFactory(new GrizzlyWebTestContainerFactory())
             .addResource(new PetResource(petDAO))
+            .addProvider(PageinationExceptionMapper.class)
             .build();
+
+    public PetResourceTest(){
+        super(resources, PetResource.BASE_URI, "pet");
+    }
 
     @After
     public void tearDown() {
         reset(petDAO);
     }
 
-    @Test
-    public void testFindAllPets() throws Exception {
+    @Before
+    public void setUp(){
         List<Pet> pets = new ArrayList<>();
-        Pet t1 = new Pet();
-        t1.setId(1);
-        t1.setName("pet1");
-        pets.add(t1);
-
-        Pet t2 = new Pet();
-        t2.setId(2);
-        t2.setName("pet2");
-        pets.add(t2);
+        for(int i = 0; i < 100; i++){
+            Pet p = new Pet();
+            p.setId(i);
+            p.setName(String.format("%s%d", entityName, i));
+            pets.add(p);
+        }
 
         when(petDAO.getAll()).thenReturn(pets);
-
-        List<Pet> result = resources.target("/pet").request().get(new GenericType<List<Pet>>() {});
-
-        assertEquals(2, result.size());
-        assertEquals("pet1", result.get(0).getName());
+        when(petDAO.findById(1)).thenReturn(pets.get(1));
+        when(petDAO.count()).thenReturn(pets.size());
+        when(petDAO.page(any(), any())).thenReturn(pets.subList(0,10));
     }
 
     @Test
-    public void testFindPetById() throws Exception {
-        Pet t1 = new Pet();
-        t1.setId(1);
-        t1.setName("pet1");
-        when(petDAO.findById(1)).thenReturn(t1);
+    public void testFindAllUnits() throws Exception {
+        List<Pet> result = resources.target(baseURI).request().get(new GenericType<List<Pet>>() {});
 
-        Pet unit = resources.target("/pet/1").request().get(Pet.class);
-        assertThat(unit.getId()).isEqualTo(1);
-        assertThat(unit.getName()).isEqualTo("pet1");
+        assertEquals(10, result.size());
+        assertEquals(String.format("%s%d", entityName, 0), result.get(0).getName());
+    }
+
+    @Test
+    public void testFindUnitById() throws Exception {
+        Pet pet = resources.target(baseURI + "/1").request().get(Pet.class);
+        assertThat(pet.getId()).isEqualTo(1);
+        assertThat(pet.getName()).isEqualTo(String.format("%s%d", entityName, 1));
     }
 }

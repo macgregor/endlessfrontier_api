@@ -36,30 +36,30 @@ public class UnitResource extends AbstractResource<Unit> {
     @GET
     @UnitOfWork
     @Timed
-    @ApiOperation(value ="API for paging through all entities.",
+    @ApiOperation(value ="API for paging through all Unit entities.",
             response = Unit.class,
             responseContainer = "List",
             responseHeaders = {
-                    @ResponseHeader(name=TOTAL_COUNT_HEADER, response=Integer.class, description = "Total count of entities in the database"),
-                    @ResponseHeader(name=LINK_HEADER, response = Link.class, responseContainer = "List", description = "List of links to help when paging data. Links include self, prev, next, first, last")
+                    @ResponseHeader(name=TOTAL_COUNT_HEADER, response=Integer.class, description = "Total count of Unit entities in the database"),
+                    @ResponseHeader(name=LINK_HEADER, response = Link.class, responseContainer = "List", description = "List of links to help when paging data. Links include self, prev, next, first, last. The first page will not have a prev link and the last page will not have a next link")
             }
     )
     @ApiResponses( value = {
             @ApiResponse(code = 400, message = "Pagination parameters out of bounds")
     })
-    public List<Unit> getAll(@Context HttpServletResponse response, @BeanParam PageParameters pageParameters) throws PageinationException {
-        return getAll(response, pageParameters.page, pageParameters.size);
+    public List<Unit> getPage(@Context HttpServletResponse response, @BeanParam PageParameters pageParameters) throws PageinationException {
+        return getPage(response, pageParameters.page, pageParameters.size);
     }
 
     @GET
     @UnitOfWork
     @Timed
     @Path("/{id}")
-    @ApiOperation(value = "Find a single entity by id")
+    @ApiOperation(value = "Find a single Unit entity by id")
     @ApiResponses( value = {
-            @ApiResponse(code = 204, message = "Entity not found")
+            @ApiResponse(code = 204, message = "Unit Entity not found")
     })
-    public Unit get(@ApiParam(value = "id of entity to find", required = true) @PathParam("id") Integer id){
+    public Unit get(@ApiParam(value = "id of Unit entity to find", required = true) @PathParam("id") Integer id){
         return super.get(id);
     }
 }

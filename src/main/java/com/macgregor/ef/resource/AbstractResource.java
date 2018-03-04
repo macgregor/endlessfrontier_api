@@ -1,15 +1,45 @@
 package com.macgregor.ef.resource;
 
+import com.macgregor.ef.dao.AbstractEFDAO;
 import com.macgregor.ef.exceptions.PageinationException;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.core.Link;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class AbstractResource {
+public abstract class AbstractResource<T> {
     public static final String TOTAL_COUNT_HEADER = "X-total-count";
     public static final String LINK_HEADER = "Link";
     public static final int MAX_PAGE_SIZE = 100;
+
+    protected final AbstractEFDAO resourceDAO;
+
+    public AbstractResource(AbstractEFDAO resourceDAO) {
+        this.resourceDAO = resourceDAO;
+    }
+
+    public List<T> getAll( HttpServletResponse response,
+                           Integer page,
+                           Integer size) throws PageinationException {
+
+        int total = resourceDAO.count();
+        response.addHeader(TOTAL_COUNT_HEADER, Integer.toString(total));
+
+        sanityCheckPagenationParameters(page, size, total);
+
+        List<Link> links = getPagenationLinks("unit", page, size, total);
+        response.addHeader(LINK_HEADER, links.toString());
+
+
+        return resourceDAO.page(page, size);
+    }
+
+    public T get(Integer id){
+        return (T) resourceDAO.findById(id);
+    }
+
+    public abstract String getPageLinkBaseURI();
 
     protected void sanityCheckPagenationParameters(int page, int size, int total) throws PageinationException {
         List<String> errors = new ArrayList<>();

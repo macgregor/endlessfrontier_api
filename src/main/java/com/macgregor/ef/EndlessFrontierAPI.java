@@ -6,6 +6,7 @@ import com.codahale.metrics.servlets.MetricsServlet;
 import com.macgregor.ef.dao.*;
 import com.macgregor.ef.dataload.EndlessFrontierDataLoader;
 import com.macgregor.ef.dataload.XmlPOJOExtractor;
+import com.macgregor.ef.exceptions.EntityNotFoundExceptionMapper;
 import com.macgregor.ef.exceptions.PageinationExceptionMapper;
 import com.macgregor.ef.health.EndlessFrontierAPIHealthCheck;
 import com.macgregor.ef.model.*;
@@ -102,6 +103,7 @@ public class EndlessFrontierAPI extends Application<EndlessFrontierAPIConfigurat
 
         //register custom exception mappers
         environment.jersey().register(new PageinationExceptionMapper());
+        environment.jersey().register(new EntityNotFoundExceptionMapper());
 
         //set up healthchecks
         environment.healthChecks().register("ef healthcheck", new EndlessFrontierAPIHealthCheck());

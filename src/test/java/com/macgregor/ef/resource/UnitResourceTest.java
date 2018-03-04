@@ -53,7 +53,7 @@ public class UnitResourceTest {
         when(unitDAO.getAll()).thenReturn(units);
         when(unitDAO.findById(1)).thenReturn(units.get(1));
         when(unitDAO.count()).thenReturn(units.size());
-        when(unitDAO.find(any(), any())).thenReturn(units.subList(0,10));
+        when(unitDAO.page(any(), any())).thenReturn(units.subList(0,10));
     }
 
     @Test

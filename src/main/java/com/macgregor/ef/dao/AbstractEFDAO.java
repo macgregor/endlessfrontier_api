@@ -1,9 +1,11 @@
 package com.macgregor.ef.dao;
 
 import io.dropwizard.hibernate.AbstractDAO;
+import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
-import org.hibernate.query.Query;
+import org.hibernate.criterion.Projections;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.List;
 
 public class AbstractEFDAO<T> extends AbstractDAO<T> {
@@ -16,7 +18,12 @@ public class AbstractEFDAO<T> extends AbstractDAO<T> {
     }
 
     public T findById(int id) {
-        return (T) currentSession().get(getEntityClass(), id);
+
+        T found = (T) currentSession().get(getEntityClass(), id);
+        if(found == null){
+            throw new EntityNotFoundException(String.format("Could not find entity %s by id %d", getEntityClass().getName(), id));
+        }
+        return found;
     }
 
     public void delete(T t) {
@@ -32,14 +39,14 @@ public class AbstractEFDAO<T> extends AbstractDAO<T> {
     }
 
     public int count() {
-        Query q = currentSession().createQuery(String.format("select count(*) from %s", getEntityClass().getSimpleName()));
-        return ((Long)q.uniqueResult()).intValue();
+        Criteria criteria = currentSession().createCriteria(getEntityClass()).setProjection(Projections.rowCount());
+        return ((Long)criteria.uniqueResult()).intValue();
     }
 
-    public List<T> find(Integer page, Integer size){
-        Query query = currentSession().createQuery(String.format("From %s", getEntityClass().getSimpleName()));
-        query.setFirstResult((page-1)*size);
-        query.setMaxResults(size);
-        return query.list();
+    public List<T> page(Integer page, Integer size){
+        Criteria criteria = currentSession().createCriteria(getEntityClass());
+        criteria.setFirstResult((page-1)*size);
+        criteria.setMaxResults(size);
+        return criteria.list();
     }
 }

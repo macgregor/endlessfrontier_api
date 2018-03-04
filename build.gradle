@@ -26,6 +26,20 @@ ext {
     apiVersion = 'v1'
 }
 
+// prevent project build from creating /out dir with duplicate build files
+// see https://stackoverflow.com/questions/45174989/building-with-intellij-2017-2-out-directory-duplicates-files-in-build-director
+idea {
+    module {
+        outputDir file('build/classes/main')
+        testOutputDir file('build/classes/test')
+    }
+}
+if(project.convention.findPlugin(JavaPluginConvention)) {
+    // Change the output directory for the main and test source sets back to the old path
+    sourceSets.main.output.classesDir = new File(buildDir, "classes/main")
+    sourceSets.test.output.classesDir = new File(buildDir, "classes/test")
+}
+
 dependencies {
     compile ("io.dropwizard:dropwizard-core:${dropwizardVersion}",
              "io.dropwizard:dropwizard-db:${dropwizardVersion}",

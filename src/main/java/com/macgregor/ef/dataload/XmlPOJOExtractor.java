@@ -62,8 +62,6 @@ public class XmlPOJOExtractor {
     }
 
     public <T> List<T> extract(String uri, String rawXPath, Class<T> type) throws DataLoadException {
-        logger.debug(String.format("[%s extractor] - Attempting to extract data from %s using xpath %s", type.getSimpleName(), uri, rawXPath));
-
         Document doc = loadXml(uri);
         XPathExpression expr = compileXPathExpression(rawXPath);
         try {

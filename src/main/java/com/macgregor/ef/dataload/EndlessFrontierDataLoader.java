@@ -27,8 +27,11 @@ public class EndlessFrontierDataLoader {
     }
 
     public <T> void loadData(String uri, String rawXPath, Class<T> type, boolean translate) throws DataLoadException {
-        logger.debug(String.format("Initializing %s data", type.getSimpleName()));
+        logger.info(String.format("[%s Data Load] - Initializing data from %s using XPath %s", type.getSimpleName(), uri, rawXPath));
+
         List<T> extracted = extractor.extract(uri, rawXPath, type);
+
+        logger.info(String.format("[%s Data Load] - Loaded %d entities", type.getSimpleName(), extracted.size()));
 
         Session session = sessionFactory.openSession();
         Transaction tx = session.beginTransaction();
@@ -40,9 +43,14 @@ public class EndlessFrontierDataLoader {
         }
         tx.commit();
         session.close();
+
+        logger.info(String.format("[%s Data Load] - Complete", type.getSimpleName()));
     }
 
     public void loadAll() throws DataLoadException {
+        logger.info("==============================================");
+        logger.info("=              Data Load Beginning           =");
+        logger.info("==============================================");
         loadTranslations(false);
         loadUnitSkills(true);
         loadPetSkills(true);
@@ -50,6 +58,9 @@ public class EndlessFrontierDataLoader {
         loadUnits(true);
         loadArtifacts(true);
         loadArtifactSets(true);
+        logger.info("==============================================");
+        logger.info("=             Data Load Complete             =");
+        logger.info("==============================================");
     }
 
     public void loadUnits(boolean translate) throws DataLoadException {

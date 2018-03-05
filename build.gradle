@@ -48,7 +48,8 @@ dependencies {
              "io.dropwizard-bundles:dropwizard-redirect-bundle:1.0.5",
              "com.fasterxml.jackson.dataformat:jackson-dataformat-xml:2.9.4",
              "org.codehaus.woodstox:woodstox-core-asl:4.4.1",
-             "com.h2database:h2:1.4.196"
+             "com.h2database:h2:1.4.196",
+             "org.apache.commons:commons-lang3:3.7"
     )
     compile("com.smoketurner:dropwizard-swagger:${dropwizardSwaggerVersion}"){
         exclude group: 'org.reflections', module: 'reflections'
@@ -89,7 +90,7 @@ shadowJar {
 tasks.withType(Test) {
     testLogging {
         exceptionFormat "full"
-        events "started", "skipped", "passed", "failed"
+        events "skipped", "passed", "failed"
         showStandardStreams true
     }
     maxParallelForks = 2

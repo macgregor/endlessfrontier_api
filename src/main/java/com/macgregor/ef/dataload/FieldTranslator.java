@@ -26,7 +26,7 @@ public class FieldTranslator {
     }
 
     public Object translate(Object obj) throws TranslationException {
-        logger.debug(String.format("Beginning translation of %s[%s]", obj.getClass(), obj.hashCode()));
+        logger.debug(String.format("[%s %010d] - Beginning translation", obj.getClass().getSimpleName(), System.identityHashCode(obj)));
         List<Field> fieldsToTranslate = FieldUtils.getFieldsListWithAnnotation(obj.getClass(), Translate.class);
         for(Field f : fieldsToTranslate) {
             String processedKey = "";
@@ -35,13 +35,14 @@ public class FieldTranslator {
                 Translation translation = findTranslation(processedKey);
                 if(!StringUtils.isBlank(translation.getValue())) {
                     FieldUtils.writeField(f, obj, translation.getValue(), true);
+                    logger.debug(String.format("[%s %010d] - Successful translation", obj.getClass().getSimpleName(), System.identityHashCode(obj)));
                 } else {
-                    logger.warn(String.format("Translation for %s found but blank, not overriding",processedKey));
+                    logger.warn(String.format("[%s %010d] - Translation for %s found but blank, not overriding", obj.getClass().getSimpleName(), System.identityHashCode(obj), processedKey));
                 }
             } catch (TranslationException | IllegalAccessException e){
-                logger.warn(e.getMessage());
+                logger.warn(String.format("[%s %010d] - Translation Error: %s", obj.getClass().getSimpleName(), System.identityHashCode(obj), e.getMessage()));
             } catch (NullPointerException e){
-                logger.warn(String.format("Translation for key %s not found in database", processedKey));
+                logger.warn(String.format("[%s %010d] - Translation Error: key %s not found in database", obj.getClass().getSimpleName(), System.identityHashCode(obj), processedKey));
             }
         }
         return obj;
@@ -51,11 +52,11 @@ public class FieldTranslator {
         Translate translateAnnotation = f.getAnnotation(Translate.class);
         String translationKey = translateAnnotation.key();
 
-        logger.debug(String.format("Processing translation key for field %s - raw key %s", f.getName(), translationKey));
+        logger.debug(String.format("[%s %010d] - Processing translation key for field %s - raw key %s", obj.getClass().getSimpleName(), System.identityHashCode(obj), f.getName(), translationKey));
 
         String processedKey = getFieldKey(obj, translationKey);
 
-        logger.debug(String.format("Processing translation key for field %s - processed key %s", f.getName(), processedKey));
+        logger.debug(String.format("[%s %010d] - Processing translation key for field %s - processed key %s", obj.getClass().getSimpleName(), System.identityHashCode(obj), f.getName(), processedKey));
 
         return processedKey;
     }
@@ -69,7 +70,7 @@ public class FieldTranslator {
             String fieldReference = fieldMatcher.group(2);
             Field f = FieldUtils.getField(obj.getClass(), fieldReference, true);
             if(f == null){
-                throw new TranslationException(String.format("Invalid field reference in Translate annotation: raw key: %s, unknown field reference: %s", key, fieldReference));
+                throw new TranslationException(String.format("Invalid field reference in @Translate annotation: raw key: %s, unknown field reference: %s", key, fieldReference));
             }
 
             try {

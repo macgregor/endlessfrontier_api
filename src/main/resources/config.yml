@@ -39,7 +39,21 @@ logging:
       "io.dropwizard": INFO
       "org.hibernate.SQL":
         level: ERROR
-      "hibernate":
+      "org.hibernate":
         level: ERROR
       "com.macgregor.ef":
-        level: WARN
+        level: ERROR
+      "org.reflections":
+        level: ERROR
+      "org.eclipse.jetty":
+        level: ERROR
+      "com.macgregor.ef.dataload":
+            level: INFO
+            additive: false
+            appenders:
+              - type: file
+                currentLogFilename: ./build/dataload.log
+                archivedLogFilenamePattern: ./build/dataload-%d.log.gz
+                archivedFileCount: 5
+  appenders:
+      - type: console

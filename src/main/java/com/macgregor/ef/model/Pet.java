@@ -3,6 +3,7 @@ package com.macgregor.ef.model;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
+import com.macgregor.ef.dataload.annotations.Translate;
 import io.swagger.annotations.ApiModel;
 import org.hibernate.validator.constraints.NotBlank;
 
@@ -35,7 +36,8 @@ public class Pet {
     @NotBlank
     @JsonProperty
     @JacksonXmlProperty(localName = "name")
-    private String name; //TODO: needs to be translated to english
+    @Translate(key="PET_NAME_{id}")
+    private String name;
 
     @Column(name = "tribe", nullable = false)
     @NotNull

@@ -3,6 +3,7 @@ package com.macgregor.ef.model;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
+import com.macgregor.ef.dataload.annotations.Translate;
 import io.swagger.annotations.ApiModel;
 import org.hibernate.validator.constraints.NotBlank;
 
@@ -29,7 +30,8 @@ public class ArtifactSet {
     @NotBlank
     @JsonProperty
     @JacksonXmlProperty(localName = "title")
-    private String title; //TODO: needs to be translated to english
+    @Translate(key="RELIC_SET_NAME_{id}")
+    private String title;
 
     @Column(name = "item_list", nullable = false)
     @NotBlank
@@ -72,7 +74,8 @@ public class ArtifactSet {
     @NotBlank
     @JsonProperty
     @JacksonXmlProperty(localName = "desc")
-    private String desc; //TODO: needs to be translated to english
+    @Translate(key="RELIC_SET_DESC_{id}")
+    private String desc;
 
     @Column(name = "history")
     @JsonProperty

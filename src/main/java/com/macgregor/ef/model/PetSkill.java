@@ -4,7 +4,9 @@ package com.macgregor.ef.model;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
+import com.macgregor.ef.dataload.annotations.Translate;
 import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import org.hibernate.validator.constraints.NotBlank;
 
 import javax.persistence.Column;
@@ -35,7 +37,8 @@ public class PetSkill {
     @Column(name = "name")
     @JsonProperty
     @JacksonXmlProperty(localName = "name")
-    private String name; //TODO: convert to english
+    @ApiModelProperty(value="This field seems to be rarely used and usually, but not always, in english with no provided translations. Would not rely on it.")
+    private String name;
 
     @Column(name = "sub")
     @JsonProperty
@@ -50,7 +53,8 @@ public class PetSkill {
     @Column(name = "desc", length = 1000)
     @JsonProperty
     @JacksonXmlProperty(localName = "desc")
-    private String desc; //TODO: convert to english
+    @Translate(key="PET_SKILL_DESC_{id}")
+    private String desc;
 
     @Column(name = "misc")
     @JsonProperty

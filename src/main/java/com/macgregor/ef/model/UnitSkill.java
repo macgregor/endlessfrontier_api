@@ -4,6 +4,7 @@ package com.macgregor.ef.model;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
+import com.macgregor.ef.dataload.annotations.Translate;
 import io.swagger.annotations.ApiModel;
 import org.hibernate.validator.constraints.NotBlank;
 
@@ -48,6 +49,7 @@ public class UnitSkill {
     @NotBlank
     @JsonProperty
     @JacksonXmlProperty(localName = "desc")
+    @Translate(key="UNITSKILL_DESC_{id}")
     private String desc;
 
     public Integer getId() {

@@ -3,7 +3,9 @@ package com.macgregor.ef.model;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
+import com.macgregor.ef.dataload.annotations.Translate;
 import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import org.hibernate.validator.constraints.NotBlank;
 
 import javax.persistence.Column;
@@ -41,7 +43,8 @@ public class Unit {
     @NotBlank
     @JsonProperty
     @JacksonXmlProperty(localName = "name")
-    private String name; //TODO: needs to be translated to english
+    @Translate(key="UNIT_NAME_{id}")
+    private String name;
 
     @Column(name = "cost", nullable = false)
     @NotNull
@@ -275,13 +278,15 @@ public class Unit {
     @NotBlank
     @JsonProperty
     @JacksonXmlProperty(localName = "des")
-    private String des; //TODO: needs to be translated?
+    @ApiModelProperty(value="Not sure what this represents, always seems to be 'AA' for units")
+    private String des;
 
     @Column(name = "message", nullable = false, length = 1000)
     @NotBlank
     @JsonProperty
     @JacksonXmlProperty(localName = "message")
-    private String message; //TODO: needs to be translated?
+    @Translate(key="UNIT_DESC_{id}")
+    private String message;
 
     @Column(name = "skill_list", nullable = false)
     @NotBlank

@@ -16,7 +16,7 @@ Unofficial Rest API for a mobile game ([Endless Frontier](https://play.google.co
 This application produces a standalone jar which contains a Jetty server so it does not need to be deployed to an application server. Simply build and run `java -jar`:
 
 1. `./gradlew build`
-2. `java -jar build/output/endlessfrontier-rest-0.0.1/endlessfrontier-rest.jar server`
+2. `java -jar build/endlessfrontier-api.jar server src/main/resources/config.yml`
 
 
 ## API Documentation

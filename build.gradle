@@ -96,44 +96,6 @@ tasks.withType(Test) {
     maxParallelForks = 2
 }
 
-//defines the swagger project used by generateSwaggerDocumentation
-swagger {
-    apiSource {
-        springmvc = false
-        locations = ['com.macgregor.ef.resource'] //package containing swagger swagger @Api annotations
-        schemes = ['https','http']
-        host = "${rootProject.name}.herokuapp.com"
-        swaggerDirectory = "${projectDir}/docs/"
-        basePath = '/'
-        info {
-            title = "${rootProject.name}"
-            version = "${apiVersion}"
-            description = "Unofficial rest service for accessing Endless Frontier data. Please submit issues to https://github.com/macgregor/endlessfrontier_api/issues"
-            contact {
-                email = 'matthew.m.stratton@gmail.com'
-                name = 'Matthew Stratton'
-                url = 'https://github.com/macgregor'
-            }
-            license {
-                name='MIT'
-                url='https://opensource.org/licenses/MIT'
-            }
-        }
-    }
-}
-
-/*
- * converts swagger.json produced by generateSwaggerDocumentation into a hostable html5 website
- * requires spectacle be installed: `npm install -g spectacle-docs`
- *
- * input: ${projectDir}/docs/swagger.json
- * output dir: ${projectDir}/docs/
- */
-task generateDocs(type: Exec, dependsOn: generateSwaggerDocumentation) {
-    executable "spectacle"
-    args "-t", "${projectDir}/docs/","${projectDir}/docs/swagger.json"
-}
-
 /*
  * Create or update h2 database
  */

@@ -25,20 +25,39 @@
   }, {
     "name" : "petskill"
   }, {
+    "name" : "translation"
+  }, {
     "name" : "tribe"
   }, {
     "name" : "unit"
+  }, {
+    "name" : "unitskill"
   } ],
   "schemes" : [ "https", "http" ],
   "paths" : {
     "/artifact" : {
       "get" : {
         "tags" : [ "artifact" ],
-        "summary" : "Get a list of all artifacts",
+        "summary" : "API for paging through all Artifact entities.",
         "description" : "",
-        "operationId" : "getAll",
+        "operationId" : "getPage",
         "consumes" : [ "application/json" ],
         "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "page",
+          "in" : "query",
+          "description" : "Page of data to retrieve.",
+          "required" : false,
+          "type" : "integer",
+          "format" : "int32"
+        }, {
+          "name" : "size",
+          "in" : "query",
+          "description" : "Page size or number of entities to retrieve.",
+          "required" : false,
+          "type" : "integer",
+          "format" : "int32"
+        } ],
         "responses" : {
           "200" : {
             "description" : "successful operation",
@@ -47,7 +66,24 @@
               "items" : {
                 "$ref" : "#/definitions/Artifact"
               }
+            },
+            "headers" : {
+              "X-total-count" : {
+                "type" : "integer",
+                "format" : "int32",
+                "description" : "Total count of Artifact entities in the database"
+              },
+              "Link" : {
+                "type" : "array",
+                "description" : "List of links to help when paging data. Links include self, prev, next, first, last",
+                "items" : {
+                  "$ref" : "#/definitions/Link"
+                }
+              }
             }
+          },
+          "400" : {
+            "description" : "Pagination parameters out of bounds"
           }
         }
       }
@@ -55,11 +91,26 @@
     "/artifact/set" : {
       "get" : {
         "tags" : [ "artifactset" ],
-        "summary" : "Get a list of all artifact sets",
+        "summary" : "API for paging through all ArtifactSet entities.",
         "description" : "",
-        "operationId" : "getAll",
+        "operationId" : "getPage",
         "consumes" : [ "application/json" ],
         "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "page",
+          "in" : "query",
+          "description" : "Page of data to retrieve.",
+          "required" : false,
+          "type" : "integer",
+          "format" : "int32"
+        }, {
+          "name" : "size",
+          "in" : "query",
+          "description" : "Page size or number of entities to retrieve.",
+          "required" : false,
+          "type" : "integer",
+          "format" : "int32"
+        } ],
         "responses" : {
           "200" : {
             "description" : "successful operation",
@@ -68,7 +119,24 @@
               "items" : {
                 "$ref" : "#/definitions/ArtifactSet"
               }
+            },
+            "headers" : {
+              "X-total-count" : {
+                "type" : "integer",
+                "format" : "int32",
+                "description" : "Total count of ArtifactSet entities in the database"
+              },
+              "Link" : {
+                "type" : "array",
+                "description" : "List of links to help when paging data. Links include self, prev, next, first, last",
+                "items" : {
+                  "$ref" : "#/definitions/Link"
+                }
+              }
             }
+          },
+          "400" : {
+            "description" : "Pagination parameters out of bounds"
           }
         }
       }
@@ -76,7 +144,7 @@
     "/artifact/set/{id}" : {
       "get" : {
         "tags" : [ "artifactset" ],
-        "summary" : "Find a single artifact set by id",
+        "summary" : "Find a single ArtifactSet entity by id",
         "description" : "",
         "operationId" : "get",
         "consumes" : [ "application/json" ],
@@ -84,7 +152,7 @@
         "parameters" : [ {
           "name" : "id",
           "in" : "path",
-          "description" : "id of artifact set to find",
+          "description" : "id of ArtifactSet entity to find",
           "required" : true,
           "type" : "integer",
           "format" : "int32"
@@ -93,11 +161,11 @@
           "200" : {
             "description" : "successful operation",
             "schema" : {
-              "$ref" : "#/definitions/ArtifactSet"
+              "type" : "object"
             }
           },
-          "404" : {
-            "description" : "ArtifactSet not found"
+          "204" : {
+            "description" : "ArtifactSet Entity not found"
           }
         }
       }
@@ -105,7 +173,7 @@
     "/artifact/{id}" : {
       "get" : {
         "tags" : [ "artifact" ],
-        "summary" : "Find a single artifact by id",
+        "summary" : "Find a single Artifact entity by id",
         "description" : "",
         "operationId" : "get",
         "consumes" : [ "application/json" ],
@@ -113,7 +181,7 @@
         "parameters" : [ {
           "name" : "id",
           "in" : "path",
-          "description" : "id of artifact to find",
+          "description" : "id of Artifact entity to find",
           "required" : true,
           "type" : "integer",
           "format" : "int32"
@@ -122,11 +190,11 @@
           "200" : {
             "description" : "successful operation",
             "schema" : {
-              "$ref" : "#/definitions/Artifact"
+              "type" : "object"
             }
           },
-          "404" : {
-            "description" : "Artifact not found"
+          "204" : {
+            "description" : "Artifact Entity not found"
           }
         }
       }
@@ -134,11 +202,26 @@
     "/pet" : {
       "get" : {
         "tags" : [ "pet" ],
-        "summary" : "Get a list of all pets",
+        "summary" : "API for paging through all Pet entities.",
         "description" : "",
-        "operationId" : "getAll",
+        "operationId" : "getPage",
         "consumes" : [ "application/json" ],
         "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "page",
+          "in" : "query",
+          "description" : "Page of data to retrieve.",
+          "required" : false,
+          "type" : "integer",
+          "format" : "int32"
+        }, {
+          "name" : "size",
+          "in" : "query",
+          "description" : "Page size or number of entities to retrieve.",
+          "required" : false,
+          "type" : "integer",
+          "format" : "int32"
+        } ],
         "responses" : {
           "200" : {
             "description" : "successful operation",
@@ -147,7 +230,24 @@
               "items" : {
                 "$ref" : "#/definitions/Pet"
               }
+            },
+            "headers" : {
+              "X-total-count" : {
+                "type" : "integer",
+                "format" : "int32",
+                "description" : "Total count of Pet entities in the database"
+              },
+              "Link" : {
+                "type" : "array",
+                "description" : "List of links to help when paging data. Links include self, prev, next, first, last",
+                "items" : {
+                  "$ref" : "#/definitions/Link"
+                }
+              }
             }
+          },
+          "400" : {
+            "description" : "Pagination parameters out of bounds"
           }
         }
       }
@@ -155,11 +255,26 @@
     "/pet/skill" : {
       "get" : {
         "tags" : [ "petskill" ],
-        "summary" : "Get a list of all pet skills",
+        "summary" : "API for paging through all PetSkill entities.",
         "description" : "",
-        "operationId" : "getAll",
+        "operationId" : "getPage",
         "consumes" : [ "application/json" ],
         "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "page",
+          "in" : "query",
+          "description" : "Page of data to retrieve.",
+          "required" : false,
+          "type" : "integer",
+          "format" : "int32"
+        }, {
+          "name" : "size",
+          "in" : "query",
+          "description" : "Page size or number of entities to retrieve.",
+          "required" : false,
+          "type" : "integer",
+          "format" : "int32"
+        } ],
         "responses" : {
           "200" : {
             "description" : "successful operation",
@@ -168,7 +283,24 @@
               "items" : {
                 "$ref" : "#/definitions/PetSkill"
               }
+            },
+            "headers" : {
+              "X-total-count" : {
+                "type" : "integer",
+                "format" : "int32",
+                "description" : "Total count of PetSkill entities in the database"
+              },
+              "Link" : {
+                "type" : "array",
+                "description" : "List of links to help when paging data. Links include self, prev, next, first, last",
+                "items" : {
+                  "$ref" : "#/definitions/Link"
+                }
+              }
             }
+          },
+          "400" : {
+            "description" : "Pagination parameters out of bounds"
           }
         }
       }
@@ -176,7 +308,7 @@
     "/pet/skill/{id}" : {
       "get" : {
         "tags" : [ "petskill" ],
-        "summary" : "Find a single pet skill by id",
+        "summary" : "Find a single PetSkill entity by id",
         "description" : "",
         "operationId" : "get",
         "consumes" : [ "application/json" ],
@@ -184,7 +316,7 @@
         "parameters" : [ {
           "name" : "id",
           "in" : "path",
-          "description" : "id of pet skill to find",
+          "description" : "id of PetSkill entity to find",
           "required" : true,
           "type" : "integer",
           "format" : "int32"
@@ -193,11 +325,11 @@
           "200" : {
             "description" : "successful operation",
             "schema" : {
-              "$ref" : "#/definitions/PetSkill"
+              "type" : "object"
             }
           },
-          "404" : {
-            "description" : "PetSkill not found"
+          "204" : {
+            "description" : "PetSkill Entity not found"
           }
         }
       }
@@ -205,7 +337,7 @@
     "/pet/{id}" : {
       "get" : {
         "tags" : [ "pet" ],
-        "summary" : "Find a single pet by id",
+        "summary" : "Find a single Pet entity by id",
         "description" : "",
         "operationId" : "get",
         "consumes" : [ "application/json" ],
@@ -213,7 +345,7 @@
         "parameters" : [ {
           "name" : "id",
           "in" : "path",
-          "description" : "id of pet to find",
+          "description" : "id of Pet entity to find",
           "required" : true,
           "type" : "integer",
           "format" : "int32"
@@ -222,11 +354,92 @@
           "200" : {
             "description" : "successful operation",
             "schema" : {
-              "$ref" : "#/definitions/Pet"
+              "type" : "object"
             }
           },
-          "404" : {
-            "description" : "Pet not found"
+          "204" : {
+            "description" : "Pet Entity not found"
+          }
+        }
+      }
+    },
+    "/translation" : {
+      "get" : {
+        "tags" : [ "translation" ],
+        "summary" : "API for paging through all Translation entities.",
+        "description" : "",
+        "operationId" : "getPage",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "page",
+          "in" : "query",
+          "description" : "Page of data to retrieve.",
+          "required" : false,
+          "type" : "integer",
+          "format" : "int32"
+        }, {
+          "name" : "size",
+          "in" : "query",
+          "description" : "Page size or number of entities to retrieve.",
+          "required" : false,
+          "type" : "integer",
+          "format" : "int32"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/Translation"
+              }
+            },
+            "headers" : {
+              "X-total-count" : {
+                "type" : "integer",
+                "format" : "int32",
+                "description" : "Total count of Translation entities in the database"
+              },
+              "Link" : {
+                "type" : "array",
+                "description" : "List of links to help when paging data. Links include self, prev, next, first, last. The first page will not have a prev link and the last page will not have a next link",
+                "items" : {
+                  "$ref" : "#/definitions/Link"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Pagination parameters out of bounds"
+          }
+        }
+      }
+    },
+    "/translation/{id}" : {
+      "get" : {
+        "tags" : [ "translation" ],
+        "summary" : "Find a single Translation entity by id",
+        "description" : "",
+        "operationId" : "get",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "description" : "id of Translation entity to find",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/Translation"
+            }
+          },
+          "204" : {
+            "description" : "Translation Entity not found"
           }
         }
       }
@@ -234,11 +447,26 @@
     "/tribe" : {
       "get" : {
         "tags" : [ "tribe" ],
-        "summary" : "Get a list of all tribes",
+        "summary" : "API for paging through all Tribe entities.",
         "description" : "",
-        "operationId" : "getAll",
+        "operationId" : "getPage",
         "consumes" : [ "application/json" ],
         "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "page",
+          "in" : "query",
+          "description" : "Page of data to retrieve.",
+          "required" : false,
+          "type" : "integer",
+          "format" : "int32"
+        }, {
+          "name" : "size",
+          "in" : "query",
+          "description" : "Page size or number of entities to retrieve.",
+          "required" : false,
+          "type" : "integer",
+          "format" : "int32"
+        } ],
         "responses" : {
           "200" : {
             "description" : "successful operation",
@@ -247,7 +475,24 @@
               "items" : {
                 "$ref" : "#/definitions/Tribe"
               }
+            },
+            "headers" : {
+              "X-total-count" : {
+                "type" : "integer",
+                "format" : "int32",
+                "description" : "Total count of Tribe entities in the database"
+              },
+              "Link" : {
+                "type" : "array",
+                "description" : "List of links to help when paging data. Links include self, prev, next, first, last",
+                "items" : {
+                  "$ref" : "#/definitions/Link"
+                }
+              }
             }
+          },
+          "400" : {
+            "description" : "Pagination parameters out of bounds"
           }
         }
       }
@@ -255,7 +500,7 @@
     "/tribe/{id}" : {
       "get" : {
         "tags" : [ "tribe" ],
-        "summary" : "Find a single tribe by id",
+        "summary" : "Find a single Tribe entity by id",
         "description" : "",
         "operationId" : "get",
         "consumes" : [ "application/json" ],
@@ -263,7 +508,7 @@
         "parameters" : [ {
           "name" : "id",
           "in" : "path",
-          "description" : "id of tribe to find",
+          "description" : "id of Tribe entity to find",
           "required" : true,
           "type" : "integer",
           "format" : "int32"
@@ -272,11 +517,11 @@
           "200" : {
             "description" : "successful operation",
             "schema" : {
-              "$ref" : "#/definitions/Tribe"
+              "type" : "object"
             }
           },
-          "404" : {
-            "description" : "Tribe not found"
+          "204" : {
+            "description" : "Tribe Entity not found"
           }
         }
       }
@@ -284,11 +529,26 @@
     "/unit" : {
       "get" : {
         "tags" : [ "unit" ],
-        "summary" : "Get a list of all units",
+        "summary" : "API for paging through all Unit entities.",
         "description" : "",
-        "operationId" : "getAll",
+        "operationId" : "getPage",
         "consumes" : [ "application/json" ],
         "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "page",
+          "in" : "query",
+          "description" : "Page of data to retrieve.",
+          "required" : false,
+          "type" : "integer",
+          "format" : "int32"
+        }, {
+          "name" : "size",
+          "in" : "query",
+          "description" : "Page size or number of entities to retrieve.",
+          "required" : false,
+          "type" : "integer",
+          "format" : "int32"
+        } ],
         "responses" : {
           "200" : {
             "description" : "successful operation",
@@ -297,15 +557,85 @@
               "items" : {
                 "$ref" : "#/definitions/Unit"
               }
+            },
+            "headers" : {
+              "X-total-count" : {
+                "type" : "integer",
+                "format" : "int32",
+                "description" : "Total count of Unit entities in the database"
+              },
+              "Link" : {
+                "type" : "array",
+                "description" : "List of links to help when paging data. Links include self, prev, next, first, last. The first page will not have a prev link and the last page will not have a next link",
+                "items" : {
+                  "$ref" : "#/definitions/Link"
+                }
+              }
             }
+          },
+          "400" : {
+            "description" : "Pagination parameters out of bounds"
           }
         }
       }
     },
-    "/unit/{id}" : {
+    "/unit/skill" : {
       "get" : {
-        "tags" : [ "unit" ],
-        "summary" : "Find a single unit by id",
+        "tags" : [ "unitskill" ],
+        "summary" : "API for paging through all UnitSkill entities.",
+        "description" : "",
+        "operationId" : "getPage",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "page",
+          "in" : "query",
+          "description" : "Page of data to retrieve.",
+          "required" : false,
+          "type" : "integer",
+          "format" : "int32"
+        }, {
+          "name" : "size",
+          "in" : "query",
+          "description" : "Page size or number of entities to retrieve.",
+          "required" : false,
+          "type" : "integer",
+          "format" : "int32"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/UnitSkill"
+              }
+            },
+            "headers" : {
+              "X-total-count" : {
+                "type" : "integer",
+                "format" : "int32",
+                "description" : "Total count of UnitSkill entities in the database"
+              },
+              "Link" : {
+                "type" : "array",
+                "description" : "List of links to help when paging data. Links include self, prev, next, first, last",
+                "items" : {
+                  "$ref" : "#/definitions/Link"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Pagination parameters out of bounds"
+          }
+        }
+      }
+    },
+    "/unit/skill/{id}" : {
+      "get" : {
+        "tags" : [ "unitskill" ],
+        "summary" : "Find a single UnitSkill entity by id",
         "description" : "",
         "operationId" : "get",
         "consumes" : [ "application/json" ],
@@ -313,7 +643,7 @@
         "parameters" : [ {
           "name" : "id",
           "in" : "path",
-          "description" : "id of unit to find",
+          "description" : "id of UnitSkill entity to find",
           "required" : true,
           "type" : "integer",
           "format" : "int32"
@@ -322,11 +652,40 @@
           "200" : {
             "description" : "successful operation",
             "schema" : {
-              "$ref" : "#/definitions/Unit"
+              "type" : "object"
             }
           },
-          "404" : {
-            "description" : "Unit not found"
+          "204" : {
+            "description" : "UnitSkill Entity not found"
+          }
+        }
+      }
+    },
+    "/unit/{id}" : {
+      "get" : {
+        "tags" : [ "unit" ],
+        "summary" : "Find a single Unit entity by id",
+        "description" : "",
+        "operationId" : "get",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "description" : "id of Unit entity to find",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int32"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "object"
+            }
+          },
+          "204" : {
+            "description" : "Unit Entity not found"
           }
         }
       }
@@ -418,7 +777,7 @@
     },
     "ArtifactSet" : {
       "type" : "object",
-      "required" : [ "id", "numSetList" ],
+      "required" : [ "id" ],
       "properties" : {
         "id" : {
           "type" : "integer",
@@ -431,8 +790,7 @@
           "type" : "string"
         },
         "numSetList" : {
-          "type" : "integer",
-          "format" : "int32"
+          "type" : "string"
         },
         "skillList" : {
           "type" : "string"
@@ -460,7 +818,7 @@
     },
     "Pet" : {
       "type" : "object",
-      "required" : [ "id", "masterSkill", "rank", "skill1", "skill2", "tribe" ],
+      "required" : [ "couple", "id", "masterSkill", "rank", "skill1", "skill2", "treasure", "tribe" ],
       "properties" : {
         "id" : {
           "type" : "integer",
@@ -536,7 +894,8 @@
           "type" : "string"
         },
         "name" : {
-          "type" : "string"
+          "type" : "string",
+          "description" : "This field seems to be rarely used and usually, but not always, in english with no provided translations. Would not rely on it."
         },
         "sub" : {
           "type" : "string"
@@ -551,7 +910,19 @@
           "type" : "string"
         }
       },
-      "description" : "Pet model describing pets in Endless Frontier (e.g. Mambo, Lime, etc.)"
+      "description" : "PetSkill model describing pet skills in Endless Frontier"
+    },
+    "Translation" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "string"
+        },
+        "value" : {
+          "type" : "string"
+        }
+      },
+      "description" : "Table containing Korean to English translation data"
     },
     "Tribe" : {
       "type" : "object",
@@ -570,7 +941,7 @@
     },
     "Unit" : {
       "type" : "object",
-      "required" : [ "attackRange", "attackSpeed", "blockPercent", "coin", "cost", "criticalDamage", "criticalPercent", "evadePercent", "evolKindNum", "evolveGem", "honorNumber", "id", "incDamage", "incHp", "incMagDef", "incPhyDef", "initDamage", "initHp", "initMagDef", "initPhyDef", "isHonor", "jewelBuff", "material1", "material2", "material3", "moveSpeed", "numUnitBlock", "offlineSpeed", "offlineTime", "passiveSkill", "powerList", "rank", "rare", "ratingPosition", "reviveTime", "shop", "shopGem", "size", "skillList", "skillRange", "skillSpeed", "specialSkill", "splashDamage", "splashRange", "starBuff", "starBuffFromPet", "trans", "tribe" ],
+      "required" : [ "attackRange", "attackSpeed", "blockPercent", "coin", "cost", "criticalDamage", "criticalPercent", "evadePercent", "evolKindNum", "evolveGem", "honorNumber", "id", "incDamage", "incHp", "incMagDef", "incPhyDef", "initDamage", "initHp", "initMagDef", "initPhyDef", "isHonor", "jewelBuff", "moveSpeed", "numUnitBlock", "offlineSpeed", "offlineTime", "passiveSkill", "rank", "rare", "ratingPosition", "reviveTime", "shop", "shopGem", "size", "skillRange", "skillSpeed", "specialSkill", "splashDamage", "splashRange", "starBuff", "starBuffFromPet", "trans", "tribe" ],
       "properties" : {
         "id" : {
           "type" : "integer",
@@ -731,18 +1102,17 @@
           "type" : "string"
         },
         "des" : {
-          "type" : "string"
+          "type" : "string",
+          "description" : "Not sure what this represents, always seems to be 'AA' for units"
         },
         "message" : {
           "type" : "string"
         },
         "skillList" : {
-          "type" : "integer",
-          "format" : "int32"
+          "type" : "string"
         },
         "powerList" : {
-          "type" : "integer",
-          "format" : "int32"
+          "type" : "string"
         },
         "rank" : {
           "type" : "integer",
@@ -770,16 +1140,13 @@
           "format" : "int32"
         },
         "material1" : {
-          "type" : "integer",
-          "format" : "int32"
+          "type" : "string"
         },
         "material2" : {
-          "type" : "integer",
-          "format" : "int32"
+          "type" : "string"
         },
         "material3" : {
-          "type" : "integer",
-          "format" : "int32"
+          "type" : "string"
         },
         "starBuff" : {
           "type" : "integer",
@@ -823,6 +1190,31 @@
         }
       },
       "description" : "Unit model describing units in Endless Frontier (e.g. infantry, Ice Spirit, Sword Dancer, etc.)"
+    },
+    "UnitSkill" : {
+      "type" : "object",
+      "required" : [ "baseValue", "id", "imgIndex" ],
+      "properties" : {
+        "id" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "skillCode" : {
+          "type" : "string"
+        },
+        "imgIndex" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "baseValue" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "desc" : {
+          "type" : "string"
+        }
+      },
+      "description" : "UnitSkill model describing unit skill in Endless Frontier."
     }
   }
 }

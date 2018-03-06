@@ -2,7 +2,7 @@ package com.macgregor.ef.resource;
 
 import com.macgregor.ef.dao.UnitSkillDAO;
 import com.macgregor.ef.exceptions.PageinationExceptionMapper;
-import com.macgregor.ef.model.UnitSkill;
+import com.macgregor.ef.model.canonical.UnitSkill;
 import io.dropwizard.testing.junit.ResourceTestRule;
 import org.glassfish.jersey.test.grizzly.GrizzlyWebTestContainerFactory;
 import org.junit.After;

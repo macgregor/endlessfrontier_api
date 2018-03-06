@@ -1,4 +1,4 @@
-package com.macgregor.ef.model;
+package com.macgregor.ef.model.canonical;
 
 
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -18,7 +18,7 @@ import javax.validation.constraints.NotNull;
 @Entity
 @Table(name = "pet_skill")
 @JacksonXmlRootElement(localName = "petSkill")
-@ApiModel(value="PetSkill", description="PetSkill model describing pet skills in Endless Frontier")
+@ApiModel(value="PetSkillXML", description="PetSkillXML model describing pet skills in Endless Frontier")
 public class PetSkill {
 
     @Id
@@ -119,7 +119,7 @@ public class PetSkill {
 
     @Override
     public String toString() {
-        return "PetSkill{" +
+        return "PetSkillXML{" +
                 "id=" + id +
                 ", namedId='" + namedId + '\'' +
                 ", name='" + name + '\'' +

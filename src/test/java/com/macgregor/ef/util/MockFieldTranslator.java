@@ -1,7 +1,7 @@
 package com.macgregor.ef.util;
 
 import com.macgregor.ef.dataload.FieldTranslator;
-import com.macgregor.ef.model.Translation;
+import com.macgregor.ef.model.canonical.Translation;
 import org.hibernate.SessionFactory;
 
 import static org.mockito.Mockito.mock;

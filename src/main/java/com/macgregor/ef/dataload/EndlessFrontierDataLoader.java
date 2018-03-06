@@ -1,7 +1,7 @@
 package com.macgregor.ef.dataload;
 
 import com.macgregor.ef.exceptions.DataLoadException;
-import com.macgregor.ef.model.*;
+import com.macgregor.ef.model.canonical.*;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;

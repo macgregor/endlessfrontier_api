@@ -9,7 +9,7 @@ import com.macgregor.ef.dataload.XmlPOJOExtractor;
 import com.macgregor.ef.exceptions.EntityNotFoundExceptionMapper;
 import com.macgregor.ef.exceptions.PageinationExceptionMapper;
 import com.macgregor.ef.health.EndlessFrontierAPIHealthCheck;
-import com.macgregor.ef.model.*;
+import com.macgregor.ef.model.canonical.*;
 import com.macgregor.ef.resource.*;
 import io.dropwizard.Application;
 import io.dropwizard.bundles.redirect.PathRedirect;

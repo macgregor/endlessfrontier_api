@@ -2,7 +2,7 @@ package com.macgregor.ef.resource;
 
 import com.macgregor.ef.dao.TranslationDAO;
 import com.macgregor.ef.exceptions.PageinationExceptionMapper;
-import com.macgregor.ef.model.Translation;
+import com.macgregor.ef.model.canonical.Translation;
 import io.dropwizard.testing.junit.ResourceTestRule;
 import org.glassfish.jersey.test.grizzly.GrizzlyWebTestContainerFactory;
 import org.junit.After;

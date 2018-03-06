@@ -1,6 +1,7 @@
-package com.macgregor.ef.model;
+package com.macgregor.ef.model.canonical;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import com.macgregor.ef.util.TestModels;
 import io.dropwizard.jackson.Jackson;
 import org.junit.BeforeClass;
@@ -16,8 +17,9 @@ import java.util.logging.Logger;
 import static io.dropwizard.testing.FixtureHelpers.fixture;
 import static org.junit.Assert.assertEquals;
 
-public class TribeTest {
-    private static final Logger logger = Logger.getLogger(TribeTest.class.getName());
+public class PetSkillTest {
+    private static final Logger logger = Logger.getLogger(PetTest.class.getName());
+    private static final ObjectMapper XML_MAPPER = new XmlMapper();
     private static final ObjectMapper JSON_MAPPER = Jackson.newObjectMapper();
 
     private static Validator validator;
@@ -29,16 +31,22 @@ public class TribeTest {
     }
 
     @Test
+    public void deserializesFromXml() throws Exception {
+        PetSkill fromXml = XML_MAPPER.readValue(fixture("fixtures/pet_skill.xml"), PetSkill.class);
+        assertEquals(TestModels.getPetSkill(), fromXml);
+    }
+
+    @Test
     public void deserializesFromJson() throws Exception {
-        Tribe fromJson = JSON_MAPPER.readValue(fixture("fixtures/tribe.json"), Tribe.class);
-        assertEquals(TestModels.getTribe(), fromJson);
+        PetSkill fromJson = JSON_MAPPER.readValue(fixture("fixtures/pet_skill.json"), PetSkill.class);
+        assertEquals(TestModels.getPetSkill(), fromJson);
     }
 
     @Test
     public void testValidation(){
-        Tribe tribe = new Tribe();
-        Set<ConstraintViolation<Tribe>> constraintViolations =
-                validator.validate(tribe);
-        assertEquals(1, constraintViolations.size());
+        PetSkill petSkill = new PetSkill();
+        Set<ConstraintViolation<PetSkill>> constraintViolations =
+                validator.validate(petSkill);
+        assertEquals(2, constraintViolations.size());
     }
 }

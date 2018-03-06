@@ -1,4 +1,4 @@
-package com.macgregor.ef.model;
+package com.macgregor.ef.model.canonical;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
@@ -16,7 +16,7 @@ import javax.validation.constraints.NotNull;
 @Entity
 @Table(name = "pet")
 @JacksonXmlRootElement(localName = "pet")
-@ApiModel(value="Pet", description="Pet model describing pets in Endless Frontier (e.g. Mambo, Lime, etc.)")
+@ApiModel(value="PetXML", description="PetXML model describing pets in Endless Frontier (e.g. Mambo, Lime, etc.)")
 public class Pet {
 
     @Id
@@ -61,7 +61,7 @@ public class Pet {
     @NotNull
     @JsonProperty
     @JacksonXmlProperty(localName = "skill1")
-    private Integer skill1; //TODO: fk to PetSkill
+    private Integer skill1; //TODO: fk to PetSkillXML
 
     @Column(name = "value1", nullable = false)
     @NotBlank
@@ -73,7 +73,7 @@ public class Pet {
     @NotNull
     @JsonProperty
     @JacksonXmlProperty(localName = "skill2")
-    private Integer skill2; //TODO: fk to ?? PetSkill
+    private Integer skill2; //TODO: fk to ?? PetSkillXML
 
     @Column(name = "value2", nullable = false)
     @NotBlank
@@ -91,13 +91,13 @@ public class Pet {
     @NotNull
     @JsonProperty
     @JacksonXmlProperty(localName = "masterSkill")
-    private Integer masterSkill; //TODO: FK to ?? PetSkill
+    private Integer masterSkill; //TODO: FK to ?? PetSkillXML
 
     @Column(name = "couple", nullable = false)
     @NotNull
     @JsonProperty
     @JacksonXmlProperty(localName = "couple")
-    private Integer couple; //TODO: FK to Unit
+    private Integer couple; //TODO: FK to UnitXML
 
     @Column(name = "inc_gold_level", nullable = false)
     @NotBlank
@@ -261,7 +261,7 @@ public class Pet {
 
     @Override
     public String toString() {
-        return "Pet{" +
+        return "PetXML{" +
                 "id=" + id +
                 ", className='" + className + '\'' +
                 ", name='" + name + '\'' +

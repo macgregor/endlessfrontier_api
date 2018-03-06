@@ -1,6 +1,6 @@
 package com.macgregor.ef.dao;
 
-import com.macgregor.ef.model.UnitSkill;
+import com.macgregor.ef.model.canonical.UnitSkill;
 import org.hibernate.SessionFactory;
 
 public class UnitSkillDAO extends AbstractEFDAO<UnitSkill> {

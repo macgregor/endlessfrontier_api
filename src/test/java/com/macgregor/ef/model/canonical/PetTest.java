@@ -1,4 +1,4 @@
-package com.macgregor.ef.model;
+package com.macgregor.ef.model.canonical;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
@@ -17,10 +17,8 @@ import java.util.logging.Logger;
 import static io.dropwizard.testing.FixtureHelpers.fixture;
 import static org.junit.Assert.assertEquals;
 
-
-public class UnitTest {
-
-    private static final Logger logger = Logger.getLogger(UnitTest.class.getName());
+public class PetTest {
+    private static final Logger logger = Logger.getLogger(PetTest.class.getName());
     private static final ObjectMapper XML_MAPPER = new XmlMapper();
     private static final ObjectMapper JSON_MAPPER = Jackson.newObjectMapper();
 
@@ -34,21 +32,21 @@ public class UnitTest {
 
     @Test
     public void deserializesFromXml() throws Exception {
-        Unit fromXml = XML_MAPPER.readValue(fixture("fixtures/unit.xml"), Unit.class);
-        assertEquals(TestModels.getUnit(), fromXml);
+        Pet fromXml = XML_MAPPER.readValue(fixture("fixtures/pet.xml"), Pet.class);
+        assertEquals(TestModels.getPet(), fromXml);
     }
 
     @Test
     public void deserializesFromJson() throws Exception {
-        Unit fromJson = JSON_MAPPER.readValue(fixture("fixtures/unit.json"), Unit.class);
-        assertEquals(TestModels.getUnit(), fromJson);
+        Pet fromJson = JSON_MAPPER.readValue(fixture("fixtures/pet.json"), Pet.class);
+        assertEquals(TestModels.getPet(), fromJson);
     }
 
     @Test
     public void testValidation(){
-        Unit unit = new Unit();
-        Set<ConstraintViolation<Unit>> constraintViolations =
-                validator.validate(unit);
-        assertEquals(67, constraintViolations.size());
+        Pet pet = new Pet();
+        Set<ConstraintViolation<Pet>> constraintViolations =
+                validator.validate(pet);
+        assertEquals(17, constraintViolations.size());
     }
 }

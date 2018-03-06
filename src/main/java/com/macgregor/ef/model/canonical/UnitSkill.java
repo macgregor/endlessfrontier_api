@@ -1,4 +1,4 @@
-package com.macgregor.ef.model;
+package com.macgregor.ef.model.canonical;
 
 
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -17,7 +17,7 @@ import javax.validation.constraints.NotNull;
 @Entity
 @Table(name = "unit_skill")
 @JacksonXmlRootElement(localName = "unitSkill")
-@ApiModel(value="UnitSkill", description="UnitSkill model describing unit skill in Endless Frontier.")
+@ApiModel(value="UnitSkillXML", description="UnitSkillXML model describing unit skill in Endless Frontier.")
 public class UnitSkill {
 
     @Id
@@ -94,7 +94,7 @@ public class UnitSkill {
 
     @Override
     public String toString() {
-        return "UnitSkill{" +
+        return "UnitSkillXML{" +
                 "id=" + id +
                 ", skillCode='" + skillCode + '\'' +
                 ", imgIndex=" + imgIndex +

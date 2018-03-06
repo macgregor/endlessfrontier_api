@@ -1,6 +1,6 @@
 package com.macgregor.ef.dao;
 
-import com.macgregor.ef.model.Translation;
+import com.macgregor.ef.model.canonical.Translation;
 import org.hibernate.SessionFactory;
 
 public class TranslationDAO extends AbstractEFDAO<Translation> {

@@ -2,7 +2,7 @@ package com.macgregor.ef.resource;
 
 import com.macgregor.ef.dao.ArtifactSetDAO;
 import com.macgregor.ef.exceptions.PageinationExceptionMapper;
-import com.macgregor.ef.model.ArtifactSet;
+import com.macgregor.ef.model.canonical.ArtifactSet;
 import io.dropwizard.testing.junit.ResourceTestRule;
 import org.glassfish.jersey.test.grizzly.GrizzlyWebTestContainerFactory;
 import org.junit.After;

@@ -1,7 +1,8 @@
-package com.macgregor.ef.model;
+package com.macgregor.ef.model.canonical;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
+import com.macgregor.ef.model.canonical.ArtifactSet;
 import com.macgregor.ef.util.TestModels;
 import io.dropwizard.jackson.Jackson;
 import org.junit.BeforeClass;
@@ -17,8 +18,8 @@ import java.util.logging.Logger;
 import static io.dropwizard.testing.FixtureHelpers.fixture;
 import static org.junit.Assert.assertEquals;
 
-public class ArtifactTest {
-    private static final Logger logger = Logger.getLogger(Artifact.class.getName());
+public class ArtifactSetTest {
+    private static final Logger logger = Logger.getLogger(ArtifactSet.class.getName());
     private static final ObjectMapper XML_MAPPER = new XmlMapper();
     private static final ObjectMapper JSON_MAPPER = Jackson.newObjectMapper();
 
@@ -32,21 +33,22 @@ public class ArtifactTest {
 
     @Test
     public void deserializesFromXml() throws Exception {
-        Artifact fromXml = XML_MAPPER.readValue(fixture("fixtures/artifact.xml"), Artifact.class);
-        assertEquals(TestModels.getArtifact(), fromXml);
+        ArtifactSet fromXml = XML_MAPPER.readValue(fixture("fixtures/artifact_set.xml"), ArtifactSet.class);
+        logger.info(JSON_MAPPER.writeValueAsString(fromXml));
+        assertEquals(TestModels.getArtifactSet(), fromXml);
     }
 
     @Test
     public void deserializesFromJson() throws Exception {
-        Artifact fromJson = JSON_MAPPER.readValue(fixture("fixtures/artifact.json"), Artifact.class);
-        assertEquals(TestModels.getArtifact(), fromJson);
+        ArtifactSet fromJson = JSON_MAPPER.readValue(fixture("fixtures/artifact_set.json"), ArtifactSet.class);
+        assertEquals(TestModels.getArtifactSet(), fromJson);
     }
 
     @Test
     public void testValidation(){
-        Artifact artifact = new Artifact();
-        Set<ConstraintViolation<Artifact>> constraintViolations =
-                validator.validate(artifact);
-        assertEquals(19, constraintViolations.size());
+        ArtifactSet artifactSet = new ArtifactSet();
+        Set<ConstraintViolation<ArtifactSet>> constraintViolations =
+                validator.validate(artifactSet);
+        assertEquals(10, constraintViolations.size());
     }
 }

@@ -3,7 +3,7 @@ package com.macgregor.ef.resource;
 import com.codahale.metrics.annotation.Timed;
 import com.macgregor.ef.dao.AbstractEFDAO;
 import com.macgregor.ef.exceptions.PageinationException;
-import com.macgregor.ef.model.Artifact;
+import com.macgregor.ef.model.canonical.Artifact;
 import com.macgregor.ef.resource.parameters.PageParameters;
 import io.dropwizard.hibernate.UnitOfWork;
 import io.swagger.annotations.*;

@@ -2,7 +2,7 @@ package com.macgregor.ef.dataload;
 
 import ch.qos.logback.classic.Level;
 import com.macgregor.ef.exceptions.DataLoadException;
-import com.macgregor.ef.model.*;
+import com.macgregor.ef.model.canonical.*;
 import com.macgregor.ef.util.MockFieldTranslator;
 import com.macgregor.ef.util.TestModels;
 import io.dropwizard.logging.BootstrapLogging;

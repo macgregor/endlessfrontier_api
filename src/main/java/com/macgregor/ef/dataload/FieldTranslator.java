@@ -2,7 +2,7 @@ package com.macgregor.ef.dataload;
 
 import com.macgregor.ef.dataload.annotations.Translate;
 import com.macgregor.ef.exceptions.TranslationException;
-import com.macgregor.ef.model.Translation;
+import com.macgregor.ef.model.canonical.Translation;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.reflect.FieldUtils;
 import org.hibernate.Session;

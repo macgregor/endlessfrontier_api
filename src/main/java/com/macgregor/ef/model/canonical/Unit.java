@@ -1,4 +1,4 @@
-package com.macgregor.ef.model;
+package com.macgregor.ef.model.canonical;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
@@ -17,7 +17,7 @@ import javax.validation.constraints.NotNull;
 @Entity
 @Table(name = "unit")
 @JacksonXmlRootElement(localName = "unit")
-@ApiModel(value="Unit", description="Unit model describing units in Endless Frontier (e.g. infantry, Ice Spirit, Sword Dancer, etc.)")
+@ApiModel(value="UnitXML", description="UnitXML model describing units in Endless Frontier (e.g. infantry, Ice Spirit, Sword Dancer, etc.)")
 public class Unit {
 
     @Id
@@ -965,7 +965,7 @@ public class Unit {
 
     @Override
     public String toString() {
-        return "Unit{" +
+        return "UnitXML{" +
                 "id=" + id +
                 ", tribe=" + tribe +
                 ", className='" + className + '\'' +

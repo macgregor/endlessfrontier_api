@@ -1,4 +1,4 @@
-package com.macgregor.ef.model;
+package com.macgregor.ef.model.canonical;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
@@ -14,7 +14,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "translation")
 @JacksonXmlRootElement(localName = "text")
-@ApiModel(value="Translation", description="Table containing Korean to English translation data")
+@ApiModel(value="TranslationXML", description="Table containing Korean to English translation data")
 public class Translation {
 
     @Id
@@ -47,7 +47,7 @@ public class Translation {
 
     @Override
     public String toString() {
-        return "Translation{" +
+        return "TranslationXML{" +
                 "id=" + id +
                 ", value='" + value + '\'' +
                 '}';

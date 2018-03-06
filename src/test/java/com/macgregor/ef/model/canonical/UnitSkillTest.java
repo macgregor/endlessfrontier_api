@@ -1,4 +1,5 @@
-package com.macgregor.ef.model;
+package com.macgregor.ef.model.canonical;
+
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
@@ -17,8 +18,8 @@ import java.util.logging.Logger;
 import static io.dropwizard.testing.FixtureHelpers.fixture;
 import static org.junit.Assert.assertEquals;
 
-public class ArtifactSetTest {
-    private static final Logger logger = Logger.getLogger(ArtifactSet.class.getName());
+public class UnitSkillTest {
+    private static final Logger logger = Logger.getLogger(UnitSkillTest.class.getName());
     private static final ObjectMapper XML_MAPPER = new XmlMapper();
     private static final ObjectMapper JSON_MAPPER = Jackson.newObjectMapper();
 
@@ -32,22 +33,22 @@ public class ArtifactSetTest {
 
     @Test
     public void deserializesFromXml() throws Exception {
-        ArtifactSet fromXml = XML_MAPPER.readValue(fixture("fixtures/artifact_set.xml"), ArtifactSet.class);
+        UnitSkill fromXml = XML_MAPPER.readValue(fixture("fixtures/unit_skill.xml"), UnitSkill.class);
         logger.info(JSON_MAPPER.writeValueAsString(fromXml));
-        assertEquals(TestModels.getArtifactSet(), fromXml);
+        assertEquals(TestModels.getUnitSkill(), fromXml);
     }
 
     @Test
     public void deserializesFromJson() throws Exception {
-        ArtifactSet fromJson = JSON_MAPPER.readValue(fixture("fixtures/artifact_set.json"), ArtifactSet.class);
-        assertEquals(TestModels.getArtifactSet(), fromJson);
+        UnitSkill fromJson = JSON_MAPPER.readValue(fixture("fixtures/unit_skill.json"), UnitSkill.class);
+        assertEquals(TestModels.getUnitSkill(), fromJson);
     }
 
     @Test
     public void testValidation(){
-        ArtifactSet artifactSet = new ArtifactSet();
-        Set<ConstraintViolation<ArtifactSet>> constraintViolations =
-                validator.validate(artifactSet);
-        assertEquals(10, constraintViolations.size());
+        UnitSkill unitSkill = new UnitSkill();
+        Set<ConstraintViolation<UnitSkill>> constraintViolations =
+                validator.validate(unitSkill);
+        assertEquals(5, constraintViolations.size());
     }
 }

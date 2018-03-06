@@ -1,6 +1,6 @@
 package com.macgregor.ef.util;
 
-import com.macgregor.ef.model.*;
+import com.macgregor.ef.model.canonical.*;
 
 public final class TestModels {
 

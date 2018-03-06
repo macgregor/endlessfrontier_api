@@ -3,7 +3,7 @@ package com.macgregor.ef.dataload;
 import com.macgregor.ef.dataload.annotations.Translate;
 import com.macgregor.ef.exceptions.DataLoadException;
 import com.macgregor.ef.exceptions.TranslationException;
-import com.macgregor.ef.model.Translation;
+import com.macgregor.ef.model.canonical.Translation;
 import com.macgregor.ef.util.MockFieldTranslator;
 import org.junit.Before;
 import org.junit.Test;

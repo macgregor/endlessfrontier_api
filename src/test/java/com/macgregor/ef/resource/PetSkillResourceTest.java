@@ -2,7 +2,7 @@ package com.macgregor.ef.resource;
 
 import com.macgregor.ef.dao.PetSkillDAO;
 import com.macgregor.ef.exceptions.PageinationExceptionMapper;
-import com.macgregor.ef.model.PetSkill;
+import com.macgregor.ef.model.canonical.PetSkill;
 import io.dropwizard.testing.junit.ResourceTestRule;
 import org.glassfish.jersey.test.grizzly.GrizzlyWebTestContainerFactory;
 import org.junit.After;

@@ -1,4 +1,4 @@
-package com.macgregor.ef.model;
+package com.macgregor.ef.model.canonical;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
@@ -16,7 +16,7 @@ import javax.validation.constraints.NotNull;
 @Entity
 @Table(name = "artifact_set")
 @JacksonXmlRootElement(localName = "treasureSet")
-@ApiModel(value="ArtifactSet", description="ArtifactSet model describing sets of artifacts in Endless Frontier (e.g. Oath of Heaven Set, Bone Wyvern's Arms Set, etc.)")
+@ApiModel(value="ArtifactSetXML", description="ArtifactSetXML model describing sets of artifacts in Endless Frontier (e.g. Oath of Heaven Set, Bone Wyvern's Arms Set, etc.)")
 public class ArtifactSet {
 
     @Id
@@ -178,7 +178,7 @@ public class ArtifactSet {
 
     @Override
     public String toString() {
-        return "ArtifactSet{" +
+        return "ArtifactSetXML{" +
                 "id=" + id +
                 ", title='" + title + '\'' +
                 ", itemList='" + itemList + '\'' +

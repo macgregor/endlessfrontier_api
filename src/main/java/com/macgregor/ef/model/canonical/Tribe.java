@@ -1,4 +1,4 @@
-package com.macgregor.ef.model;
+package com.macgregor.ef.model.canonical;
 
 
 import com.fasterxml.jackson.annotation.JsonProperty;

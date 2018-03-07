@@ -1,10 +1,10 @@
 package com.macgregor.ef.dataload;
 
 import ch.qos.logback.classic.Level;
+import com.macgregor.ef.dataload.converters.*;
 import com.macgregor.ef.exceptions.DataLoadException;
 import com.macgregor.ef.model.canonical.*;
-import com.macgregor.ef.util.MockFieldTranslator;
-import com.macgregor.ef.util.TestModels;
+import com.macgregor.ef.util.MockTranslationFieldConverter;
 import io.dropwizard.logging.BootstrapLogging;
 import io.dropwizard.testing.junit.DAOTestRule;
 import org.hibernate.Session;
@@ -12,6 +12,9 @@ import org.hibernate.query.Query;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
@@ -35,25 +38,29 @@ public class EndlessFrontierDataLoaderTest {
 
     @Before
     public void setUp() {
-        dataLoader = new EndlessFrontierDataLoader(database.getSessionFactory(), new MockFieldTranslator());
-    }
+        List<AbstractFieldConverter> converters = new ArrayList<>();
 
-    @Test
-    public void testLoadDataExtractsAndPersistsPOJO() throws DataLoadException {
-        Unit unit = TestModels.getUnit();
-        dataLoader.loadData("src/test/resources/dataloader/units.xml", "//unit", Unit.class, false);
-        assertEquals(unit, database.getSessionFactory().openSession().get(Unit.class, unit.getId()));
+        BoolFieldConverter boolConverter = new BoolFieldConverter();
+        converters.add(boolConverter);
+
+        ListFieldConverter listConverter = new ListFieldConverter();
+        converters.add(listConverter);
+
+        TranslationFieldConverter translationFieldConverter = new MockTranslationFieldConverter();
+        converters.add(translationFieldConverter);
+
+        dataLoader = new EndlessFrontierDataLoader(database.getSessionFactory(), new CanonicalModelConverter(converters));
     }
 
     @Test
     public void testLoadDataExtractsUnits() throws DataLoadException {
-        dataLoader.loadUnits(false);
+        dataLoader.loadUnits();
         assertEquals(218, count(Unit.class));
     }
 
     @Test
     public void testLoadDataTranslatesUnits() throws DataLoadException {
-        dataLoader.loadUnits(true);
+        dataLoader.loadUnits();
         assertEquals(218, count(Unit.class));
         Unit u = find(Unit.class, 1);
         assertEquals("success", u.getName());
@@ -61,13 +68,13 @@ public class EndlessFrontierDataLoaderTest {
 
     @Test
     public void testLoadDataExtractsUnitSkills() throws DataLoadException {
-        dataLoader.loadUnitSkills(false);
+        dataLoader.loadUnitSkills();
         assertEquals(65, count(UnitSkill.class));
     }
 
     @Test
     public void testLoadDataTranslatesUnitSkills() throws DataLoadException {
-        dataLoader.loadUnitSkills(true);
+        dataLoader.loadUnitSkills();
         assertEquals(65, count(UnitSkill.class));
         UnitSkill u = find(UnitSkill.class, 1);
         assertEquals("success", u.getDesc());
@@ -75,13 +82,13 @@ public class EndlessFrontierDataLoaderTest {
 
     @Test
     public void testLoadDataExtractsArtifacts() throws DataLoadException {
-        dataLoader.loadArtifacts(false);
+        dataLoader.loadArtifacts();
         assertEquals(189, count(Artifact.class));
     }
 
     @Test
     public void testLoadDataTranslatesArtifacts() throws DataLoadException {
-        dataLoader.loadArtifacts(true);
+        dataLoader.loadArtifacts();
         assertEquals(189, count(Artifact.class));
         Artifact a = find(Artifact.class, 1);
         assertEquals("success", a.getDesc());
@@ -89,13 +96,13 @@ public class EndlessFrontierDataLoaderTest {
 
     @Test
     public void testLoadDataExtractsArtifactSets() throws DataLoadException {
-        dataLoader.loadArtifactSets(false);
+        dataLoader.loadArtifactSets();
         assertEquals(50, count(ArtifactSet.class));
     }
 
     @Test
     public void testLoadDataTranslatesArtifactSets() throws DataLoadException {
-        dataLoader.loadArtifactSets(true);
+        dataLoader.loadArtifactSets();
         assertEquals(50, count(ArtifactSet.class));
         ArtifactSet a = find(ArtifactSet.class, 1);
         assertEquals("success", a.getDesc());
@@ -103,13 +110,13 @@ public class EndlessFrontierDataLoaderTest {
 
     @Test
     public void testLoadDataExtractsPets() throws DataLoadException {
-        dataLoader.loadPets(false);
+        dataLoader.loadPets();
         assertEquals(157, count(Pet.class));
     }
 
     @Test
     public void testLoadDataTranslatesPets() throws DataLoadException {
-        dataLoader.loadPets(true);
+        dataLoader.loadPets();
         assertEquals(157, count(Pet.class));
         Pet p = find(Pet.class, 1);
         assertEquals("success", p.getName());
@@ -117,13 +124,13 @@ public class EndlessFrontierDataLoaderTest {
 
     @Test
     public void testLoadDataExtractsPetSkills() throws DataLoadException {
-        dataLoader.loadPetSkills(false);
+        dataLoader.loadPetSkills();
         assertEquals(456, count(PetSkill.class));
     }
 
     @Test
     public void testLoadDataTranslatesPetSkills() throws DataLoadException {
-        dataLoader.loadPetSkills(true);
+        dataLoader.loadPetSkills();
         assertEquals(456, count(PetSkill.class));
         PetSkill p = find(PetSkill.class, 1);
         assertEquals("success", p.getDesc());
@@ -131,7 +138,7 @@ public class EndlessFrontierDataLoaderTest {
 
     @Test
     public void testLoadDataExtractsTranslations() throws DataLoadException {
-        dataLoader.loadTranslations(false);
+        dataLoader.loadTranslations();
         assertEquals(2044, count(Translation.class));
     }
 

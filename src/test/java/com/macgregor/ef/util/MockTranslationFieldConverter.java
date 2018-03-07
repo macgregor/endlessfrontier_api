@@ -1,17 +1,17 @@
 package com.macgregor.ef.util;
 
-import com.macgregor.ef.dataload.FieldTranslator;
+import com.macgregor.ef.dataload.converters.TranslationFieldConverter;
 import com.macgregor.ef.model.canonical.Translation;
 import org.hibernate.SessionFactory;
 
 import static org.mockito.Mockito.mock;
 
-public class MockFieldTranslator extends FieldTranslator {
+public class MockTranslationFieldConverter extends TranslationFieldConverter {
     private static final SessionFactory sessionFactory = mock(SessionFactory.class);
 
     private Translation translation;
 
-    public MockFieldTranslator(){
+    public MockTranslationFieldConverter(){
         super(sessionFactory);
 
         translation = new Translation();

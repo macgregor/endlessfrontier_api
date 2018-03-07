@@ -1,25 +1,31 @@
-package com.macgregor.ef.dataload;
+package com.macgregor.ef.dataload.converters;
 
 import com.macgregor.ef.dataload.annotations.Translate;
+import com.macgregor.ef.exceptions.CanonicalConversionException;
 import com.macgregor.ef.exceptions.DataLoadException;
-import com.macgregor.ef.exceptions.TranslationException;
 import com.macgregor.ef.model.canonical.Translation;
-import com.macgregor.ef.util.MockFieldTranslator;
+import com.macgregor.ef.util.MockTranslationFieldConverter;
+import org.apache.commons.lang3.reflect.FieldUtils;
 import org.junit.Before;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.Serializable;
+import java.lang.reflect.Field;
+
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
-public class FieldTranslatorTest {
+public class TranslationFieldConverterTest {
 
-    private static final Logger logger = LoggerFactory.getLogger(FieldTranslatorTest.class);
+    private static final Logger logger = LoggerFactory.getLogger(TranslationFieldConverterTest.class);
 
-    private FieldTranslatorTestModel testModel;
-    private FieldTranslator fieldTranslator;
+    private FieldTranslationConverterTestModel testModel;
+    private TranslationFieldConverter translationFieldConverter;
 
-    public static class FieldTranslatorTestModel{
+    public static class FieldTranslationConverterTestModel implements Serializable {
         public Integer id;
 
         public Integer id2;
@@ -64,8 +70,8 @@ public class FieldTranslatorTest {
 
     @Before
     public void setup(){
-        fieldTranslator = new MockFieldTranslator();
-        testModel = new FieldTranslatorTestModel();
+        translationFieldConverter = new MockTranslationFieldConverter();
+        testModel = new FieldTranslationConverterTestModel();
         testModel.id = 1;
         testModel.id2 = 2;
         testModel.keyWithFieldReference = "untranslated";
@@ -79,68 +85,71 @@ public class FieldTranslatorTest {
 
     @Test
     public void testGetFieldKeyExtractsSimpleKey() throws DataLoadException{
-        String extracted = fieldTranslator.getFieldKey(testModel, "KEY");
+        String extracted = translationFieldConverter.getFieldKey(testModel, "KEY");
         assertEquals("KEY", extracted);
     }
 
     @Test
     public void testGetFieldKeyExtractsKeyWithFieldReference() throws DataLoadException{
-        String extracted = fieldTranslator.getFieldKey(testModel, "KEY_{id}");
+        String extracted = translationFieldConverter.getFieldKey(testModel, "KEY_{id}");
         assertEquals("KEY_1", extracted);
     }
 
     @Test
     public void testGetFieldKeyExtractsKeyWithMultipleFieldReferences() throws DataLoadException {
-        String extracted = fieldTranslator.getFieldKey(testModel, "KEY_{id}_{id2}");
+        String extracted = translationFieldConverter.getFieldKey(testModel, "KEY_{id}_{id2}");
         assertEquals("KEY_1_2", extracted);
     }
 
     @Test
     public void testGetFieldKeyExtractsKeyWithRepeatedFieldReferences() throws DataLoadException {
-        String extracted = fieldTranslator.getFieldKey(testModel, "KEY_{id}_{id}");
+        String extracted = translationFieldConverter.getFieldKey(testModel, "KEY_{id}_{id}");
         assertEquals("KEY_1_1", extracted);
     }
 
     @Test
     public void testGetFieldKeyExtractsKeysFromPrivateFields() throws DataLoadException {
-        String extracted = fieldTranslator.getFieldKey(testModel, "KEY_{privateId}");
+        String extracted = translationFieldConverter.getFieldKey(testModel, "KEY_{privateId}");
         assertEquals("KEY_3", extracted);
     }
 
-    @Test(expected = TranslationException.class)
+    @Test(expected = CanonicalConversionException.class)
     public void testGetFieldKeyThrowsDataLoadExceptionWithInvalidKey() throws DataLoadException {
-        String extracted = fieldTranslator.getFieldKey(testModel, "KEY_{doesntexist}");
+        String extracted = translationFieldConverter.getFieldKey(testModel, "KEY_{doesntexist}");
     }
 
-    @Test(expected = TranslationException.class)
+    @Test(expected = CanonicalConversionException.class)
     public void testGetFieldKeyThrowsDataLoadExceptionWithNullKey() throws DataLoadException {
-        String extracted = fieldTranslator.getFieldKey(testModel, "KEY_{none}");
+        String extracted = translationFieldConverter.getFieldKey(testModel, "KEY_{none}");
     }
 
     @Test
-    public void testTranslateDoesntThrowNPEWhenTranslationEntityNotFound() throws TranslationException {
-        ((MockFieldTranslator)fieldTranslator).setTranslation(null);
-        fieldTranslator.translate(testModel);
+    public void testTranslateDoesntThrowNPEWhenTranslationEntityNotFound() throws CanonicalConversionException {
+        ((MockTranslationFieldConverter) translationFieldConverter).setTranslation(null);
+        Field f = FieldUtils.getField(testModel.getClass(), "keyWithFieldReference");
+        translationFieldConverter.convertField(testModel, f);
     }
 
     @Test
-    public void testTranslateDoesntOverrideWithBlankTranslationValue() throws TranslationException {
+    public void testTranslateDoesntOverrideWithBlankTranslationValue() throws CanonicalConversionException {
         Translation t = new Translation();
         t.setId("1");
         t.setValue("");
-        ((MockFieldTranslator)fieldTranslator).setTranslation(t);
-        fieldTranslator.translate(testModel);
-        assertEquals("untranslated", testModel.simpleKey);
+        ((MockTranslationFieldConverter) translationFieldConverter).setTranslation(t);
+        Field f = FieldUtils.getField(testModel.getClass(), "simpleKey");
+        String translated = (String)translationFieldConverter.convertField(testModel, f);
+        assertEquals("untranslated", translated);
     }
 
     @Test
-    public void testTranslatesAllFields() throws DataLoadException {
-        fieldTranslator.translate(testModel);
-        assertEquals("success", testModel.keyWithFieldReference);
-        assertEquals("success", testModel.keyWithMultipleFieldReference);
-        assertEquals("success", testModel.simpleKey);
-        assertEquals("success", testModel.repeatedFieldReference);
-        assertEquals("untranslated", testModel.invalidFieldReference);
-        assertEquals(null, testModel.nullFieldReference);
+    public void testCanConvertTranslateAnnotatedFields(){
+        Field f = FieldUtils.getField(testModel.getClass(), "simpleKey");
+        assertTrue(translationFieldConverter.canConvert(f));
+    }
+
+    @Test
+    public void testCanConvertNonTranslateAnnotatedFields(){
+        Field f = FieldUtils.getField(testModel.getClass(), "id");
+        assertFalse(translationFieldConverter.canConvert(f));
     }
 }

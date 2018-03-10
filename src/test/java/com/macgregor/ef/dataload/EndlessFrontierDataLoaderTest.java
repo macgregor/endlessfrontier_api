@@ -1,9 +1,10 @@
 package com.macgregor.ef.dataload;
 
 import ch.qos.logback.classic.Level;
-import com.macgregor.ef.dataload.converters.*;
+import com.macgregor.ef.dataload.converters.CanonicalModelConverter;
 import com.macgregor.ef.exceptions.DataLoadException;
 import com.macgregor.ef.model.canonical.*;
+import com.macgregor.ef.util.CanonicalTestModels;
 import com.macgregor.ef.util.MockTranslationFieldConverter;
 import io.dropwizard.logging.BootstrapLogging;
 import io.dropwizard.testing.junit.DAOTestRule;
@@ -13,14 +14,11 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import static org.junit.Assert.assertEquals;
 
 public class EndlessFrontierDataLoaderTest {
     static {
-        BootstrapLogging.bootstrap(Level.ERROR);
+        BootstrapLogging.bootstrap(Level.DEBUG);
     }
 
     @Rule
@@ -38,66 +36,44 @@ public class EndlessFrontierDataLoaderTest {
 
     @Before
     public void setUp() {
-        List<AbstractFieldConverter> converters = new ArrayList<>();
-
-        BoolFieldConverter boolConverter = new BoolFieldConverter();
-        converters.add(boolConverter);
-
-        ListFieldConverter listConverter = new ListFieldConverter();
-        converters.add(listConverter);
-
-        TranslationFieldConverter translationFieldConverter = new MockTranslationFieldConverter();
-        converters.add(translationFieldConverter);
-
-        dataLoader = new EndlessFrontierDataLoader(database.getSessionFactory(), new CanonicalModelConverter(converters));
+        dataLoader = new EndlessFrontierDataLoader(database.getSessionFactory(),
+                new CanonicalModelConverter(new MockTranslationFieldConverter()));
     }
 
     @Test
     public void testLoadDataExtractsUnits() throws DataLoadException {
         dataLoader.loadUnits();
         assertEquals(218, count(Unit.class));
-    }
 
-    @Test
-    public void testLoadDataTranslatesUnits() throws DataLoadException {
-        dataLoader.loadUnits();
-        assertEquals(218, count(Unit.class));
-        Unit u = find(Unit.class, 1);
-        assertEquals("success", u.getName());
+        Unit unit = CanonicalTestModels.getTranslatedUnit();
+        assertEquals(unit, find(Unit.class, unit.getId()));
     }
 
     @Test
     public void testLoadDataExtractsUnitSkills() throws DataLoadException {
         dataLoader.loadUnitSkills();
         assertEquals(65, count(UnitSkill.class));
-    }
 
-    @Test
-    public void testLoadDataTranslatesUnitSkills() throws DataLoadException {
-        dataLoader.loadUnitSkills();
-        assertEquals(65, count(UnitSkill.class));
-        UnitSkill u = find(UnitSkill.class, 1);
-        assertEquals("success", u.getDesc());
+        UnitSkill unitSkill = CanonicalTestModels.getTranslatedUnitSkill();
+        assertEquals(unitSkill, find(UnitSkill.class, unitSkill.getId()));
     }
 
     @Test
     public void testLoadDataExtractsArtifacts() throws DataLoadException {
         dataLoader.loadArtifacts();
         assertEquals(189, count(Artifact.class));
-    }
 
-    @Test
-    public void testLoadDataTranslatesArtifacts() throws DataLoadException {
-        dataLoader.loadArtifacts();
-        assertEquals(189, count(Artifact.class));
-        Artifact a = find(Artifact.class, 1);
-        assertEquals("success", a.getDesc());
+        Artifact expected = CanonicalTestModels.getTranslatedArtifact();
+        assertEquals(expected, find(Artifact.class, expected.getId()));
     }
 
     @Test
     public void testLoadDataExtractsArtifactSets() throws DataLoadException {
         dataLoader.loadArtifactSets();
         assertEquals(50, count(ArtifactSet.class));
+
+        ArtifactSet expected = CanonicalTestModels.getTranslatedArtifactSet();
+        assertEquals(expected, find(ArtifactSet.class, expected.getId()));
     }
 
     @Test

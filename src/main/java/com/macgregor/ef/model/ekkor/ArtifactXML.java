@@ -2,96 +2,97 @@ package com.macgregor.ef.model.ekkor;
 
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
-import com.macgregor.ef.dataload.annotations.Translate;
-import org.hibernate.validator.constraints.NotBlank;
-
-import javax.validation.constraints.NotNull;
+import com.macgregor.ef.dataload.annotations.*;
+import com.macgregor.ef.model.canonical.Artifact;
 
 @JacksonXmlRootElement(localName = "treasure")
+@CanonicalModel(type= Artifact.class)
 public class ArtifactXML extends AbstractXMLModel{
 
-    @NotNull
     @JacksonXmlProperty(localName = "kindNum")
+    @CanonicalField
     private Integer id;
 
-    @NotBlank
     @JacksonXmlProperty(localName = "name")
     @Translate(key="RELIC_NAME_{id}")
+    @CanonicalField
     private String name;
 
-    @NotBlank
     @JacksonXmlProperty(localName = "mainCode")
+    @CanonicalField
     private String mainCode;
 
-    @NotNull
     @JacksonXmlProperty(localName = "subCode")
+    @CanonicalField
     private Integer subCode;
 
-    @NotNull
     @JacksonXmlProperty(localName = "grade")
+    @CanonicalField
     private Integer grade;
 
-    @NotNull
     @JacksonXmlProperty(localName = "maxLv")
+    @CanonicalField
     private Integer maxLv;
 
-    @NotBlank
     @JacksonXmlProperty(localName = "desc")
+    @CanonicalField
     @Translate(key="RELIC_DESC_{id}")
     private String desc;
 
-    @NotBlank
     @JacksonXmlProperty(localName = "openCost")
+    @CanonicalField
     private String openCost;
 
-    @NotBlank
     @JacksonXmlProperty(localName = "skillCode1")
-    private String skillCode1; //TODO: fk to ??
+    @CanonicalField
+    private String skillCode1;
 
-    @NotNull
     @JacksonXmlProperty(localName = "ability1")
-    private Integer ability1; //TODO: fk to ??
+    @CanonicalField
+    private Integer ability1;
 
-    @NotNull
     @JacksonXmlProperty(localName = "ability11")
-    private Integer ability11; //TODO: fk to ??
+    @CanonicalField
+    private Integer ability11;
 
-    @NotNull
     @JacksonXmlProperty(localName = "ability21")
-    private Integer ability21; //TODO: fk to ??
+    @CanonicalField
+    private Integer ability21;
 
     @JacksonXmlProperty(localName = "skillCode2")
-    private String skillCode2; //TODO: fk to ??
+    @CanonicalField
+    private String skillCode2;
 
-    @NotNull
     @JacksonXmlProperty(localName = "ability2")
-    private Integer ability2; //TODO: fk to ??
+    @CanonicalField
+    private Integer ability2;
 
-    @NotNull
     @JacksonXmlProperty(localName = "ability12")
-    private Integer ability12; //TODO: fk to ??
+    @CanonicalField
+    private Integer ability12;
 
-    @NotNull
     @JacksonXmlProperty(localName = "ability22")
-    private Integer ability22; //TODO: fk to ??
+    @CanonicalField
+    private Integer ability22;
 
     @JacksonXmlProperty(localName = "skillCode3")
-    private String skillCode3; //TODO: fk to ??
+    @CanonicalField
+    private String skillCode3;
 
-    @NotNull
     @JacksonXmlProperty(localName = "ability3")
-    private Integer ability3; //TODO: fk to ??
+    @CanonicalField
+    private Integer ability3;
 
-    @NotNull
     @JacksonXmlProperty(localName = "upgradeCostType")
-    private Integer upgradeCostType; //TODO: fk to ??
+    @CanonicalField
+    private Integer upgradeCostType;
 
-    @NotBlank
     @JacksonXmlProperty(localName = "showDesc")
+    @CanonicalField
     private String showDesc;
 
-    @NotNull
     @JacksonXmlProperty(localName = "sortId")
+    @CanonicalField
     private Integer sortId;
 
     public Integer getId() {

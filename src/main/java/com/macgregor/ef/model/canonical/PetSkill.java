@@ -2,64 +2,52 @@ package com.macgregor.ef.model.canonical;
 
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
-import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
-import com.macgregor.ef.dataload.annotations.Translate;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import org.hibernate.validator.constraints.NotBlank;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 @Entity
 @Table(name = "pet_skill")
-@JacksonXmlRootElement(localName = "petSkill")
-@ApiModel(value="PetSkillXML", description="PetSkillXML model describing pet skills in Endless Frontier")
+@ApiModel(value="PetSkill", description="PetSkill model describing pet skills in Endless Frontier")
 public class PetSkill {
 
     @Id
     @Column(name="id", nullable = false)
     @NotNull
     @JsonProperty
-    @JacksonXmlProperty(localName = "kindNum")
     private Integer id;
 
     @Column(name = "named_id", nullable = false)
     @NotBlank
     @JsonProperty
-    @JacksonXmlProperty(localName = "id")
     private String namedId;
 
     @Column(name = "name")
     @JsonProperty
-    @JacksonXmlProperty(localName = "name")
     @ApiModelProperty(value="This field seems to be rarely used and usually, but not always, in english with no provided translations. Would not rely on it.")
     private String name;
 
     @Column(name = "sub")
     @JsonProperty
-    @JacksonXmlProperty(localName = "sub")
-    private String sub; //TODO: convert to boolean
+    private Boolean sub;
 
     @Column(name = "type")
     @JsonProperty
-    @JacksonXmlProperty(localName = "type")
     private String type;
 
     @Column(name = "desc", length = 1000)
     @JsonProperty
-    @JacksonXmlProperty(localName = "desc")
-    @Translate(key="PET_SKILL_DESC_{id}")
     private String desc;
 
+    @ElementCollection
+    @CollectionTable
     @Column(name = "misc")
     @JsonProperty
-    @JacksonXmlProperty(localName = "misc")
-    private String misc;
+    private List<Integer> misc;
 
     public Integer getId() {
         return id;
@@ -85,11 +73,11 @@ public class PetSkill {
         this.name = name;
     }
 
-    public String getSub() {
+    public Boolean getSub() {
         return sub;
     }
 
-    public void setSub(String sub) {
+    public void setSub(Boolean sub) {
         this.sub = sub;
     }
 
@@ -109,25 +97,12 @@ public class PetSkill {
         this.desc = desc;
     }
 
-    public String getMisc() {
+    public List<Integer> getMisc() {
         return misc;
     }
 
-    public void setMisc(String misc) {
+    public void setMisc(List<Integer> misc) {
         this.misc = misc;
-    }
-
-    @Override
-    public String toString() {
-        return "PetSkillXML{" +
-                "id=" + id +
-                ", namedId='" + namedId + '\'' +
-                ", name='" + name + '\'' +
-                ", sub='" + sub + '\'' +
-                ", type='" + type + '\'' +
-                ", desc='" + desc + '\'' +
-                ", misc='" + misc + '\'' +
-                '}';
     }
 
     @Override
@@ -156,5 +131,18 @@ public class PetSkill {
         result = 31 * result + (desc != null ? desc.hashCode() : 0);
         result = 31 * result + (misc != null ? misc.hashCode() : 0);
         return result;
+    }
+
+    @Override
+    public String toString() {
+        return "PetSkill{" +
+                "id=" + id +
+                ", namedId='" + namedId + '\'' +
+                ", name='" + name + '\'' +
+                ", sub=" + sub +
+                ", type='" + type + '\'' +
+                ", desc='" + desc + '\'' +
+                ", misc=" + misc +
+                '}';
     }
 }

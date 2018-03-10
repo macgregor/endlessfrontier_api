@@ -3,66 +3,48 @@ package com.macgregor.ef.model.ekkor;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
-import com.macgregor.ef.dataload.annotations.CanonicalField;
-import com.macgregor.ef.dataload.annotations.ConvertBool;
-import com.macgregor.ef.dataload.annotations.ConvertList;
-import com.macgregor.ef.dataload.annotations.Translate;
-import org.hibernate.validator.constraints.NotBlank;
-
-import javax.validation.constraints.NotNull;
+import com.macgregor.ef.dataload.annotations.*;
+import com.macgregor.ef.model.canonical.ArtifactSet;
 
 @JacksonXmlRootElement(localName = "treasureSet")
+@CanonicalModel(type= ArtifactSet.class)
 public class ArtifactSetXML extends AbstractXMLModel{
 
-    @NotNull
     @JacksonXmlProperty(localName = "kindNum")
     @CanonicalField
     private Integer id;
 
-    @NotBlank
     @JacksonXmlProperty(localName = "title")
     @CanonicalField
     @Translate(key="RELIC_SET_NAME_{id}")
     private String title;
 
-    @NotBlank
     @JacksonXmlProperty(localName = "itemList")
     @CanonicalField
-    @ConvertList(sep="|", elementType = Integer.class)
     private String itemList;
 
-    @NotBlank
     @JacksonXmlProperty(localName = "numSetList")
     @CanonicalField
     private String numSetList;
 
-
-    @NotBlank
     @JacksonXmlProperty(localName = "skillList")
     @CanonicalField
-    @ConvertList(sep="#", elementType = String.class)
     private String skillList;
 
-    @NotBlank
     @JacksonXmlProperty(localName = "valueList")
     @CanonicalField
-    @ConvertList(sep="#", elementType = Integer.class)
     private String valueList;
 
-    @NotBlank
     @JacksonXmlProperty(localName = "valueList1")
     @CanonicalField
-    @ConvertList(sep="#", elementType = Integer.class)
     private String valueList1;
 
-    @NotBlank
     @JacksonXmlProperty(localName = "valueList2")
     @CanonicalField
-    @ConvertList(sep="#", elementType = Integer.class)
     private String valueList2;
 
-    @NotBlank
     @JacksonXmlProperty(localName = "desc")
+    @CanonicalField
     @Translate(key="RELIC_SET_DESC_{id}")
     private String desc;
 
@@ -70,10 +52,8 @@ public class ArtifactSetXML extends AbstractXMLModel{
     @JacksonXmlProperty(localName = "history")
     private String history;
 
-    @NotBlank
     @JacksonXmlProperty(localName = "showDesc")
     @CanonicalField
-    @ConvertBool(kind= ConvertBool.Kind.Y_N)
     private String showDesc;
 
     public Integer getId() {

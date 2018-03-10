@@ -1,7 +1,7 @@
 package com.macgregor.ef.model.canonical;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.macgregor.ef.util.TestModels;
+import com.macgregor.ef.util.CanonicalTestModels;
 import io.dropwizard.jackson.Jackson;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -31,7 +31,7 @@ public class TribeTest {
     @Test
     public void deserializesFromJson() throws Exception {
         Tribe fromJson = JSON_MAPPER.readValue(fixture("fixtures/tribe.json"), Tribe.class);
-        assertEquals(TestModels.getTribe(), fromJson);
+        assertEquals(CanonicalTestModels.getTribe(), fromJson);
     }
 
     @Test

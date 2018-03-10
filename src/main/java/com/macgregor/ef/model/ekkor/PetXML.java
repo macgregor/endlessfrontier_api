@@ -2,82 +2,81 @@ package com.macgregor.ef.model.ekkor;
 
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
-import com.macgregor.ef.dataload.annotations.Translate;
-import org.hibernate.validator.constraints.NotBlank;
-
-import javax.validation.constraints.NotNull;
+import com.macgregor.ef.dataload.annotations.*;
+import com.macgregor.ef.model.canonical.Pet;
 
 @JacksonXmlRootElement(localName = "pet")
+@CanonicalModel(type= Pet.class)
 public class PetXML extends AbstractXMLModel {
 
-    @NotNull
     @JacksonXmlProperty(localName = "kindNum")
+    @CanonicalField
     private Integer id;
 
-    @NotBlank
     @JacksonXmlProperty(localName = "className")
+    @CanonicalField
     private String className;
 
-    @NotBlank
     @JacksonXmlProperty(localName = "name")
+    @CanonicalField
     @Translate(key="PET_NAME_{id}")
     private String name;
 
-    @NotNull
     @JacksonXmlProperty(localName = "tribe")
-    private Integer tribe; //TODO: fk to tribe
+    @CanonicalField
+    private Integer tribe;
 
-    @NotBlank
     @JacksonXmlProperty(localName = "type")
+    @CanonicalField
     private String type;
 
-    @NotNull
     @JacksonXmlProperty(localName = "rank")
+    @CanonicalField
     private Integer rank;
 
-    @NotNull
     @JacksonXmlProperty(localName = "skill1")
-    private Integer skill1; //TODO: fk to PetSkillXML
+    @CanonicalField
+    private Integer skill1;
 
-    @NotBlank
     @JacksonXmlProperty(localName = "value1")
+    @CanonicalField
     private String value1;
 
-    @NotNull
     @JacksonXmlProperty(localName = "skill2")
-    private Integer skill2; //TODO: fk to ?? PetSkillXML
+    @CanonicalField
+    private Integer skill2;
 
-    @NotBlank
     @JacksonXmlProperty(localName = "value2")
+    @CanonicalField
     private String value2;
 
-    @NotBlank
     @JacksonXmlProperty(localName = "value3")
+    @CanonicalField
     private String value3;
 
-    @NotNull
     @JacksonXmlProperty(localName = "masterSkill")
-    private Integer masterSkill; //TODO: FK to ?? PetSkillXML
+    @CanonicalField
+    private Integer masterSkill;
 
-    @NotNull
     @JacksonXmlProperty(localName = "couple")
-    private Integer couple; //TODO: FK to UnitXML
+    @CanonicalField
+    private Integer couple;
 
-    @NotBlank
     @JacksonXmlProperty(localName = "incGoldLevel")
+    @CanonicalField
     private String incGoldLevel;
 
-    @NotNull
     @JacksonXmlProperty(localName = "treasure")
-    private Integer treasure; //TODO: FK to artifact
+    @CanonicalField
+    private Integer treasure;
 
-    @NotBlank
     @JacksonXmlProperty(localName = "isPercent")
-    private String isPercent; //TODO: convert to boolean
+    @CanonicalField
+    private String isPercent;
 
-    @NotBlank
     @JacksonXmlProperty(localName = "isAlpha")
-    private String isAlpha; //TODO: convert to boolean
+    @CanonicalField
+    private String isAlpha;
 
     public Integer getId() {
         return id;

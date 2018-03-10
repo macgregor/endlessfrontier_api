@@ -2,286 +2,287 @@ package com.macgregor.ef.model.ekkor;
 
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
-import com.macgregor.ef.dataload.annotations.Translate;
-import org.hibernate.validator.constraints.NotBlank;
+import com.macgregor.ef.dataload.annotations.*;
+import com.macgregor.ef.model.canonical.Unit;
 
 import javax.validation.constraints.NotNull;
 
 @JacksonXmlRootElement(localName = "unit")
+@CanonicalModel(type=Unit.class)
 public class UnitXML extends AbstractXMLModel {
 
-    @NotNull
     @JacksonXmlProperty(localName = "kindNum")
+    @CanonicalField
     private Integer id;
 
-    @NotNull
     @JacksonXmlProperty(localName = "tribe")
+    @CanonicalField
     private Integer tribe;
 
-    @NotBlank
     @JacksonXmlProperty(localName = "className")
+    @CanonicalField
     private String className;
 
-    @NotBlank
     @JacksonXmlProperty(localName = "name")
+    @CanonicalField
     @Translate(key="UNIT_NAME_{id}")
     private String name;
 
-    @NotNull
     @JacksonXmlProperty(localName = "cost")
+    @CanonicalField
     private Integer cost;
 
-    @NotNull
     @JacksonXmlProperty(localName = "shopGem")
+    @CanonicalField
     private Integer shopGem;
 
-    @NotNull
     @JacksonXmlProperty(localName = "evolveGem")
+    @CanonicalField
     private Integer evolveGem;
 
-    @NotNull
     @JacksonXmlProperty(localName = "coin")
+    @CanonicalField
     private Integer coin;
 
-    @NotNull
     @JacksonXmlProperty(localName = "rare")
+    @CanonicalField
     private Integer rare;
 
-    @NotNull
     @JacksonXmlProperty(localName = "size")
+    @CanonicalField
     private Integer size;
 
-    @NotNull
     @JacksonXmlProperty(localName = "evolKindNum")
+    @CanonicalField
     private Integer evolKindNum;
 
-    @NotBlank
     @JacksonXmlProperty(localName = "attackType")
+    @CanonicalField
     private String attackType;
 
-    @NotBlank
     @JacksonXmlProperty(localName = "isAirUnit")
-    private String isAirUnit; //TODO: convert to boolean
+    @CanonicalField
+    private String isAirUnit;
 
-    @NotBlank
     @JacksonXmlProperty(localName = "damageType")
+    @CanonicalField
     private String damageType;
 
-    @NotBlank
     @JacksonXmlProperty(localName = "hasSkill")
-    private String hasSkill; //TODO: convert to boolean
+    @CanonicalField
+    private String hasSkill;
 
-    @NotBlank
     @JacksonXmlProperty(localName = "skillAttackType")
-    private String skillAttackType; //TODO: convert to boolean
+    @CanonicalField
+    private String skillAttackType;
 
-    @NotBlank
     @JacksonXmlProperty(localName = "skillDamageType")
-    private String skillDamageType; //TODO: convert to boolean
+    @CanonicalField
+    private String skillDamageType;
 
-    @NotNull
     @JacksonXmlProperty(localName = "initHp")
-    private Double initHp;
+    @CanonicalField
+    private Float initHp;
 
-    @NotNull
     @JacksonXmlProperty(localName = "incHp")
-    private Double incHp;
+    @CanonicalField
+    private Float incHp;
 
-    @NotNull
     @JacksonXmlProperty(localName = "initDamage")
-    private Double initDamage;
+    @CanonicalField
+    private Float initDamage;
 
-    @NotNull
     @JacksonXmlProperty(localName = "incDamage")
-    private Double incDamage;
+    @CanonicalField
+    private Float incDamage;
 
-    @NotNull
     @JacksonXmlProperty(localName = "initPhyDef")
-    private Double initPhyDef;
+    @CanonicalField
+    private Float initPhyDef;
 
-    @NotNull
     @JacksonXmlProperty(localName = "incPhyDef")
-    private Double incPhyDef;
+    @CanonicalField
+    private Float incPhyDef;
 
-    @NotNull
     @JacksonXmlProperty(localName = "initMagDef")
-    private Double initMagDef;
+    @CanonicalField
+    private Float initMagDef;
 
     @NotNull
     @JacksonXmlProperty(localName = "incMagDef")
-    private Double incMagDef;
+    @CanonicalField
+    private Float incMagDef;
 
-    @NotNull
     @JacksonXmlProperty(localName = "numUnitBlock")
+    @CanonicalField
     private Integer numUnitBlock;
 
-    @NotNull
     @JacksonXmlProperty(localName = "moveSpeed")
-    private Double moveSpeed;
+    @CanonicalField
+    private Float moveSpeed;
 
-    @NotNull
     @JacksonXmlProperty(localName = "attackSpeed")
+    @CanonicalField
     private Integer attackSpeed;
 
-    @NotNull
     @JacksonXmlProperty(localName = "skillSpeed")
+    @CanonicalField
     private Integer skillSpeed;
 
-    @NotNull
     @JacksonXmlProperty(localName = "attackRange")
+    @CanonicalField
     private Integer attackRange;
 
-    @NotNull
     @JacksonXmlProperty(localName = "skillRange")
+    @CanonicalField
     private Integer skillRange;
 
-    @NotNull
     @JacksonXmlProperty(localName = "evadePercent")
-    private Double evadePercent;
+    @CanonicalField
+    private Float evadePercent;
 
-    @NotNull
     @JacksonXmlProperty(localName = "blockPercent")
-    private Double blockPercent;
+    @CanonicalField
+    private Float blockPercent;
 
-    @NotNull
     @JacksonXmlProperty(localName = "criticalPercent")
-    private Double criticalPercent;
+    @CanonicalField
+    private Float criticalPercent;
 
-    @NotNull
     @JacksonXmlProperty(localName = "criticalDamage")
-    private Double criticalDamage;
+    @CanonicalField
+    private Float criticalDamage;
 
-    @NotNull
     @JacksonXmlProperty(localName = "splashRange")
+    @CanonicalField
     private Integer splashRange;
 
-    @NotNull
     @JacksonXmlProperty(localName = "splashDamage")
-    private Double splashDamage;
+    @CanonicalField
+    private Float splashDamage;
 
-    @NotNull
     @JacksonXmlProperty(localName = "specialSkill")
+    @CanonicalField
     private Integer specialSkill;
 
-    @NotNull
     @JacksonXmlProperty(localName = "passiveSkill")
+    @CanonicalField
     private Integer passiveSkill;
 
-    @NotNull
     @JacksonXmlProperty(localName = "reviveTime")
+    @CanonicalField
     private Integer reviveTime;
 
-    @NotBlank
     @JacksonXmlProperty(localName = "bloody")
-    private String bloody; //TODO: convert to boolean
+    @CanonicalField
+    private String bloody;
 
-    @NotBlank
     @JacksonXmlProperty(localName = "explodeDie")
-    private String explodeDie; //TODO: convert to boolean
+    @CanonicalField
+    private String explodeDie;
 
-    @NotBlank
     @JacksonXmlProperty(localName = "des")
+    @CanonicalField
     private String des;
 
-    @NotBlank
     @JacksonXmlProperty(localName = "message")
+    @CanonicalField
     @Translate(key="UNIT_DESC_{id}")
     private String message;
 
-    @NotBlank
     @JacksonXmlProperty(localName = "skillList")
+    @CanonicalField
     private String skillList;
 
-    @NotBlank
     @JacksonXmlProperty(localName = "powerList")
+    @CanonicalField
     private String powerList;
 
-    @NotNull
     @JacksonXmlProperty(localName = "rank")
+    @CanonicalField
     private Integer rank;
 
-    @NotBlank
     @JacksonXmlProperty(localName = "sex")
-    private String sex; //TODO: convert to boolean
+    @CanonicalField
+    private String sex;
 
-    @NotBlank
     @JacksonXmlProperty(localName = "orthoGrade")
-    private String orthoGrade; //TODO: convert to boolean
+    @CanonicalField
+    private String orthoGrade;
 
-    @NotNull
     @JacksonXmlProperty(localName = "shop")
+    @CanonicalField
     private Integer shop;
 
-    @NotBlank
     @JacksonXmlProperty(localName = "showBook")
-    private String showBook; //TODO: convert to boolean
+    @CanonicalField
+    private String showBook;
 
-    @NotNull
     @JacksonXmlProperty(localName = "ratingPosition")
+    @CanonicalField
     private Integer ratingPosition;
 
-    @NotNull
     @JacksonXmlProperty(localName = "trans")
+    @CanonicalField
     private Integer trans;
 
-    @NotBlank
     @JacksonXmlProperty(localName = "material1")
+    @CanonicalField
     private String material1;
 
-    @NotBlank
     @JacksonXmlProperty(localName = "material2")
+    @CanonicalField
     private String material2;
 
-    @NotBlank
     @JacksonXmlProperty(localName = "material3")
+    @CanonicalField
     private String material3;
 
-    @NotNull
     @JacksonXmlProperty(localName = "starBuff")
+    @CanonicalField
     private Integer starBuff;
 
-    @NotNull
     @JacksonXmlProperty(localName = "jewelBuff")
+    @CanonicalField
     private Integer jewelBuff;
 
-    @NotBlank
     @JacksonXmlProperty(localName = "groundAir")
-    private String groundAir; //TODO: convert to boolean
+    @CanonicalField
+    private String groundAir;
 
-    @NotNull
     @JacksonXmlProperty(localName = "offlineSpeed")
-    private Double offlineSpeed;
+    @CanonicalField
+    private Float offlineSpeed;
 
-    @NotNull
     @JacksonXmlProperty(localName = "offlineTime")
+    @CanonicalField
     private Integer offlineTime;
 
-    @NotBlank
     @JacksonXmlProperty(localName = "hasHeart")
-    private String hasHeart; //TODO: convert to boolean
+    @CanonicalField
+    private String hasHeart;
 
-    @NotBlank
     @JacksonXmlProperty(localName = "canDetect")
-    private String canDetect; //TODO: convert to boolean
+    @CanonicalField
+    private String canDetect;
 
-    @NotBlank
     @JacksonXmlProperty(localName = "cloaking")
-    private String cloaking; //TODO: convert to boolean
+    @CanonicalField
+    private String cloaking;
 
-    @NotNull
     @JacksonXmlProperty(localName = "starBuffFromPet")
+    @CanonicalField
     private Integer starBuffFromPet;
 
-    @NotNull
     @JacksonXmlProperty(localName = "isHonor")
+    @CanonicalField
     private Integer isHonor;
 
-    @NotNull
     @JacksonXmlProperty(localName = "honorNumber")
+    @CanonicalField
     private Integer honorNumber;
 
     public Integer getId() {
-
         return id;
     }
 
@@ -417,67 +418,67 @@ public class UnitXML extends AbstractXMLModel {
         this.skillDamageType = skillDamageType;
     }
 
-    public Double getInitHp() {
+    public Float getInitHp() {
         return initHp;
     }
 
-    public void setInitHp(Double initHp) {
+    public void setInitHp(Float initHp) {
         this.initHp = initHp;
     }
 
-    public Double getIncHp() {
+    public Float getIncHp() {
         return incHp;
     }
 
-    public void setIncHp(Double incHp) {
+    public void setIncHp(Float incHp) {
         this.incHp = incHp;
     }
 
-    public Double getInitDamage() {
+    public Float getInitDamage() {
         return initDamage;
     }
 
-    public void setInitDamage(Double initDamage) {
+    public void setInitDamage(Float initDamage) {
         this.initDamage = initDamage;
     }
 
-    public Double getIncDamage() {
+    public Float getIncDamage() {
         return incDamage;
     }
 
-    public void setIncDamage(Double incDamage) {
+    public void setIncDamage(Float incDamage) {
         this.incDamage = incDamage;
     }
 
-    public Double getInitPhyDef() {
+    public Float getInitPhyDef() {
         return initPhyDef;
     }
 
-    public void setInitPhyDef(Double initPhyDef) {
+    public void setInitPhyDef(Float initPhyDef) {
         this.initPhyDef = initPhyDef;
     }
 
-    public Double getIncPhyDef() {
+    public Float getIncPhyDef() {
         return incPhyDef;
     }
 
-    public void setIncPhyDef(Double incPhyDef) {
+    public void setIncPhyDef(Float incPhyDef) {
         this.incPhyDef = incPhyDef;
     }
 
-    public Double getInitMagDef() {
+    public Float getInitMagDef() {
         return initMagDef;
     }
 
-    public void setInitMagDef(Double initMagDef) {
+    public void setInitMagDef(Float initMagDef) {
         this.initMagDef = initMagDef;
     }
 
-    public Double getIncMagDef() {
+    public Float getIncMagDef() {
         return incMagDef;
     }
 
-    public void setIncMagDef(Double incMagDef) {
+    public void setIncMagDef(Float incMagDef) {
         this.incMagDef = incMagDef;
     }
 
@@ -489,11 +490,11 @@ public class UnitXML extends AbstractXMLModel {
         this.numUnitBlock = numUnitBlock;
     }
 
-    public Double getMoveSpeed() {
+    public Float getMoveSpeed() {
         return moveSpeed;
     }
 
-    public void setMoveSpeed(Double moveSpeed) {
+    public void setMoveSpeed(Float moveSpeed) {
         this.moveSpeed = moveSpeed;
     }
 
@@ -529,35 +530,35 @@ public class UnitXML extends AbstractXMLModel {
         this.skillRange = skillRange;
     }
 
-    public Double getEvadePercent() {
+    public Float getEvadePercent() {
         return evadePercent;
     }
 
-    public void setEvadePercent(Double evadePercent) {
+    public void setEvadePercent(Float evadePercent) {
         this.evadePercent = evadePercent;
     }
 
-    public Double getBlockPercent() {
+    public Float getBlockPercent() {
         return blockPercent;
     }
 
-    public void setBlockPercent(Double blockPercent) {
+    public void setBlockPercent(Float blockPercent) {
         this.blockPercent = blockPercent;
     }
 
-    public Double getCriticalPercent() {
+    public Float getCriticalPercent() {
         return criticalPercent;
     }
 
-    public void setCriticalPercent(Double criticalPercent) {
+    public void setCriticalPercent(Float criticalPercent) {
         this.criticalPercent = criticalPercent;
     }
 
-    public Double getCriticalDamage() {
+    public Float getCriticalDamage() {
         return criticalDamage;
     }
 
-    public void setCriticalDamage(Double criticalDamage) {
+    public void setCriticalDamage(Float criticalDamage) {
         this.criticalDamage = criticalDamage;
     }
 
@@ -569,11 +570,11 @@ public class UnitXML extends AbstractXMLModel {
         this.splashRange = splashRange;
     }
 
-    public Double getSplashDamage() {
+    public Float getSplashDamage() {
         return splashDamage;
     }
 
-    public void setSplashDamage(Double splashDamage) {
+    public void setSplashDamage(Float splashDamage) {
         this.splashDamage = splashDamage;
     }
 
@@ -753,11 +754,11 @@ public class UnitXML extends AbstractXMLModel {
         this.groundAir = groundAir;
     }
 
-    public Double getOfflineSpeed() {
+    public Float getOfflineSpeed() {
         return offlineSpeed;
     }
 
-    public void setOfflineSpeed(Double offlineSpeed) {
+    public void setOfflineSpeed(Float offlineSpeed) {
         this.offlineSpeed = offlineSpeed;
     }
 
@@ -818,79 +819,6 @@ public class UnitXML extends AbstractXMLModel {
     }
 
     @Override
-    public String toString() {
-        return "UnitXML{" +
-                "id=" + id +
-                ", tribe=" + tribe +
-                ", className='" + className + '\'' +
-                ", name='" + name + '\'' +
-                ", cost=" + cost +
-                ", shopGem=" + shopGem +
-                ", evolveGem=" + evolveGem +
-                ", coin=" + coin +
-                ", rare=" + rare +
-                ", size=" + size +
-                ", evolKindNum=" + evolKindNum +
-                ", attackType='" + attackType + '\'' +
-                ", isAirUnit='" + isAirUnit + '\'' +
-                ", damageType='" + damageType + '\'' +
-                ", hasSkill='" + hasSkill + '\'' +
-                ", skillAttackType='" + skillAttackType + '\'' +
-                ", skillDamageType='" + skillDamageType + '\'' +
-                ", initHp=" + initHp +
-                ", incHp=" + incHp +
-                ", initDamage=" + initDamage +
-                ", incDamage=" + incDamage +
-                ", initPhyDef=" + initPhyDef +
-                ", incPhyDef=" + incPhyDef +
-                ", initMagDef=" + initMagDef +
-                ", incMagDef=" + incMagDef +
-                ", numUnitBlock=" + numUnitBlock +
-                ", moveSpeed=" + moveSpeed +
-                ", attackSpeed=" + attackSpeed +
-                ", skillSpeed=" + skillSpeed +
-                ", attackRange=" + attackRange +
-                ", skillRange=" + skillRange +
-                ", evadePercent=" + evadePercent +
-                ", blockPercent=" + blockPercent +
-                ", criticalPercent=" + criticalPercent +
-                ", criticalDamage=" + criticalDamage +
-                ", splashRange=" + splashRange +
-                ", splashDamage=" + splashDamage +
-                ", specialSkill=" + specialSkill +
-                ", passiveSkill=" + passiveSkill +
-                ", reviveTime=" + reviveTime +
-                ", bloody='" + bloody + '\'' +
-                ", explodeDie='" + explodeDie + '\'' +
-                ", des='" + des + '\'' +
-                ", message='" + message + '\'' +
-                ", skillList='" + skillList + '\'' +
-                ", powerList='" + powerList + '\'' +
-                ", rank=" + rank +
-                ", sex='" + sex + '\'' +
-                ", orthoGrade='" + orthoGrade + '\'' +
-                ", shop=" + shop +
-                ", showBook='" + showBook + '\'' +
-                ", ratingPosition=" + ratingPosition +
-                ", trans=" + trans +
-                ", material1='" + material1 + '\'' +
-                ", material2='" + material2 + '\'' +
-                ", material3='" + material3 + '\'' +
-                ", starBuff=" + starBuff +
-                ", jewelBuff=" + jewelBuff +
-                ", groundAir='" + groundAir + '\'' +
-                ", offlineSpeed=" + offlineSpeed +
-                ", offlineTime=" + offlineTime +
-                ", hasHeart='" + hasHeart + '\'' +
-                ", canDetect='" + canDetect + '\'' +
-                ", cloaking='" + cloaking + '\'' +
-                ", starBuffFromPet=" + starBuffFromPet +
-                ", isHonor=" + isHonor +
-                ", honorNumber=" + honorNumber +
-                '}';
-    }
-
-    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
@@ -924,22 +852,28 @@ public class UnitXML extends AbstractXMLModel {
         if (incPhyDef != null ? !incPhyDef.equals(unitXML.incPhyDef) : unitXML.incPhyDef != null) return false;
         if (initMagDef != null ? !initMagDef.equals(unitXML.initMagDef) : unitXML.initMagDef != null) return false;
         if (incMagDef != null ? !incMagDef.equals(unitXML.incMagDef) : unitXML.incMagDef != null) return false;
-        if (numUnitBlock != null ? !numUnitBlock.equals(unitXML.numUnitBlock) : unitXML.numUnitBlock != null) return false;
+        if (numUnitBlock != null ? !numUnitBlock.equals(unitXML.numUnitBlock) : unitXML.numUnitBlock != null)
+            return false;
         if (moveSpeed != null ? !moveSpeed.equals(unitXML.moveSpeed) : unitXML.moveSpeed != null) return false;
         if (attackSpeed != null ? !attackSpeed.equals(unitXML.attackSpeed) : unitXML.attackSpeed != null) return false;
         if (skillSpeed != null ? !skillSpeed.equals(unitXML.skillSpeed) : unitXML.skillSpeed != null) return false;
         if (attackRange != null ? !attackRange.equals(unitXML.attackRange) : unitXML.attackRange != null) return false;
         if (skillRange != null ? !skillRange.equals(unitXML.skillRange) : unitXML.skillRange != null) return false;
-        if (evadePercent != null ? !evadePercent.equals(unitXML.evadePercent) : unitXML.evadePercent != null) return false;
-        if (blockPercent != null ? !blockPercent.equals(unitXML.blockPercent) : unitXML.blockPercent != null) return false;
+        if (evadePercent != null ? !evadePercent.equals(unitXML.evadePercent) : unitXML.evadePercent != null)
+            return false;
+        if (blockPercent != null ? !blockPercent.equals(unitXML.blockPercent) : unitXML.blockPercent != null)
+            return false;
         if (criticalPercent != null ? !criticalPercent.equals(unitXML.criticalPercent) : unitXML.criticalPercent != null)
             return false;
         if (criticalDamage != null ? !criticalDamage.equals(unitXML.criticalDamage) : unitXML.criticalDamage != null)
             return false;
         if (splashRange != null ? !splashRange.equals(unitXML.splashRange) : unitXML.splashRange != null) return false;
-        if (splashDamage != null ? !splashDamage.equals(unitXML.splashDamage) : unitXML.splashDamage != null) return false;
-        if (specialSkill != null ? !specialSkill.equals(unitXML.specialSkill) : unitXML.specialSkill != null) return false;
-        if (passiveSkill != null ? !passiveSkill.equals(unitXML.passiveSkill) : unitXML.passiveSkill != null) return false;
+        if (splashDamage != null ? !splashDamage.equals(unitXML.splashDamage) : unitXML.splashDamage != null)
+            return false;
+        if (specialSkill != null ? !specialSkill.equals(unitXML.specialSkill) : unitXML.specialSkill != null)
+            return false;
+        if (passiveSkill != null ? !passiveSkill.equals(unitXML.passiveSkill) : unitXML.passiveSkill != null)
+            return false;
         if (reviveTime != null ? !reviveTime.equals(unitXML.reviveTime) : unitXML.reviveTime != null) return false;
         if (bloody != null ? !bloody.equals(unitXML.bloody) : unitXML.bloody != null) return false;
         if (explodeDie != null ? !explodeDie.equals(unitXML.explodeDie) : unitXML.explodeDie != null) return false;
@@ -961,7 +895,8 @@ public class UnitXML extends AbstractXMLModel {
         if (starBuff != null ? !starBuff.equals(unitXML.starBuff) : unitXML.starBuff != null) return false;
         if (jewelBuff != null ? !jewelBuff.equals(unitXML.jewelBuff) : unitXML.jewelBuff != null) return false;
         if (groundAir != null ? !groundAir.equals(unitXML.groundAir) : unitXML.groundAir != null) return false;
-        if (offlineSpeed != null ? !offlineSpeed.equals(unitXML.offlineSpeed) : unitXML.offlineSpeed != null) return false;
+        if (offlineSpeed != null ? !offlineSpeed.equals(unitXML.offlineSpeed) : unitXML.offlineSpeed != null)
+            return false;
         if (offlineTime != null ? !offlineTime.equals(unitXML.offlineTime) : unitXML.offlineTime != null) return false;
         if (hasHeart != null ? !hasHeart.equals(unitXML.hasHeart) : unitXML.hasHeart != null) return false;
         if (canDetect != null ? !canDetect.equals(unitXML.canDetect) : unitXML.canDetect != null) return false;
@@ -1042,5 +977,78 @@ public class UnitXML extends AbstractXMLModel {
         result = 31 * result + (isHonor != null ? isHonor.hashCode() : 0);
         result = 31 * result + (honorNumber != null ? honorNumber.hashCode() : 0);
         return result;
+    }
+
+    @Override
+    public String toString() {
+        return "UnitXML{" +
+                "id=" + id +
+                ", tribe=" + tribe +
+                ", className='" + className + '\'' +
+                ", name='" + name + '\'' +
+                ", cost=" + cost +
+                ", shopGem=" + shopGem +
+                ", evolveGem=" + evolveGem +
+                ", coin=" + coin +
+                ", rare=" + rare +
+                ", size=" + size +
+                ", evolKindNum=" + evolKindNum +
+                ", attackType='" + attackType + '\'' +
+                ", isAirUnit='" + isAirUnit + '\'' +
+                ", damageType='" + damageType + '\'' +
+                ", hasSkill='" + hasSkill + '\'' +
+                ", skillAttackType='" + skillAttackType + '\'' +
+                ", skillDamageType='" + skillDamageType + '\'' +
+                ", initHp=" + initHp +
+                ", incHp=" + incHp +
+                ", initDamage=" + initDamage +
+                ", incDamage=" + incDamage +
+                ", initPhyDef=" + initPhyDef +
+                ", incPhyDef=" + incPhyDef +
+                ", initMagDef=" + initMagDef +
+                ", incMagDef=" + incMagDef +
+                ", numUnitBlock=" + numUnitBlock +
+                ", moveSpeed=" + moveSpeed +
+                ", attackSpeed=" + attackSpeed +
+                ", skillSpeed=" + skillSpeed +
+                ", attackRange=" + attackRange +
+                ", skillRange=" + skillRange +
+                ", evadePercent=" + evadePercent +
+                ", blockPercent=" + blockPercent +
+                ", criticalPercent=" + criticalPercent +
+                ", criticalDamage=" + criticalDamage +
+                ", splashRange=" + splashRange +
+                ", splashDamage=" + splashDamage +
+                ", specialSkill=" + specialSkill +
+                ", passiveSkill=" + passiveSkill +
+                ", reviveTime=" + reviveTime +
+                ", bloody='" + bloody + '\'' +
+                ", explodeDie='" + explodeDie + '\'' +
+                ", des='" + des + '\'' +
+                ", message='" + message + '\'' +
+                ", skillList='" + skillList + '\'' +
+                ", powerList='" + powerList + '\'' +
+                ", rank=" + rank +
+                ", sex='" + sex + '\'' +
+                ", orthoGrade='" + orthoGrade + '\'' +
+                ", shop=" + shop +
+                ", showBook='" + showBook + '\'' +
+                ", ratingPosition=" + ratingPosition +
+                ", trans=" + trans +
+                ", material1='" + material1 + '\'' +
+                ", material2='" + material2 + '\'' +
+                ", material3='" + material3 + '\'' +
+                ", starBuff=" + starBuff +
+                ", jewelBuff=" + jewelBuff +
+                ", groundAir='" + groundAir + '\'' +
+                ", offlineSpeed=" + offlineSpeed +
+                ", offlineTime=" + offlineTime +
+                ", hasHeart='" + hasHeart + '\'' +
+                ", canDetect='" + canDetect + '\'' +
+                ", cloaking='" + cloaking + '\'' +
+                ", starBuffFromPet=" + starBuffFromPet +
+                ", isHonor=" + isHonor +
+                ", honorNumber=" + honorNumber +
+                '}';
     }
 }

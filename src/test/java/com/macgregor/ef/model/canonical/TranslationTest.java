@@ -2,7 +2,7 @@ package com.macgregor.ef.model.canonical;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
-import com.macgregor.ef.util.TestModels;
+import com.macgregor.ef.util.CanonicalTestModels;
 import io.dropwizard.jackson.Jackson;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -34,13 +34,13 @@ public class TranslationTest {
     public void deserializesFromXml() throws Exception {
         Translation fromXml = XML_MAPPER.readValue(fixture("fixtures/translation.xml"), Translation.class);
         logger.info(JSON_MAPPER.writeValueAsString(fromXml));
-        assertEquals(TestModels.getTranslation(), fromXml);
+        assertEquals(CanonicalTestModels.getTranslation(), fromXml);
     }
 
     @Test
     public void deserializesFromJson() throws Exception {
         Translation fromJson = JSON_MAPPER.readValue(fixture("fixtures/translation.json"), Translation.class);
-        assertEquals(TestModels.getTranslation(), fromJson);
+        assertEquals(CanonicalTestModels.getTranslation(), fromJson);
     }
 
     @Test

@@ -2,9 +2,6 @@ package com.macgregor.ef.model.canonical;
 
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
-import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
-import com.macgregor.ef.dataload.annotations.Translate;
 import io.swagger.annotations.ApiModel;
 import org.hibernate.validator.constraints.NotBlank;
 
@@ -16,40 +13,33 @@ import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "unit_skill")
-@JacksonXmlRootElement(localName = "unitSkill")
-@ApiModel(value="UnitSkillXML", description="UnitSkillXML model describing unit skill in Endless Frontier.")
+@ApiModel(value="UnitSkill", description="UnitSkill model describing unit skill in Endless Frontier.")
 public class UnitSkill {
 
     @Id
     @Column(name="id", nullable = false)
     @NotNull
     @JsonProperty
-    @JacksonXmlProperty(localName = "id")
     private Integer id;
 
     @Column(name = "skill_code", nullable = false)
     @NotBlank
     @JsonProperty
-    @JacksonXmlProperty(localName = "skillCode")
     private String skillCode;
 
     @Column(name="img_index", nullable = false)
     @NotNull
     @JsonProperty
-    @JacksonXmlProperty(localName = "imgIndex")
     private Integer imgIndex;
 
     @Column(name="base_value", nullable = false)
     @NotNull
     @JsonProperty
-    @JacksonXmlProperty(localName = "baseValue")
     private Integer baseValue;
 
     @Column(name = "desc", nullable = false)
     @NotBlank
     @JsonProperty
-    @JacksonXmlProperty(localName = "desc")
-    @Translate(key="UNITSKILL_DESC_{id}")
     private String desc;
 
     public Integer getId() {

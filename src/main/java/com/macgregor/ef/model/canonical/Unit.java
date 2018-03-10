@@ -2,21 +2,17 @@ package com.macgregor.ef.model.canonical;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
-import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
-import com.macgregor.ef.dataload.annotations.Translate;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.NotEmpty;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 @Entity
 @Table(name = "unit")
-@JacksonXmlRootElement(localName = "unit")
 @ApiModel(value="UnitXML", description="UnitXML model describing units in Endless Frontier (e.g. infantry, Ice Spirit, Sword Dancer, etc.)")
 public class Unit {
 
@@ -24,225 +20,187 @@ public class Unit {
     @Column(name="id", nullable = false)
     @NotNull
     @JsonProperty
-    @JacksonXmlProperty(localName = "kindNum")
     private Integer id;
 
     @Column(name = "tribe", nullable = false)
     @NotNull
     @JsonProperty
-    @JacksonXmlProperty(localName = "tribe")
     private Integer tribe;
 
     @Column(name = "class_name", nullable = false)
     @NotBlank
     @JsonProperty
-    @JacksonXmlProperty(localName = "className")
     private String className;
 
     @Column(name = "name", nullable = false)
     @NotBlank
     @JsonProperty
-    @JacksonXmlProperty(localName = "name")
-    @Translate(key="UNIT_NAME_{id}")
     private String name;
 
     @Column(name = "cost", nullable = false)
     @NotNull
     @JsonProperty
-    @JacksonXmlProperty(localName = "cost")
     private Integer cost;
 
     @Column(name = "shop_gem", nullable = false)
     @NotNull
     @JsonProperty
-    @JacksonXmlProperty(localName = "shopGem")
     private Integer shopGem;
 
     @Column(name = "evolve_gem", nullable = false)
     @NotNull
     @JsonProperty
-    @JacksonXmlProperty(localName = "evolveGem")
     private Integer evolveGem;
 
     @Column(name = "coin", nullable = false)
     @NotNull
     @JsonProperty
-    @JacksonXmlProperty(localName = "coin")
     private Integer coin;
 
     @Column(name = "rare", nullable = false)
     @NotNull
     @JsonProperty
-    @JacksonXmlProperty(localName = "rare")
     private Integer rare;
 
     @Column(name = "size", nullable = false)
     @NotNull
     @JsonProperty
-    @JacksonXmlProperty(localName = "size")
     private Integer size;
 
     @Column(name = "evol_kind_num", nullable = false)
     @NotNull
     @JsonProperty
-    @JacksonXmlProperty(localName = "evolKindNum")
     private Integer evolKindNum;
 
     @Column(name = "attack_type", nullable = false)
     @NotBlank
     @JsonProperty
-    @JacksonXmlProperty(localName = "attackType")
     private String attackType;
 
     @Column(name = "is_air_unit", nullable = false)
-    @NotBlank
+    @NotNull
     @JsonProperty
-    @JacksonXmlProperty(localName = "isAirUnit")
-    private String isAirUnit; //TODO: convert to boolean
+    private Boolean isAirUnit;
 
     @Column(name = "damage_type", nullable = false)
     @NotBlank
     @JsonProperty
-    @JacksonXmlProperty(localName = "damageType")
     private String damageType;
 
     @Column(name = "has_skill", nullable = false)
-    @NotBlank
+    @NotNull
     @JsonProperty
-    @JacksonXmlProperty(localName = "hasSkill")
-    private String hasSkill; //TODO: convert to boolean
+    private Boolean hasSkill;
 
     @Column(name = "skill_attack_type", nullable = false)
     @NotBlank
     @JsonProperty
-    @JacksonXmlProperty(localName = "skillAttackType")
-    private String skillAttackType; //TODO: convert to boolean
+    private String skillAttackType;
 
     @Column(name = "skill_damage_type", nullable = false)
     @NotBlank
     @JsonProperty
-    @JacksonXmlProperty(localName = "skillDamageType")
-    private String skillDamageType; //TODO: convert to boolean
+    private String skillDamageType;
 
     @Column(name = "init_hp", nullable = false)
     @NotNull
     @JsonProperty
-    @JacksonXmlProperty(localName = "initHp")
-    private Double initHp;
+    private Float initHp;
 
     @Column(name = "inc_hp", nullable = false)
     @NotNull
     @JsonProperty
-    @JacksonXmlProperty(localName = "incHp")
-    private Double incHp;
+    private Float incHp;
 
     @Column(name = "init_damage", nullable = false)
     @NotNull
     @JsonProperty
-    @JacksonXmlProperty(localName = "initDamage")
-    private Double initDamage;
+    private Float initDamage;
 
     @Column(name = "inc_damage", nullable = false)
     @NotNull
     @JsonProperty
-    @JacksonXmlProperty(localName = "incDamage")
-    private Double incDamage;
+    private Float incDamage;
 
     @Column(name = "init_phy_def", nullable = false)
     @NotNull
     @JsonProperty
-    @JacksonXmlProperty(localName = "initPhyDef")
-    private Double initPhyDef;
+    private Float initPhyDef;
 
     @Column(name = "inc_phy_def", nullable = false)
     @NotNull
     @JsonProperty
-    @JacksonXmlProperty(localName = "incPhyDef")
-    private Double incPhyDef;
+    private Float incPhyDef;
 
     @Column(name = "init_mag_def", nullable = false)
     @NotNull
     @JsonProperty
-    @JacksonXmlProperty(localName = "initMagDef")
-    private Double initMagDef;
+    private Float initMagDef;
 
     @Column(name = "inc_mag_def", nullable = false)
     @NotNull
     @JsonProperty
-    @JacksonXmlProperty(localName = "incMagDef")
-    private Double incMagDef;
+    private Float incMagDef;
 
     @Column(name = "num_unit_block", nullable = false)
     @NotNull
     @JsonProperty
-    @JacksonXmlProperty(localName = "numUnitBlock")
     private Integer numUnitBlock;
 
     @Column(name = "move_speed", nullable = false)
     @NotNull
     @JsonProperty
-    @JacksonXmlProperty(localName = "moveSpeed")
-    private Double moveSpeed;
+    private Float moveSpeed;
 
     @Column(name = "attack_speed", nullable = false)
     @NotNull
     @JsonProperty
-    @JacksonXmlProperty(localName = "attackSpeed")
     private Integer attackSpeed;
 
     @Column(name = "skill_speed", nullable = false)
     @NotNull
     @JsonProperty
-    @JacksonXmlProperty(localName = "skillSpeed")
     private Integer skillSpeed;
 
     @Column(name = "attack_range", nullable = false)
     @NotNull
     @JsonProperty
-    @JacksonXmlProperty(localName = "attackRange")
     private Integer attackRange;
 
     @Column(name = "skill_range", nullable = false)
     @NotNull
     @JsonProperty
-    @JacksonXmlProperty(localName = "skillRange")
     private Integer skillRange;
 
     @Column(name = "evade_percent", nullable = false)
     @NotNull
     @JsonProperty
-    @JacksonXmlProperty(localName = "evadePercent")
-    private Double evadePercent;
+    private Float evadePercent;
 
     @Column(name = "block_percent", nullable = false)
     @NotNull
     @JsonProperty
-    @JacksonXmlProperty(localName = "blockPercent")
-    private Double blockPercent;
+    private Float blockPercent;
 
     @Column(name = "critical_percent", nullable = false)
     @NotNull
     @JsonProperty
-    @JacksonXmlProperty(localName = "criticalPercent")
-    private Double criticalPercent;
+    private Float criticalPercent;
 
     @Column(name = "critical_damage", nullable = false)
     @NotNull
     @JsonProperty
-    @JacksonXmlProperty(localName = "criticalDamage")
-    private Double criticalDamage;
+    private Float criticalDamage;
 
     @Column(name = "splash_range", nullable = false)
     @NotNull
     @JsonProperty
-    @JacksonXmlProperty(localName = "splashRange")
     private Integer splashRange;
 
     @Column(name = "splash_damage", nullable = false)
     @NotNull
     @JsonProperty
-    @JacksonXmlProperty(localName = "splashDamage")
-    private Double splashDamage;
+    private Float splashDamage;
 
     @Column(name = "special_skill", nullable = false)
     @NotNull
@@ -253,181 +211,162 @@ public class Unit {
     @Column(name = "passive_skill", nullable = false)
     @NotNull
     @JsonProperty
-    @JacksonXmlProperty(localName = "passiveSkill")
     private Integer passiveSkill;
 
     @Column(name = "revive_time", nullable = false)
     @NotNull
     @JsonProperty
-    @JacksonXmlProperty(localName = "reviveTime")
     private Integer reviveTime;
 
     @Column(name = "bloody", nullable = false)
-    @NotBlank
+    @NotNull
     @JsonProperty
-    @JacksonXmlProperty(localName = "bloody")
-    private String bloody; //TODO: convert to boolean
+    private Boolean bloody;
 
     @Column(name = "explode_die", nullable = false)
-    @NotBlank
+    @NotNull
     @JsonProperty
-    @JacksonXmlProperty(localName = "explodeDie")
-    private String explodeDie; //TODO: convert to boolean
+    private Boolean explodeDie;
 
     @Column(name = "des", nullable = false)
     @NotBlank
     @JsonProperty
-    @JacksonXmlProperty(localName = "des")
     @ApiModelProperty(value="Not sure what this represents, always seems to be 'AA' for units")
     private String des;
 
     @Column(name = "message", nullable = false, length = 1000)
     @NotBlank
     @JsonProperty
-    @JacksonXmlProperty(localName = "message")
-    @Translate(key="UNIT_DESC_{id}")
     private String message;
 
+    @ElementCollection
+    @CollectionTable
     @Column(name = "skill_list", nullable = false)
-    @NotBlank
+    @NotEmpty
     @JsonProperty
-    @JacksonXmlProperty(localName = "skillList")
-    private String skillList;
+    private List<Integer> skillList;
 
+    @ElementCollection
+    @CollectionTable
     @Column(name = "power_list", nullable = false)
-    @NotBlank
+    @NotEmpty
     @JsonProperty
     @JacksonXmlProperty(localName = "powerList")
-    private String powerList;
+    private List<Integer> powerList;
 
     @Column(name = "rank", nullable = false)
     @NotNull
     @JsonProperty
-    @JacksonXmlProperty(localName = "rank")
     private Integer rank;
 
     @Column(name = "sex", nullable = false)
     @NotBlank
     @JsonProperty
-    @JacksonXmlProperty(localName = "sex")
-    private String sex; //TODO: convert to boolean
+    private String sex;
 
     @Column(name = "ortho_grade", nullable = false)
-    @NotBlank
+    @NotNull
     @JsonProperty
-    @JacksonXmlProperty(localName = "orthoGrade")
-    private String orthoGrade; //TODO: convert to boolean
+    private Boolean orthoGrade;
 
     @Column(name = "shop", nullable = false)
     @NotNull
     @JsonProperty
-    @JacksonXmlProperty(localName = "shop")
     private Integer shop;
 
     @Column(name = "show_book", nullable = false)
-    @NotBlank
+    @NotNull
     @JsonProperty
-    @JacksonXmlProperty(localName = "showBook")
-    private String showBook; //TODO: convert to boolean
+    private Boolean showBook;
 
     @Column(name = "rating_position", nullable = false)
     @NotNull
     @JsonProperty
-    @JacksonXmlProperty(localName = "ratingPosition")
     private Integer ratingPosition;
 
     @Column(name = "trans", nullable = false)
     @NotNull
     @JsonProperty
-    @JacksonXmlProperty(localName = "trans")
     private Integer trans;
 
+    @ElementCollection
+    @CollectionTable
     @Column(name = "material1", nullable = false)
-    @NotBlank
+    @NotEmpty
     @JsonProperty
-    @JacksonXmlProperty(localName = "material1")
-    private String material1;
+    private List<Integer> material1;
 
+    @ElementCollection
+    @CollectionTable
     @Column(name = "material2", nullable = false)
-    @NotBlank
+    @NotEmpty
     @JsonProperty
-    @JacksonXmlProperty(localName = "material2")
-    private String material2;
+    private List<Integer> material2;
 
+    @ElementCollection
+    @CollectionTable
     @Column(name = "material3", nullable = false)
-    @NotBlank
+    @NotEmpty
     @JsonProperty
-    @JacksonXmlProperty(localName = "material3")
-    private String material3;
+    private List<Integer> material3;
 
     @Column(name = "star_buff", nullable = false)
     @NotNull
     @JsonProperty
-    @JacksonXmlProperty(localName = "starBuff")
     private Integer starBuff;
 
     @Column(name = "jewel_buff", nullable = false)
     @NotNull
     @JsonProperty
-    @JacksonXmlProperty(localName = "jewelBuff")
     private Integer jewelBuff;
 
     @Column(name = "ground_air", nullable = false)
-    @NotBlank
+    @NotNull
     @JsonProperty
-    @JacksonXmlProperty(localName = "groundAir")
-    private String groundAir; //TODO: convert to boolean
+    private Boolean groundAir;
 
     @Column(name = "offline_speed", nullable = false)
     @NotNull
     @JsonProperty
-    @JacksonXmlProperty(localName = "offlineSpeed")
-    private Double offlineSpeed;
+    private Float offlineSpeed;
 
     @Column(name = "offline_time", nullable = false)
     @NotNull
     @JsonProperty
-    @JacksonXmlProperty(localName = "offlineTime")
     private Integer offlineTime;
 
     @Column(name = "has_heart", nullable = false)
-    @NotBlank
+    @NotNull
     @JsonProperty
-    @JacksonXmlProperty(localName = "hasHeart")
-    private String hasHeart; //TODO: convert to boolean
+    private Boolean hasHeart;
 
     @Column(name = "can_detect", nullable = false)
-    @NotBlank
+    @NotNull
     @JsonProperty
-    @JacksonXmlProperty(localName = "canDetect")
-    private String canDetect; //TODO: convert to boolean
+    private Boolean canDetect;
 
     @Column(name = "cloaking", nullable = false)
-    @NotBlank
+    @NotNull
     @JsonProperty
-    @JacksonXmlProperty(localName = "cloaking")
-    private String cloaking; //TODO: convert to boolean
+    private Boolean cloaking;
 
     @Column(name = "star_buff_from_pet", nullable = false)
     @NotNull
     @JsonProperty
-    @JacksonXmlProperty(localName = "starBuffFromPet")
     private Integer starBuffFromPet;
 
     @Column(name = "is_honor", nullable = false)
     @NotNull
     @JsonProperty
     @JacksonXmlProperty(localName = "isHonor")
-    private Integer isHonor;
+    private Boolean isHonor;
 
     @Column(name = "honor_number", nullable = false)
     @NotNull
     @JsonProperty
-    @JacksonXmlProperty(localName = "honorNumber")
     private Integer honorNumber;
 
     public Integer getId() {
-
         return id;
     }
 
@@ -523,12 +462,12 @@ public class Unit {
         this.attackType = attackType;
     }
 
-    public String getIsAirUnit() {
+    public Boolean getAirUnit() {
         return isAirUnit;
     }
 
-    public void setIsAirUnit(String isAirUnit) {
-        this.isAirUnit = isAirUnit;
+    public void setAirUnit(Boolean airUnit) {
+        isAirUnit = airUnit;
     }
 
     public String getDamageType() {
@@ -539,11 +478,11 @@ public class Unit {
         this.damageType = damageType;
     }
 
-    public String getHasSkill() {
+    public Boolean getHasSkill() {
         return hasSkill;
     }
 
-    public void setHasSkill(String hasSkill) {
+    public void setHasSkill(Boolean hasSkill) {
         this.hasSkill = hasSkill;
     }
 
@@ -563,67 +502,67 @@ public class Unit {
         this.skillDamageType = skillDamageType;
     }
 
-    public Double getInitHp() {
+    public Float getInitHp() {
         return initHp;
     }
 
-    public void setInitHp(Double initHp) {
+    public void setInitHp(Float initHp) {
         this.initHp = initHp;
     }
 
-    public Double getIncHp() {
+    public Float getIncHp() {
         return incHp;
     }
 
-    public void setIncHp(Double incHp) {
+    public void setIncHp(Float incHp) {
         this.incHp = incHp;
     }
 
-    public Double getInitDamage() {
+    public Float getInitDamage() {
         return initDamage;
     }
 
-    public void setInitDamage(Double initDamage) {
+    public void setInitDamage(Float initDamage) {
         this.initDamage = initDamage;
     }
 
-    public Double getIncDamage() {
+    public Float getIncDamage() {
         return incDamage;
     }
 
-    public void setIncDamage(Double incDamage) {
+    public void setIncDamage(Float incDamage) {
         this.incDamage = incDamage;
     }
 
-    public Double getInitPhyDef() {
+    public Float getInitPhyDef() {
         return initPhyDef;
     }
 
-    public void setInitPhyDef(Double initPhyDef) {
+    public void setInitPhyDef(Float initPhyDef) {
         this.initPhyDef = initPhyDef;
     }
 
-    public Double getIncPhyDef() {
+    public Float getIncPhyDef() {
         return incPhyDef;
     }
 
-    public void setIncPhyDef(Double incPhyDef) {
+    public void setIncPhyDef(Float incPhyDef) {
         this.incPhyDef = incPhyDef;
     }
 
-    public Double getInitMagDef() {
+    public Float getInitMagDef() {
         return initMagDef;
     }
 
-    public void setInitMagDef(Double initMagDef) {
+    public void setInitMagDef(Float initMagDef) {
         this.initMagDef = initMagDef;
     }
 
-    public Double getIncMagDef() {
+    public Float getIncMagDef() {
         return incMagDef;
     }
 
-    public void setIncMagDef(Double incMagDef) {
+    public void setIncMagDef(Float incMagDef) {
         this.incMagDef = incMagDef;
     }
 
@@ -635,11 +574,11 @@ public class Unit {
         this.numUnitBlock = numUnitBlock;
     }
 
-    public Double getMoveSpeed() {
+    public Float getMoveSpeed() {
         return moveSpeed;
     }
 
-    public void setMoveSpeed(Double moveSpeed) {
+    public void setMoveSpeed(Float moveSpeed) {
         this.moveSpeed = moveSpeed;
     }
 
@@ -675,35 +614,35 @@ public class Unit {
         this.skillRange = skillRange;
     }
 
-    public Double getEvadePercent() {
+    public Float getEvadePercent() {
         return evadePercent;
     }
 
-    public void setEvadePercent(Double evadePercent) {
+    public void setEvadePercent(Float evadePercent) {
         this.evadePercent = evadePercent;
     }
 
-    public Double getBlockPercent() {
+    public Float getBlockPercent() {
         return blockPercent;
     }
 
-    public void setBlockPercent(Double blockPercent) {
+    public void setBlockPercent(Float blockPercent) {
         this.blockPercent = blockPercent;
     }
 
-    public Double getCriticalPercent() {
+    public Float getCriticalPercent() {
         return criticalPercent;
     }
 
-    public void setCriticalPercent(Double criticalPercent) {
+    public void setCriticalPercent(Float criticalPercent) {
         this.criticalPercent = criticalPercent;
     }
 
-    public Double getCriticalDamage() {
+    public Float getCriticalDamage() {
         return criticalDamage;
     }
 
-    public void setCriticalDamage(Double criticalDamage) {
+    public void setCriticalDamage(Float criticalDamage) {
         this.criticalDamage = criticalDamage;
     }
 
@@ -715,11 +654,11 @@ public class Unit {
         this.splashRange = splashRange;
     }
 
-    public Double getSplashDamage() {
+    public Float getSplashDamage() {
         return splashDamage;
     }
 
-    public void setSplashDamage(Double splashDamage) {
+    public void setSplashDamage(Float splashDamage) {
         this.splashDamage = splashDamage;
     }
 
@@ -747,19 +686,19 @@ public class Unit {
         this.reviveTime = reviveTime;
     }
 
-    public String getBloody() {
+    public Boolean getBloody() {
         return bloody;
     }
 
-    public void setBloody(String bloody) {
+    public void setBloody(Boolean bloody) {
         this.bloody = bloody;
     }
 
-    public String getExplodeDie() {
+    public Boolean getExplodeDie() {
         return explodeDie;
     }
 
-    public void setExplodeDie(String explodeDie) {
+    public void setExplodeDie(Boolean explodeDie) {
         this.explodeDie = explodeDie;
     }
 
@@ -779,19 +718,19 @@ public class Unit {
         this.message = message;
     }
 
-    public String getSkillList() {
+    public List<Integer> getSkillList() {
         return skillList;
     }
 
-    public void setSkillList(String skillList) {
+    public void setSkillList(List<Integer> skillList) {
         this.skillList = skillList;
     }
 
-    public String getPowerList() {
+    public List<Integer> getPowerList() {
         return powerList;
     }
 
-    public void setPowerList(String powerList) {
+    public void setPowerList(List<Integer> powerList) {
         this.powerList = powerList;
     }
 
@@ -811,11 +750,11 @@ public class Unit {
         this.sex = sex;
     }
 
-    public String getOrthoGrade() {
+    public Boolean getOrthoGrade() {
         return orthoGrade;
     }
 
-    public void setOrthoGrade(String orthoGrade) {
+    public void setOrthoGrade(Boolean orthoGrade) {
         this.orthoGrade = orthoGrade;
     }
 
@@ -827,11 +766,11 @@ public class Unit {
         this.shop = shop;
     }
 
-    public String getShowBook() {
+    public Boolean getShowBook() {
         return showBook;
     }
 
-    public void setShowBook(String showBook) {
+    public void setShowBook(Boolean showBook) {
         this.showBook = showBook;
     }
 
@@ -851,27 +790,27 @@ public class Unit {
         this.trans = trans;
     }
 
-    public String getMaterial1() {
+    public List<Integer> getMaterial1() {
         return material1;
     }
 
-    public void setMaterial1(String material1) {
+    public void setMaterial1(List<Integer> material1) {
         this.material1 = material1;
     }
 
-    public String getMaterial2() {
+    public List<Integer> getMaterial2() {
         return material2;
     }
 
-    public void setMaterial2(String material2) {
+    public void setMaterial2(List<Integer> material2) {
         this.material2 = material2;
     }
 
-    public String getMaterial3() {
+    public List<Integer> getMaterial3() {
         return material3;
     }
 
-    public void setMaterial3(String material3) {
+    public void setMaterial3(List<Integer> material3) {
         this.material3 = material3;
     }
 
@@ -891,19 +830,19 @@ public class Unit {
         this.jewelBuff = jewelBuff;
     }
 
-    public String getGroundAir() {
+    public Boolean getGroundAir() {
         return groundAir;
     }
 
-    public void setGroundAir(String groundAir) {
+    public void setGroundAir(Boolean groundAir) {
         this.groundAir = groundAir;
     }
 
-    public Double getOfflineSpeed() {
+    public Float getOfflineSpeed() {
         return offlineSpeed;
     }
 
-    public void setOfflineSpeed(Double offlineSpeed) {
+    public void setOfflineSpeed(Float offlineSpeed) {
         this.offlineSpeed = offlineSpeed;
     }
 
@@ -915,27 +854,27 @@ public class Unit {
         this.offlineTime = offlineTime;
     }
 
-    public String getHasHeart() {
+    public Boolean getHasHeart() {
         return hasHeart;
     }
 
-    public void setHasHeart(String hasHeart) {
+    public void setHasHeart(Boolean hasHeart) {
         this.hasHeart = hasHeart;
     }
 
-    public String getCanDetect() {
+    public Boolean getCanDetect() {
         return canDetect;
     }
 
-    public void setCanDetect(String canDetect) {
+    public void setCanDetect(Boolean canDetect) {
         this.canDetect = canDetect;
     }
 
-    public String getCloaking() {
+    public Boolean getCloaking() {
         return cloaking;
     }
 
-    public void setCloaking(String cloaking) {
+    public void setCloaking(Boolean cloaking) {
         this.cloaking = cloaking;
     }
 
@@ -947,12 +886,12 @@ public class Unit {
         this.starBuffFromPet = starBuffFromPet;
     }
 
-    public Integer getIsHonor() {
+    public Boolean getHonor() {
         return isHonor;
     }
 
-    public void setIsHonor(Integer isHonor) {
-        this.isHonor = isHonor;
+    public void setHonor(Boolean honor) {
+        isHonor = honor;
     }
 
     public Integer getHonorNumber() {
@@ -961,79 +900,6 @@ public class Unit {
 
     public void setHonorNumber(Integer honorNumber) {
         this.honorNumber = honorNumber;
-    }
-
-    @Override
-    public String toString() {
-        return "UnitXML{" +
-                "id=" + id +
-                ", tribe=" + tribe +
-                ", className='" + className + '\'' +
-                ", name='" + name + '\'' +
-                ", cost=" + cost +
-                ", shopGem=" + shopGem +
-                ", evolveGem=" + evolveGem +
-                ", coin=" + coin +
-                ", rare=" + rare +
-                ", size=" + size +
-                ", evolKindNum=" + evolKindNum +
-                ", attackType='" + attackType + '\'' +
-                ", isAirUnit='" + isAirUnit + '\'' +
-                ", damageType='" + damageType + '\'' +
-                ", hasSkill='" + hasSkill + '\'' +
-                ", skillAttackType='" + skillAttackType + '\'' +
-                ", skillDamageType='" + skillDamageType + '\'' +
-                ", initHp=" + initHp +
-                ", incHp=" + incHp +
-                ", initDamage=" + initDamage +
-                ", incDamage=" + incDamage +
-                ", initPhyDef=" + initPhyDef +
-                ", incPhyDef=" + incPhyDef +
-                ", initMagDef=" + initMagDef +
-                ", incMagDef=" + incMagDef +
-                ", numUnitBlock=" + numUnitBlock +
-                ", moveSpeed=" + moveSpeed +
-                ", attackSpeed=" + attackSpeed +
-                ", skillSpeed=" + skillSpeed +
-                ", attackRange=" + attackRange +
-                ", skillRange=" + skillRange +
-                ", evadePercent=" + evadePercent +
-                ", blockPercent=" + blockPercent +
-                ", criticalPercent=" + criticalPercent +
-                ", criticalDamage=" + criticalDamage +
-                ", splashRange=" + splashRange +
-                ", splashDamage=" + splashDamage +
-                ", specialSkill=" + specialSkill +
-                ", passiveSkill=" + passiveSkill +
-                ", reviveTime=" + reviveTime +
-                ", bloody='" + bloody + '\'' +
-                ", explodeDie='" + explodeDie + '\'' +
-                ", des='" + des + '\'' +
-                ", message='" + message + '\'' +
-                ", skillList='" + skillList + '\'' +
-                ", powerList='" + powerList + '\'' +
-                ", rank=" + rank +
-                ", sex='" + sex + '\'' +
-                ", orthoGrade='" + orthoGrade + '\'' +
-                ", shop=" + shop +
-                ", showBook='" + showBook + '\'' +
-                ", ratingPosition=" + ratingPosition +
-                ", trans=" + trans +
-                ", material1='" + material1 + '\'' +
-                ", material2='" + material2 + '\'' +
-                ", material3='" + material3 + '\'' +
-                ", starBuff=" + starBuff +
-                ", jewelBuff=" + jewelBuff +
-                ", groundAir='" + groundAir + '\'' +
-                ", offlineSpeed=" + offlineSpeed +
-                ", offlineTime=" + offlineTime +
-                ", hasHeart='" + hasHeart + '\'' +
-                ", canDetect='" + canDetect + '\'' +
-                ", cloaking='" + cloaking + '\'' +
-                ", starBuffFromPet=" + starBuffFromPet +
-                ", isHonor=" + isHonor +
-                ", honorNumber=" + honorNumber +
-                '}';
     }
 
     @Override
@@ -1188,5 +1054,78 @@ public class Unit {
         result = 31 * result + (isHonor != null ? isHonor.hashCode() : 0);
         result = 31 * result + (honorNumber != null ? honorNumber.hashCode() : 0);
         return result;
+    }
+
+    @Override
+    public String toString() {
+        return "Unit{" +
+                "id=" + id +
+                ", tribe=" + tribe +
+                ", className='" + className + '\'' +
+                ", name='" + name + '\'' +
+                ", cost=" + cost +
+                ", shopGem=" + shopGem +
+                ", evolveGem=" + evolveGem +
+                ", coin=" + coin +
+                ", rare=" + rare +
+                ", size=" + size +
+                ", evolKindNum=" + evolKindNum +
+                ", attackType='" + attackType + '\'' +
+                ", isAirUnit=" + isAirUnit +
+                ", damageType='" + damageType + '\'' +
+                ", hasSkill=" + hasSkill +
+                ", skillAttackType=" + skillAttackType +
+                ", skillDamageType='" + skillDamageType + '\'' +
+                ", initHp=" + initHp +
+                ", incHp=" + incHp +
+                ", initDamage=" + initDamage +
+                ", incDamage=" + incDamage +
+                ", initPhyDef=" + initPhyDef +
+                ", incPhyDef=" + incPhyDef +
+                ", initMagDef=" + initMagDef +
+                ", incMagDef=" + incMagDef +
+                ", numUnitBlock=" + numUnitBlock +
+                ", moveSpeed=" + moveSpeed +
+                ", attackSpeed=" + attackSpeed +
+                ", skillSpeed=" + skillSpeed +
+                ", attackRange=" + attackRange +
+                ", skillRange=" + skillRange +
+                ", evadePercent=" + evadePercent +
+                ", blockPercent=" + blockPercent +
+                ", criticalPercent=" + criticalPercent +
+                ", criticalDamage=" + criticalDamage +
+                ", splashRange=" + splashRange +
+                ", splashDamage=" + splashDamage +
+                ", specialSkill=" + specialSkill +
+                ", passiveSkill=" + passiveSkill +
+                ", reviveTime=" + reviveTime +
+                ", bloody=" + bloody +
+                ", explodeDie=" + explodeDie +
+                ", des='" + des + '\'' +
+                ", message='" + message + '\'' +
+                ", skillList=" + skillList +
+                ", powerList=" + powerList +
+                ", rank=" + rank +
+                ", sex='" + sex + '\'' +
+                ", orthoGrade=" + orthoGrade +
+                ", shop=" + shop +
+                ", showBook=" + showBook +
+                ", ratingPosition=" + ratingPosition +
+                ", trans=" + trans +
+                ", material1=" + material1 +
+                ", material2=" + material2 +
+                ", material3=" + material3 +
+                ", starBuff=" + starBuff +
+                ", jewelBuff=" + jewelBuff +
+                ", groundAir=" + groundAir +
+                ", offlineSpeed=" + offlineSpeed +
+                ", offlineTime=" + offlineTime +
+                ", hasHeart=" + hasHeart +
+                ", canDetect=" + canDetect +
+                ", cloaking=" + cloaking +
+                ", starBuffFromPet=" + starBuffFromPet +
+                ", isHonor=" + isHonor +
+                ", honorNumber=" + honorNumber +
+                '}';
     }
 }

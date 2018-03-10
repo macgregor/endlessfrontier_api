@@ -1,11 +1,10 @@
 package com.macgregor.ef.util;
 
-import com.macgregor.ef.model.canonical.*;
+import com.macgregor.ef.model.ekkor.*;
 
-public final class TestModels {
-
-    public static Unit getUnit() {
-        Unit unit = new Unit();
+public class EkkorTestModels {
+    public static UnitXML getUnit() {
+        UnitXML unit = new UnitXML();
         unit.setId(2021);
         unit.setTribe(5);
         unit.setClassName("Mamon");
@@ -23,26 +22,26 @@ public final class TestModels {
         unit.setHasSkill("Y");
         unit.setSkillAttackType("N");
         unit.setSkillDamageType("N");
-        unit.setInitHp(9380.0);
-        unit.setIncHp(938.0);
-        unit.setInitDamage(5.0);
-        unit.setIncDamage(0.5);
-        unit.setInitPhyDef(20.0);
-        unit.setIncPhyDef(2.0);
-        unit.setInitMagDef(20.0);
-        unit.setIncMagDef(2.0);
+        unit.setInitHp(9380.0f);
+        unit.setIncHp(938.0f);
+        unit.setInitDamage(5.0f);
+        unit.setIncDamage(0.5f);
+        unit.setInitPhyDef(20.0f);
+        unit.setIncPhyDef(2.0f);
+        unit.setInitMagDef(20.0f);
+        unit.setIncMagDef(2.0f);
         unit.setNumUnitBlock(0);
-        unit.setMoveSpeed(0.97);
+        unit.setMoveSpeed(0.97f);
         unit.setAttackSpeed(95);
         unit.setSkillSpeed(120);
         unit.setAttackRange(620);
         unit.setSkillRange(400);
-        unit.setEvadePercent(0.1);
-        unit.setBlockPercent(0.1);
-        unit.setCriticalPercent(0.2);
-        unit.setCriticalDamage(0.5);
+        unit.setEvadePercent(0.1f);
+        unit.setBlockPercent(0.1f);
+        unit.setCriticalPercent(0.2f);
+        unit.setCriticalDamage(0.5f);
         unit.setSplashRange(0);
-        unit.setSplashDamage(0.0);
+        unit.setSplashDamage(0.0f);
         unit.setSpecialSkill(1);
         unit.setPassiveSkill(0);
         unit.setReviveTime(1500);
@@ -65,7 +64,7 @@ public final class TestModels {
         unit.setStarBuff(0);
         unit.setJewelBuff(0);
         unit.setGroundAir("N");
-        unit.setOfflineSpeed(0.0);
+        unit.setOfflineSpeed(0.0f);
         unit.setOfflineTime(0);
         unit.setHasHeart("N");
         unit.setCanDetect("N");
@@ -77,15 +76,8 @@ public final class TestModels {
         return unit;
     }
 
-    public static Tribe getTribe(){
-        Tribe tribe = new Tribe();
-        tribe.setId(1);
-        tribe.setName("human");
-        return tribe;
-    }
-
-    public static Pet getPet(){
-        Pet pet = new Pet();
+    public static PetXML getPet(){
+        PetXML pet = new PetXML();
         pet.setId(1);
         pet.setClassName("Mambo");
         pet.setName("맘보");
@@ -107,8 +99,8 @@ public final class TestModels {
         return pet;
     }
 
-    public static PetSkill getPetSkill(){
-        PetSkill petSkill = new PetSkill();
+    public static PetSkillXML getPetSkill(){
+        PetSkillXML petSkill = new PetSkillXML();
         petSkill.setId(514);
         petSkill.setNamedId("OFR");
         petSkill.setName("Orc FriendShip Up");
@@ -120,8 +112,8 @@ public final class TestModels {
         return petSkill;
     }
 
-    public static Artifact getArtifact(){
-        Artifact artifact = new Artifact();
+    public static ArtifactXML getArtifact(){
+        ArtifactXML artifact = new ArtifactXML();
         artifact.setId(29);
         artifact.setName("늑대가죽 부츠");
         artifact.setMainCode("S");
@@ -147,8 +139,8 @@ public final class TestModels {
         return artifact;
     }
 
-    public static ArtifactSet getArtifactSet(){
-        ArtifactSet artifactSet = new ArtifactSet();
+    public static ArtifactSetXML getArtifactSet(){
+        ArtifactSetXML artifactSet = new ArtifactSetXML();
         artifactSet.setId(1);
         artifactSet.setTitle("음양 정령도 세트");
         artifactSet.setItemList("47|48");
@@ -164,8 +156,8 @@ public final class TestModels {
         return artifactSet;
     }
 
-    public static UnitSkill getUnitSkill(){
-        UnitSkill unitSkill = new UnitSkill();
+    public static UnitSkillXML getUnitSkill(){
+        UnitSkillXML unitSkill = new UnitSkillXML();
         unitSkill.setId(11);
         unitSkill.setSkillCode("THU");
         unitSkill.setImgIndex(9);
@@ -175,8 +167,8 @@ public final class TestModels {
         return unitSkill;
     }
 
-    public static Translation getTranslation(){
-        Translation translation = new Translation();
+    public static TranslationXML getTranslation(){
+        TranslationXML translation = new TranslationXML();
         translation.setId("ACHIEVE_DESC_2");
         translation.setValue("Maximum Unit Number");
 

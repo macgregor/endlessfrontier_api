@@ -15,18 +15,16 @@ import java.lang.reflect.Field;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class TranslationFieldConverter extends AbstractFieldConverter<Translate> {
+public class TranslationFieldConverter {
     private static final Logger logger = LoggerFactory.getLogger(TranslationFieldConverter.class);
     private SessionFactory sessionFactory;
 
 
     public TranslationFieldConverter(SessionFactory sessionFactory){
-        super(Translate.class);
         this.sessionFactory = sessionFactory;
     }
 
-    @Override
-    public Object convertField(Object obj, Field f) throws CanonicalConversionException {
+    public Object convert(Object obj, Field f) throws CanonicalConversionException {
         logger.debug(String.format("[%s %010d] - beginning translation of field %s", obj.getClass().getSimpleName(), System.identityHashCode(obj), f.getName()));
         String processedKey = "";
         try {

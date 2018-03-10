@@ -1,8 +1,6 @@
 package com.macgregor.ef.model.canonical;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
-import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
 import io.swagger.annotations.ApiModel;
 import org.hibernate.validator.constraints.NotBlank;
 
@@ -13,7 +11,6 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "translation")
-@JacksonXmlRootElement(localName = "text")
 @ApiModel(value="TranslationXML", description="Table containing Korean to English translation data")
 public class Translation {
 
@@ -21,12 +18,10 @@ public class Translation {
     @Column(name="id", nullable = false)
     @NotBlank
     @JsonProperty
-    @JacksonXmlProperty(localName = "id")
     private String id;
 
     @Column(name="value", nullable = true, length = 2000)
     @JsonProperty
-    @JacksonXmlProperty(localName = "value")
     private String value;
 
     public String getId() {

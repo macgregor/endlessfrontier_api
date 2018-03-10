@@ -2,16 +2,20 @@ package com.macgregor.ef.model.ekkor;
 
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
-import org.hibernate.validator.constraints.NotBlank;
+import com.macgregor.ef.dataload.annotations.CanonicalField;
+import com.macgregor.ef.dataload.annotations.CanonicalModel;
+import com.macgregor.ef.model.canonical.Translation;
 
 @JacksonXmlRootElement(localName = "text")
+@CanonicalModel(type= Translation.class)
 public class TranslationXML extends AbstractXMLModel {
 
-    @NotBlank
     @JacksonXmlProperty(localName = "id")
+    @CanonicalField
     private String id;
 
     @JacksonXmlProperty(localName = "value")
+    @CanonicalField
     private String value;
 
     public String getId() {

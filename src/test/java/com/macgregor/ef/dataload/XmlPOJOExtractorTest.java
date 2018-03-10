@@ -55,6 +55,24 @@ public class XmlPOJOExtractorTest {
         assertEquals(tm2, extracted.get(1));
     }
 
+    @Test
+    public void shouldExtractEmptyFieldAsNull() throws DataLoadException {
+        List<TestModel> extracted = extractor.extract("src/test/resources/dataloader/test_model_with_empty_field.xml", "//TestModel", TestModel.class);
+        tm1.name = null;
+
+        assertEquals(2, extracted.size());
+        assertEquals(tm1, extracted.get(0));
+    }
+
+    @Test
+    public void shouldExtractShortEmptyFieldAsNul() throws DataLoadException {
+        List<TestModel> extracted = extractor.extract("src/test/resources/dataloader/test_model_with_empty_field.xml", "//TestModel", TestModel.class);
+        tm2.name = null;
+
+        assertEquals(2, extracted.size());
+        assertEquals(tm2, extracted.get(1));
+    }
+
 
     @JacksonXmlRootElement(localName = "TestModel")
     static class TestModel{
@@ -81,6 +99,14 @@ public class XmlPOJOExtractorTest {
             int result = id != null ? id.hashCode() : 0;
             result = 31 * result + (name != null ? name.hashCode() : 0);
             return result;
+        }
+
+        @Override
+        public String toString() {
+            return "TestModel{" +
+                    "id=" + id +
+                    ", name='" + name + '\'' +
+                    '}';
         }
     }
 }

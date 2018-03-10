@@ -22,14 +22,7 @@ public class EndlessFrontierDataLoader {
 
     public EndlessFrontierDataLoader(SessionFactory sessionFactory){
         this.sessionFactory = sessionFactory;
-
-        List<AbstractFieldConverter> converters = new ArrayList<>();
-        converters.add(new BoolFieldConverter());
-        converters.add(new ListFieldConverter());
-        converters.add(new TranslationFieldConverter(sessionFactory));
-
-
-        this.canonicalModelConverter = new CanonicalModelConverter(converters);
+        this.canonicalModelConverter = new CanonicalModelConverter(new TranslationFieldConverter(sessionFactory));
     }
 
     public EndlessFrontierDataLoader(SessionFactory sessionFactory, CanonicalModelConverter canonicalModelConverter){

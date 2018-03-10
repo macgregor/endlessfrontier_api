@@ -12,4 +12,5 @@ public @interface CanonicalField {
     public static final String MAPS_TO_DEFAULT = "default";
 
     String mapsTo() default MAPS_TO_DEFAULT;
+    Class<?> hint() default Void.class;
 }

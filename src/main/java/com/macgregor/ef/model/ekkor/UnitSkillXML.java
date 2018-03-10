@@ -3,32 +3,33 @@ package com.macgregor.ef.model.ekkor;
 
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
+import com.macgregor.ef.dataload.annotations.CanonicalField;
+import com.macgregor.ef.dataload.annotations.CanonicalModel;
 import com.macgregor.ef.dataload.annotations.Translate;
-import org.hibernate.validator.constraints.NotBlank;
-
-import javax.validation.constraints.NotNull;
+import com.macgregor.ef.model.canonical.UnitSkill;
 
 @JacksonXmlRootElement(localName = "unitSkill")
+@CanonicalModel(type= UnitSkill.class)
 public class UnitSkillXML extends AbstractXMLModel {
 
-    @NotNull
     @JacksonXmlProperty(localName = "id")
+    @CanonicalField
     private Integer id;
 
-    @NotBlank
     @JacksonXmlProperty(localName = "skillCode")
+    @CanonicalField
     private String skillCode;
 
-    @NotNull
     @JacksonXmlProperty(localName = "imgIndex")
+    @CanonicalField
     private Integer imgIndex;
 
-    @NotNull
     @JacksonXmlProperty(localName = "baseValue")
+    @CanonicalField
     private Integer baseValue;
 
-    @NotBlank
     @JacksonXmlProperty(localName = "desc")
+    @CanonicalField
     @Translate(key="UNITSKILL_DESC_{id}")
     private String desc;
 

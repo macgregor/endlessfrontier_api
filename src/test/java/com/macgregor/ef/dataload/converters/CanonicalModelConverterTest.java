@@ -1,14 +1,19 @@
 package com.macgregor.ef.dataload.converters;
 
-import com.macgregor.ef.dataload.annotations.*;
+import com.macgregor.ef.dataload.annotations.CanonicalField;
+import com.macgregor.ef.dataload.annotations.CanonicalModel;
+import com.macgregor.ef.dataload.annotations.Translate;
 import com.macgregor.ef.exceptions.CanonicalConversionException;
+import com.macgregor.ef.model.canonical.Artifact;
+import com.macgregor.ef.model.ekkor.ArtifactXML;
+import com.macgregor.ef.util.CanonicalTestModels;
+import com.macgregor.ef.util.EkkorTestModels;
 import com.macgregor.ef.util.MockTranslationFieldConverter;
 import org.junit.Before;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
@@ -46,7 +51,6 @@ public class CanonicalModelConverterTest {
         public String canonicalName;
 
         @CanonicalField
-        @ConvertBool
         public String convertBool;
 
         @CanonicalField
@@ -54,7 +58,6 @@ public class CanonicalModelConverterTest {
         public String translate;
 
         @CanonicalField
-        @ConvertList
         public String convertList;
 
         public Integer getPrivateId(){ return p_id; }
@@ -63,18 +66,7 @@ public class CanonicalModelConverterTest {
 
     @Before
     public void setup(){
-        List<AbstractFieldConverter> converters = new ArrayList<>();
-
-        BoolFieldConverter boolConverter = new BoolFieldConverter();
-        converters.add(boolConverter);
-
-        ListFieldConverter listConverter = new ListFieldConverter();
-        converters.add(listConverter);
-
-        TranslationFieldConverter translationFieldConverter = new MockTranslationFieldConverter();
-        converters.add(translationFieldConverter);
-
-        this.converter = new CanonicalModelConverter(converters);
+        this.converter = new CanonicalModelConverter(new MockTranslationFieldConverter());
 
         unconverted = new NonCanonicalTestModel();
         unconverted.id = 1;
@@ -130,5 +122,26 @@ public class CanonicalModelConverterTest {
         unconverted.convertList = null;
         CanonicalTestModel converted = (CanonicalTestModel) converter.convert(unconverted);
         assertEquals(unconverted.getPrivateId(), converted.getPrivateId());
+        assertEquals(null, converted.convertBool);
+    }
+
+    @Test
+    public void testCanonicalModelConverterHandleEmptyStringsProperly() throws CanonicalConversionException {
+        ArtifactXML artifactXML = EkkorTestModels.getArtifact();
+        Artifact artifact = (Artifact)converter.convert(artifactXML);
+        assertEquals(CanonicalTestModels.getTranslatedArtifact(), artifact);
+    }
+
+    @Test
+    public void testCanonicalModelConverterHandlesNullStringsProperly() throws CanonicalConversionException {
+        ArtifactXML artifactXML = EkkorTestModels.getArtifact();
+        artifactXML.setSkillCode3(null);
+
+        Artifact actual = (Artifact)converter.convert(artifactXML);
+
+        Artifact expected = CanonicalTestModels.getTranslatedArtifact();
+        expected.setSkillCode3(null);
+
+        assertEquals(expected, actual);
     }
 }

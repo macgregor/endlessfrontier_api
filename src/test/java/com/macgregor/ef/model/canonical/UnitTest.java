@@ -2,7 +2,7 @@ package com.macgregor.ef.model.canonical;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
-import com.macgregor.ef.util.TestModels;
+import com.macgregor.ef.util.CanonicalTestModels;
 import io.dropwizard.jackson.Jackson;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -35,13 +35,13 @@ public class UnitTest {
     @Test
     public void deserializesFromXml() throws Exception {
         Unit fromXml = XML_MAPPER.readValue(fixture("fixtures/unit.xml"), Unit.class);
-        assertEquals(TestModels.getUnit(), fromXml);
+        assertEquals(CanonicalTestModels.getUnit(), fromXml);
     }
 
     @Test
     public void deserializesFromJson() throws Exception {
         Unit fromJson = JSON_MAPPER.readValue(fixture("fixtures/unit.json"), Unit.class);
-        assertEquals(TestModels.getUnit(), fromJson);
+        assertEquals(CanonicalTestModels.getUnit(), fromJson);
     }
 
     @Test

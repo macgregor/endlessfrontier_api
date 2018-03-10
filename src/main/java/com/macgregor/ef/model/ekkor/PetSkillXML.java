@@ -3,47 +3,40 @@ package com.macgregor.ef.model.ekkor;
 
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
-import com.macgregor.ef.dataload.annotations.CanonicalField;
-import com.macgregor.ef.dataload.annotations.CanonicalModel;
-import com.macgregor.ef.dataload.annotations.Translate;
+import com.macgregor.ef.dataload.annotations.*;
 import com.macgregor.ef.model.canonical.PetSkill;
-import org.hibernate.validator.constraints.NotBlank;
-
-import javax.validation.constraints.NotNull;
 
 @JacksonXmlRootElement(localName = "petSkill")
 @CanonicalModel(type= PetSkill.class)
 public class PetSkillXML extends AbstractXMLModel {
 
-    @NotNull
-    @CanonicalField
     @JacksonXmlProperty(localName = "kindNum")
+    @CanonicalField
     private Integer id;
 
-    @NotBlank
-    @CanonicalField
     @JacksonXmlProperty(localName = "id")
+    @CanonicalField
     private String namedId;
 
-    @CanonicalField
     @JacksonXmlProperty(localName = "name")
+    @CanonicalField
     private String name;
 
-    @CanonicalField
     @JacksonXmlProperty(localName = "sub")
-    private String sub; //TODO: convert to boolean
-
     @CanonicalField
+    private String sub;
+
     @JacksonXmlProperty(localName = "type")
+    @CanonicalField
     private String type;
 
+    @JacksonXmlProperty(localName = "desc")
     @CanonicalField
     @Translate(key="PET_SKILL_DESC_{id}")
-    @JacksonXmlProperty(localName = "desc")
     private String desc;
 
-    @CanonicalField
     @JacksonXmlProperty(localName = "misc")
+    @CanonicalField
     private String misc;
 
     public Integer getId() {

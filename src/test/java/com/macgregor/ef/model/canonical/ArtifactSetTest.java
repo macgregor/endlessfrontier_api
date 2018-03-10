@@ -2,8 +2,7 @@ package com.macgregor.ef.model.canonical;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
-import com.macgregor.ef.model.canonical.ArtifactSet;
-import com.macgregor.ef.util.TestModels;
+import com.macgregor.ef.util.CanonicalTestModels;
 import io.dropwizard.jackson.Jackson;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -35,13 +34,13 @@ public class ArtifactSetTest {
     public void deserializesFromXml() throws Exception {
         ArtifactSet fromXml = XML_MAPPER.readValue(fixture("fixtures/artifact_set.xml"), ArtifactSet.class);
         logger.info(JSON_MAPPER.writeValueAsString(fromXml));
-        assertEquals(TestModels.getArtifactSet(), fromXml);
+        assertEquals(CanonicalTestModels.getArtifactSet(), fromXml);
     }
 
     @Test
     public void deserializesFromJson() throws Exception {
         ArtifactSet fromJson = JSON_MAPPER.readValue(fixture("fixtures/artifact_set.json"), ArtifactSet.class);
-        assertEquals(TestModels.getArtifactSet(), fromJson);
+        assertEquals(CanonicalTestModels.getArtifactSet(), fromJson);
     }
 
     @Test

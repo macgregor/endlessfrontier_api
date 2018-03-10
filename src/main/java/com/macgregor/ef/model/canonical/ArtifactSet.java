@@ -1,21 +1,17 @@
 package com.macgregor.ef.model.canonical;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
-import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
 import com.macgregor.ef.dataload.annotations.Translate;
 import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import org.hibernate.validator.constraints.NotBlank;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 @Entity
 @Table(name = "artifact_set")
-@JacksonXmlRootElement(localName = "treasureSet")
 @ApiModel(value="ArtifactSetXML", description="ArtifactSetXML model describing sets of artifacts in Endless Frontier (e.g. Oath of Heaven Set, Bone Wyvern's Arms Set, etc.)")
 public class ArtifactSet {
 
@@ -23,70 +19,72 @@ public class ArtifactSet {
     @Column(name="id", nullable = false)
     @NotNull
     @JsonProperty
-    @JacksonXmlProperty(localName = "kindNum")
     private Integer id;
 
     @Column(name = "title", nullable = false)
     @NotBlank
     @JsonProperty
-    @JacksonXmlProperty(localName = "title")
-    @Translate(key="RELIC_SET_NAME_{id}")
     private String title;
 
+    @ElementCollection
+    @CollectionTable
     @Column(name = "item_list", nullable = false)
     @NotBlank
     @JsonProperty
-    @JacksonXmlProperty(localName = "itemList")
-    private String itemList; //TODO: pipe separated FK list to artifact
+    private List<Integer> itemList;
 
+    @ElementCollection
+    @CollectionTable
     @Column(name="num_set_list", nullable = false)
     @NotBlank
     @JsonProperty
-    @JacksonXmlProperty(localName = "numSetList")
-    private String numSetList;
+    private List<Integer> numSetList;
 
-
+    @ElementCollection
+    @CollectionTable
     @Column(name = "skill_list", nullable = false)
     @NotBlank
     @JsonProperty
-    @JacksonXmlProperty(localName = "skillList")
-    private String skillList;
+    private List<String> skillList;
 
+    @ElementCollection
+    @CollectionTable
     @Column(name = "value_list", nullable = false)
     @NotBlank
     @JsonProperty
-    @JacksonXmlProperty(localName = "valueList")
-    private String valueList;
+    @ApiModelProperty(value="Im not sure how this data is encoded, it seems to be a list of list of int separated by | and #. e.g. 37#3440000|15#2410000|2410000#600")
+    private List<List<Integer>> valueList;
 
+    @ElementCollection
+    @CollectionTable
     @Column(name = "value_list1", nullable = false)
     @NotBlank
     @JsonProperty
-    @JacksonXmlProperty(localName = "valueList1")
-    private String valueList1;
+    @ApiModelProperty(value="Im not sure how this data is encoded, it seems to be a list of list of int separated by | and #. e.g. 37#3440000|15#2410000|2410000#600")
+    private List<List<Integer>> valueList1;
 
+    @ElementCollection
+    @CollectionTable
     @Column(name = "value_list2", nullable = false)
     @NotBlank
     @JsonProperty
-    @JacksonXmlProperty(localName = "valueList2")
-    private String valueList2;
+    @ApiModelProperty(value="Im not sure how this data is encoded, it seems to be a list of list of int separated by | and #. e.g. 37#3440000|15#2410000|2410000#600")
+    private List<List<Integer>> valueList2;
 
     @Column(name = "desc", nullable = false)
     @NotBlank
     @JsonProperty
-    @JacksonXmlProperty(localName = "desc")
     @Translate(key="RELIC_SET_DESC_{id}")
     private String desc;
 
     @Column(name = "history")
     @JsonProperty
-    @JacksonXmlProperty(localName = "history")
     private String history;
 
     @Column(name = "show_desc", nullable = false)
     @NotBlank
     @JsonProperty
-    @JacksonXmlProperty(localName = "showDesc")
-    private String showDesc; //TODO: boolean
+    private Boolean showDesc;
 
     public Integer getId() {
         return id;
@@ -104,51 +102,51 @@ public class ArtifactSet {
         this.title = title;
     }
 
-    public String getItemList() {
+    public List<Integer> getItemList() {
         return itemList;
     }
 
-    public void setItemList(String itemList) {
+    public void setItemList(List<Integer> itemList) {
         this.itemList = itemList;
     }
 
-    public String getNumSetList() {
+    public List<Integer> getNumSetList() {
         return numSetList;
     }
 
-    public void setNumSetList(String numSetList) {
+    public void setNumSetList(List<Integer> numSetList) {
         this.numSetList = numSetList;
     }
 
-    public String getSkillList() {
+    public List<String> getSkillList() {
         return skillList;
     }
 
-    public void setSkillList(String skillList) {
+    public void setSkillList(List<String> skillList) {
         this.skillList = skillList;
     }
 
-    public String getValueList() {
+    public List<List<Integer>> getValueList() {
         return valueList;
     }
 
-    public void setValueList(String valueList) {
+    public void setValueList(List<List<Integer>> valueList) {
         this.valueList = valueList;
     }
 
-    public String getValueList1() {
+    public List<List<Integer>> getValueList1() {
         return valueList1;
     }
 
-    public void setValueList1(String valueList1) {
+    public void setValueList1(List<List<Integer>> valueList1) {
         this.valueList1 = valueList1;
     }
 
-    public String getValueList2() {
+    public List<List<Integer>> getValueList2() {
         return valueList2;
     }
 
-    public void setValueList2(String valueList2) {
+    public void setValueList2(List<List<Integer>> valueList2) {
         this.valueList2 = valueList2;
     }
 
@@ -168,29 +166,12 @@ public class ArtifactSet {
         this.history = history;
     }
 
-    public String getShowDesc() {
+    public Boolean getShowDesc() {
         return showDesc;
     }
 
-    public void setShowDesc(String showDesc) {
+    public void setShowDesc(Boolean showDesc) {
         this.showDesc = showDesc;
-    }
-
-    @Override
-    public String toString() {
-        return "ArtifactSetXML{" +
-                "id=" + id +
-                ", title='" + title + '\'' +
-                ", itemList='" + itemList + '\'' +
-                ", numSetList=" + numSetList +
-                ", skillList='" + skillList + '\'' +
-                ", valueList='" + valueList + '\'' +
-                ", valueList1='" + valueList1 + '\'' +
-                ", valueList2='" + valueList2 + '\'' +
-                ", desc='" + desc + '\'' +
-                ", history='" + history + '\'' +
-                ", showDesc='" + showDesc + '\'' +
-                '}';
     }
 
     @Override
@@ -227,5 +208,22 @@ public class ArtifactSet {
         result = 31 * result + (history != null ? history.hashCode() : 0);
         result = 31 * result + (showDesc != null ? showDesc.hashCode() : 0);
         return result;
+    }
+
+    @Override
+    public String toString() {
+        return "ArtifactSet{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", itemList=" + itemList +
+                ", numSetList=" + numSetList +
+                ", skillList=" + skillList +
+                ", valueList=" + valueList +
+                ", valueList1=" + valueList1 +
+                ", valueList2=" + valueList2 +
+                ", desc='" + desc + '\'' +
+                ", history='" + history + '\'' +
+                ", showDesc=" + showDesc +
+                '}';
     }
 }

@@ -1,17 +1,14 @@
 package com.macgregor.ef.model.canonical;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
-import com.macgregor.ef.dataload.annotations.Translate;
 import io.swagger.annotations.ApiModel;
 import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.NotEmpty;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 @Entity
 @Table(name = "artifact")
@@ -23,127 +20,106 @@ public class Artifact {
     @Column(name="id", nullable = false)
     @NotNull
     @JsonProperty
-    @JacksonXmlProperty(localName = "kindNum")
     private Integer id;
 
     @Column(name = "name", nullable = false)
     @NotBlank
     @JsonProperty
-    @JacksonXmlProperty(localName = "name")
-    @Translate(key="RELIC_NAME_{id}")
     private String name;
 
     @Column(name = "main_code", nullable = false)
     @NotBlank
     @JsonProperty
-    @JacksonXmlProperty(localName = "mainCode")
     private String mainCode;
 
     @Column(name="sub_code", nullable = false)
     @NotNull
     @JsonProperty
-    @JacksonXmlProperty(localName = "subCode")
     private Integer subCode;
 
     @Column(name="grade", nullable = false)
     @NotNull
     @JsonProperty
-    @JacksonXmlProperty(localName = "grade")
     private Integer grade;
 
     @Column(name="max_lv", nullable = false)
     @NotNull
     @JsonProperty
-    @JacksonXmlProperty(localName = "maxLv")
     private Integer maxLv;
 
     @Column(name = "desc", nullable = false)
     @NotBlank
     @JsonProperty
-    @JacksonXmlProperty(localName = "desc")
-    @Translate(key="RELIC_DESC_{id}")
     private String desc;
 
+    @ElementCollection
+    @CollectionTable
     @Column(name = "open_cost", nullable = false)
-    @NotBlank
+    @NotEmpty
     @JsonProperty
-    @JacksonXmlProperty(localName = "openCost")
-    private String openCost;
+    private List<Long> openCost;
 
     @Column(name = "skill_code1", nullable = false)
     @NotBlank
     @JsonProperty
-    @JacksonXmlProperty(localName = "skillCode1")
-    private String skillCode1; //TODO: fk to ??
+    private String skillCode1;
 
     @Column(name = "ability1", nullable = false)
     @NotNull
     @JsonProperty
-    @JacksonXmlProperty(localName = "ability1")
-    private Integer ability1; //TODO: fk to ??
+    private Integer ability1;
 
     @Column(name = "ability11", nullable = false)
     @NotNull
     @JsonProperty
-    @JacksonXmlProperty(localName = "ability11")
-    private Integer ability11; //TODO: fk to ??
+    private Integer ability11;
 
     @Column(name = "ability21", nullable = false)
     @NotNull
     @JsonProperty
-    @JacksonXmlProperty(localName = "ability21")
-    private Integer ability21; //TODO: fk to ??
+    private Integer ability21;
 
     @Column(name = "skill_code2")
     @JsonProperty
-    @JacksonXmlProperty(localName = "skillCode2")
-    private String skillCode2; //TODO: fk to ??
+    private String skillCode2;
 
     @Column(name = "ability2", nullable = false)
     @NotNull
     @JsonProperty
-    @JacksonXmlProperty(localName = "ability2")
-    private Integer ability2; //TODO: fk to ??
+    private Integer ability2;
 
     @Column(name = "ability12", nullable = false)
     @NotNull
     @JsonProperty
-    @JacksonXmlProperty(localName = "ability12")
-    private Integer ability12; //TODO: fk to ??
+    private Integer ability12;
 
     @Column(name = "ability22", nullable = false)
     @NotNull
     @JsonProperty
-    @JacksonXmlProperty(localName = "ability22")
-    private Integer ability22; //TODO: fk to ??
+    private Integer ability22;
 
     @Column(name = "skill_code3")
     @JsonProperty
-    @JacksonXmlProperty(localName = "skillCode3")
-    private String skillCode3; //TODO: fk to ??
+    private String skillCode3;
 
     @Column(name = "ability3", nullable = false)
     @NotNull
     @JsonProperty
-    @JacksonXmlProperty(localName = "ability3")
-    private Integer ability3; //TODO: fk to ??
+    private Integer ability3;
 
     @Column(name = "upgrade_cost_type", nullable = false)
     @NotNull
     @JsonProperty
-    @JacksonXmlProperty(localName = "upgradeCostType")
-    private Integer upgradeCostType; //TODO: fk to ??
+    private Integer upgradeCostType;
 
     @Column(name = "show_desc", nullable = false)
-    @NotBlank
+    @NotNull
     @JsonProperty
-    @JacksonXmlProperty(localName = "showDesc")
-    private String showDesc;
+    private Boolean showDesc;
 
     @Column(name = "sort_id", nullable = false)
     @NotNull
     @JsonProperty
-    @JacksonXmlProperty(localName = "sortId")
     private Integer sortId;
 
     public Integer getId() {
@@ -202,11 +178,11 @@ public class Artifact {
         this.desc = desc;
     }
 
-    public String getOpenCost() {
+    public List<Long> getOpenCost() {
         return openCost;
     }
 
-    public void setOpenCost(String openCost) {
+    public void setOpenCost(List<Long> openCost) {
         this.openCost = openCost;
     }
 
@@ -298,11 +274,11 @@ public class Artifact {
         this.upgradeCostType = upgradeCostType;
     }
 
-    public String getShowDesc() {
+    public Boolean getShowDesc() {
         return showDesc;
     }
 
-    public void setShowDesc(String showDesc) {
+    public void setShowDesc(Boolean showDesc) {
         this.showDesc = showDesc;
     }
 
@@ -312,33 +288,6 @@ public class Artifact {
 
     public void setSortId(Integer sortId) {
         this.sortId = sortId;
-    }
-
-    @Override
-    public String toString() {
-        return "ArtifactXML{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", mainCode='" + mainCode + '\'' +
-                ", subCode=" + subCode +
-                ", grade=" + grade +
-                ", maxLv=" + maxLv +
-                ", desc='" + desc + '\'' +
-                ", openCost='" + openCost + '\'' +
-                ", skillCode1='" + skillCode1 + '\'' +
-                ", ability1=" + ability1 +
-                ", ability11=" + ability11 +
-                ", ability21=" + ability21 +
-                ", skillCode2='" + skillCode2 + '\'' +
-                ", ability2=" + ability2 +
-                ", ability12=" + ability12 +
-                ", ability22=" + ability22 +
-                ", skillCode3='" + skillCode3 + '\'' +
-                ", ability3=" + ability3 +
-                ", upgradeCostType=" + upgradeCostType +
-                ", showDesc='" + showDesc + '\'' +
-                ", sortId=" + sortId +
-                '}';
     }
 
     @Override
@@ -396,5 +345,32 @@ public class Artifact {
         result = 31 * result + (showDesc != null ? showDesc.hashCode() : 0);
         result = 31 * result + (sortId != null ? sortId.hashCode() : 0);
         return result;
+    }
+
+    @Override
+    public String toString() {
+        return "Artifact{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", mainCode=" + mainCode +
+                ", subCode=" + subCode +
+                ", grade=" + grade +
+                ", maxLv=" + maxLv +
+                ", desc='" + desc + '\'' +
+                ", openCost=" + openCost +
+                ", skillCode1='" + skillCode1 + '\'' +
+                ", ability1=" + ability1 +
+                ", ability11=" + ability11 +
+                ", ability21=" + ability21 +
+                ", skillCode2='" + skillCode2 + '\'' +
+                ", ability2=" + ability2 +
+                ", ability12=" + ability12 +
+                ", ability22=" + ability22 +
+                ", skillCode3='" + skillCode3 + '\'' +
+                ", ability3=" + ability3 +
+                ", upgradeCostType=" + upgradeCostType +
+                ", showDesc=" + showDesc +
+                ", sortId=" + sortId +
+                '}';
     }
 }

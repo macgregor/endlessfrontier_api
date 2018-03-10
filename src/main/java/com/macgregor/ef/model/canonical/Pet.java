@@ -1,21 +1,15 @@
 package com.macgregor.ef.model.canonical;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
-import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
-import com.macgregor.ef.dataload.annotations.Translate;
 import io.swagger.annotations.ApiModel;
 import org.hibernate.validator.constraints.NotBlank;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 @Entity
 @Table(name = "pet")
-@JacksonXmlRootElement(localName = "pet")
 @ApiModel(value="PetXML", description="PetXML model describing pets in Endless Frontier (e.g. Mambo, Lime, etc.)")
 public class Pet {
 
@@ -23,105 +17,95 @@ public class Pet {
     @Column(name="id", nullable = false)
     @NotNull
     @JsonProperty
-    @JacksonXmlProperty(localName = "kindNum")
     private Integer id;
 
     @Column(name = "class_name", nullable = false)
     @NotBlank
     @JsonProperty
-    @JacksonXmlProperty(localName = "className")
     private String className;
 
     @Column(name = "name", nullable = false)
     @NotBlank
     @JsonProperty
-    @JacksonXmlProperty(localName = "name")
-    @Translate(key="PET_NAME_{id}")
     private String name;
 
     @Column(name = "tribe", nullable = false)
     @NotNull
     @JsonProperty
-    @JacksonXmlProperty(localName = "tribe")
-    private Integer tribe; //TODO: fk to tribe
+    private Integer tribe;
 
     @Column(name = "type", nullable = false)
     @NotBlank
     @JsonProperty
-    @JacksonXmlProperty(localName = "type")
     private String type;
 
     @Column(name = "rank", nullable = false)
     @NotNull
     @JsonProperty
-    @JacksonXmlProperty(localName = "rank")
     private Integer rank;
 
     @Column(name = "skill1", nullable = false)
     @NotNull
     @JsonProperty
-    @JacksonXmlProperty(localName = "skill1")
-    private Integer skill1; //TODO: fk to PetSkillXML
+    private Integer skill1;
 
+    @ElementCollection
+    @CollectionTable
     @Column(name = "value1", nullable = false)
     @NotBlank
     @JsonProperty
-    @JacksonXmlProperty(localName = "value1")
-    private String value1;
+    private List<Float> value1;
 
     @Column(name = "skill2", nullable = false)
     @NotNull
     @JsonProperty
-    @JacksonXmlProperty(localName = "skill2")
-    private Integer skill2; //TODO: fk to ?? PetSkillXML
+    private Integer skill2;
 
+    @ElementCollection
+    @CollectionTable
     @Column(name = "value2", nullable = false)
     @NotBlank
     @JsonProperty
-    @JacksonXmlProperty(localName = "value2")
-    private String value2;
+    private List<Integer> value2;
 
+    @ElementCollection
+    @CollectionTable
     @Column(name = "value3", nullable = false)
     @NotBlank
     @JsonProperty
-    @JacksonXmlProperty(localName = "value3")
-    private String value3;
+    private List<Integer> value3;
 
     @Column(name = "master_skill", nullable = false)
     @NotNull
     @JsonProperty
-    @JacksonXmlProperty(localName = "masterSkill")
-    private Integer masterSkill; //TODO: FK to ?? PetSkillXML
+    private Integer masterSkill;
 
     @Column(name = "couple", nullable = false)
     @NotNull
     @JsonProperty
-    @JacksonXmlProperty(localName = "couple")
-    private Integer couple; //TODO: FK to UnitXML
+    private Integer couple;
 
+    @ElementCollection
+    @CollectionTable
     @Column(name = "inc_gold_level", nullable = false)
     @NotBlank
     @JsonProperty
-    @JacksonXmlProperty(localName = "incGoldLevel")
-    private String incGoldLevel;
+    private List<Integer> incGoldLevel;
 
     @Column(name = "treasure", nullable = false)
     @NotNull
     @JsonProperty
-    @JacksonXmlProperty(localName = "treasure")
-    private Integer treasure; //TODO: FK to artifact
+    private Integer treasure;
 
     @Column(name = "is_percent", nullable = false)
     @NotBlank
     @JsonProperty
-    @JacksonXmlProperty(localName = "isPercent")
-    private String isPercent; //TODO: convert to boolean
+    private Boolean isPercent;
 
     @Column(name = "is_alpha", nullable = false)
     @NotBlank
     @JsonProperty
-    @JacksonXmlProperty(localName = "isAlpha")
-    private String isAlpha; //TODO: convert to boolean
+    private Boolean isAlpha;
 
     public Integer getId() {
         return id;
@@ -179,11 +163,11 @@ public class Pet {
         this.skill1 = skill1;
     }
 
-    public String getValue1() {
+    public List<Float> getValue1() {
         return value1;
     }
 
-    public void setValue1(String value1) {
+    public void setValue1(List<Float> value1) {
         this.value1 = value1;
     }
 
@@ -195,19 +179,19 @@ public class Pet {
         this.skill2 = skill2;
     }
 
-    public String getValue2() {
+    public List<Integer> getValue2() {
         return value2;
     }
 
-    public void setValue2(String value2) {
+    public void setValue2(List<Integer> value2) {
         this.value2 = value2;
     }
 
-    public String getValue3() {
+    public List<Integer> getValue3() {
         return value3;
     }
 
-    public void setValue3(String value3) {
+    public void setValue3(List<Integer> value3) {
         this.value3 = value3;
     }
 
@@ -227,11 +211,11 @@ public class Pet {
         this.couple = couple;
     }
 
-    public String getIncGoldLevel() {
+    public List<Integer> getIncGoldLevel() {
         return incGoldLevel;
     }
 
-    public void setIncGoldLevel(String incGoldLevel) {
+    public void setIncGoldLevel(List<Integer> incGoldLevel) {
         this.incGoldLevel = incGoldLevel;
     }
 
@@ -243,43 +227,20 @@ public class Pet {
         this.treasure = treasure;
     }
 
-    public String getIsPercent() {
+    public Boolean getPercent() {
         return isPercent;
     }
 
-    public void setIsPercent(String isPercent) {
-        this.isPercent = isPercent;
+    public void setPercent(Boolean percent) {
+        isPercent = percent;
     }
 
-    public String getIsAlpha() {
+    public Boolean getAlpha() {
         return isAlpha;
     }
 
-    public void setIsAlpha(String isAlpha) {
-        this.isAlpha = isAlpha;
-    }
-
-    @Override
-    public String toString() {
-        return "PetXML{" +
-                "id=" + id +
-                ", className='" + className + '\'' +
-                ", name='" + name + '\'' +
-                ", tribe=" + tribe +
-                ", type='" + type + '\'' +
-                ", rank=" + rank +
-                ", skill1=" + skill1 +
-                ", value1='" + value1 + '\'' +
-                ", skill2=" + skill2 +
-                ", value2='" + value2 + '\'' +
-                ", value3='" + value3 + '\'' +
-                ", masterSkill=" + masterSkill +
-                ", couple=" + couple +
-                ", incGoldLevel='" + incGoldLevel + '\'' +
-                ", treasure=" + treasure +
-                ", isPercent='" + isPercent + '\'' +
-                ", isAlpha='" + isAlpha + '\'' +
-                '}';
+    public void setAlpha(Boolean alpha) {
+        isAlpha = alpha;
     }
 
     @Override
@@ -328,5 +289,28 @@ public class Pet {
         result = 31 * result + (isPercent != null ? isPercent.hashCode() : 0);
         result = 31 * result + (isAlpha != null ? isAlpha.hashCode() : 0);
         return result;
+    }
+
+    @Override
+    public String toString() {
+        return "Pet{" +
+                "id=" + id +
+                ", className='" + className + '\'' +
+                ", name='" + name + '\'' +
+                ", tribe=" + tribe +
+                ", type='" + type + '\'' +
+                ", rank=" + rank +
+                ", skill1=" + skill1 +
+                ", value1=" + value1 +
+                ", skill2=" + skill2 +
+                ", value2=" + value2 +
+                ", value3=" + value3 +
+                ", masterSkill=" + masterSkill +
+                ", couple=" + couple +
+                ", incGoldLevel=" + incGoldLevel +
+                ", treasure=" + treasure +
+                ", isPercent=" + isPercent +
+                ", isAlpha=" + isAlpha +
+                '}';
     }
 }

@@ -15,8 +15,6 @@ import java.io.Serializable;
 import java.lang.reflect.Field;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
 
 public class TranslationFieldConverterTest {
 
@@ -127,7 +125,7 @@ public class TranslationFieldConverterTest {
     public void testTranslateDoesntThrowNPEWhenTranslationEntityNotFound() throws CanonicalConversionException {
         ((MockTranslationFieldConverter) translationFieldConverter).setTranslation(null);
         Field f = FieldUtils.getField(testModel.getClass(), "keyWithFieldReference");
-        translationFieldConverter.convertField(testModel, f);
+        translationFieldConverter.convert(testModel, f);
     }
 
     @Test
@@ -137,19 +135,7 @@ public class TranslationFieldConverterTest {
         t.setValue("");
         ((MockTranslationFieldConverter) translationFieldConverter).setTranslation(t);
         Field f = FieldUtils.getField(testModel.getClass(), "simpleKey");
-        String translated = (String)translationFieldConverter.convertField(testModel, f);
+        String translated = (String)translationFieldConverter.convert(testModel, f);
         assertEquals("untranslated", translated);
-    }
-
-    @Test
-    public void testCanConvertTranslateAnnotatedFields(){
-        Field f = FieldUtils.getField(testModel.getClass(), "simpleKey");
-        assertTrue(translationFieldConverter.canConvert(f));
-    }
-
-    @Test
-    public void testCanConvertNonTranslateAnnotatedFields(){
-        Field f = FieldUtils.getField(testModel.getClass(), "id");
-        assertFalse(translationFieldConverter.canConvert(f));
     }
 }

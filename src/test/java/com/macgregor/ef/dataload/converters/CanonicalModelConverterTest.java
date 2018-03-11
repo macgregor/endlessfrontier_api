@@ -1,5 +1,6 @@
 package com.macgregor.ef.dataload.converters;
 
+import ch.qos.logback.classic.Level;
 import com.macgregor.ef.dataload.annotations.CanonicalField;
 import com.macgregor.ef.dataload.annotations.CanonicalModel;
 import com.macgregor.ef.dataload.annotations.Translate;
@@ -9,6 +10,7 @@ import com.macgregor.ef.model.ekkor.ArtifactXML;
 import com.macgregor.ef.util.CanonicalTestModels;
 import com.macgregor.ef.util.EkkorTestModels;
 import com.macgregor.ef.util.MockTranslationFieldConverter;
+import io.dropwizard.logging.BootstrapLogging;
 import org.junit.Before;
 import org.junit.Test;
 import org.slf4j.Logger;
@@ -19,6 +21,10 @@ import java.util.List;
 import static org.junit.Assert.assertEquals;
 
 public class CanonicalModelConverterTest {
+    static {
+        BootstrapLogging.bootstrap(Level.OFF);
+    }
+
     private static final Logger logger = LoggerFactory.getLogger(CanonicalModelConverter.class);
 
     private CanonicalModelConverter converter;
@@ -128,8 +134,12 @@ public class CanonicalModelConverterTest {
     @Test
     public void testCanonicalModelConverterHandleEmptyStringsProperly() throws CanonicalConversionException {
         ArtifactXML artifactXML = EkkorTestModels.getArtifact();
+        artifactXML.setSkillCode3("");
         Artifact artifact = (Artifact)converter.convert(artifactXML);
-        assertEquals(CanonicalTestModels.getTranslatedArtifact(), artifact);
+
+        Artifact expected = CanonicalTestModels.getTranslatedArtifact();
+        expected.setSkillCode3("");
+        assertEquals(expected, artifact);
     }
 
     @Test

@@ -46,13 +46,13 @@ public class CanonicalFieldConverterTest {
         List<Integer> expected = Arrays.asList(1,2,3);
         for(char c : CanonicalFieldConverter.LIST_FIELD_DELIMINATORS){
             String stringList = StringUtils.join(expected, c);
-            assertEquals(expected, converter.convertCollection(stringList, Integer[].class));
+            assertEquals(expected, converter.convertCollection(stringList, Integer.class));
         }
     }
 
     @Test
     public void testIntegerArrayConversionDefaultsNull() throws CanonicalConversionException {
-        assertEquals(null, converter.convert("", Integer[].class));
+        assertArrayEquals(new Integer[]{}, (Integer[])converter.convert("", Integer[].class));
     }
 
     @Test
@@ -93,12 +93,9 @@ public class CanonicalFieldConverterTest {
     }
 
     @Test
-    public void testBooleanArrayConversionPrimitiveArray() throws CanonicalConversionException {
-        boolean[] expected = new boolean[]{true, false, true};
-        for(char c : CanonicalFieldConverter.LIST_FIELD_DELIMINATORS){
-            String stringList = StringUtils.join(expected, c);
-            assertArrayEquals(expected, (boolean[]) converter.convert(stringList, boolean[].class));
-        }
+    public void testStringListsOnlySplitOnDelim() throws CanonicalConversionException {
+        String[] expected = new String[]{"questGoldGain_A", "attackSpeed_A"};
+        assertArrayEquals(expected, (String[]) converter.convert("questGoldGain_A#attackSpeed_A", String[].class));
     }
 
     private void testArrayConversion(Object[] expected, Class<?> clazz) throws CanonicalConversionException{

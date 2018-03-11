@@ -21,7 +21,7 @@ database:
     hibernate.dialect: org.hibernate.dialect.H2Dialect
     hibernate.show_sql: false
     hibernate.generate_statistics: false
-    hibernate.hbm2ddl.auto: validate # validates schema when service is started
+    hibernate.hbm2ddl.auto: create
 swagger:
   resourcePackage: com.macgregor.ef.resource
   title: endlessfrontier-api
@@ -42,13 +42,13 @@ logging:
       "org.hibernate":
         level: ERROR
       "com.macgregor.ef":
-        level: ERROR
+        level: INFO
       "org.reflections":
         level: ERROR
       "org.eclipse.jetty":
         level: ERROR
       "com.macgregor.ef.dataload":
-            level: INFO
+            level: DEBUG
             additive: false
             appenders:
               - type: file

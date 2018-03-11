@@ -8,6 +8,7 @@ import com.macgregor.ef.model.ekkor.*;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.hibernate.query.Query;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -68,7 +69,9 @@ public class EndlessFrontierDataLoader {
         tx.commit();
         session.close();
 
-        logger.info(String.format("[Data Load %s Persist] - Finished", type.getSimpleName()));
+        int saveCount = count(type);
+
+        logger.info(String.format("[Data Load %s Persist] - Finished. Counted %d entities persisted", type.getSimpleName(), saveCount));
     }
 
     public <T, U> void load(String uri, String rawXPath, Class<T> xmlModel, Class<U> canonicalModel) throws DataLoadException {
@@ -144,5 +147,15 @@ public class EndlessFrontierDataLoader {
         } catch (DataLoadException e) {
             logger.error(String.format("[Data Load %s] Unable to load", PetSkill.class.getSimpleName()), e);
         }
+    }
+
+    private <T> int count(Class<T> type){
+        Session session = sessionFactory.openSession();
+        Transaction tx = session.beginTransaction();
+        Query q = session.createQuery(String.format("select count(*) from %s", type.getSimpleName()));
+        int result = ((Long)q.uniqueResult()).intValue();
+        tx.commit();
+        session.close();
+        return result;
     }
 }

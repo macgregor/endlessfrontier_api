@@ -5,6 +5,7 @@ import com.macgregor.ef.dataload.annotations.Translate;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -29,47 +30,47 @@ public class ArtifactSet {
     @ElementCollection
     @CollectionTable
     @Column(name = "item_list", nullable = false)
-    @NotBlank
+    @NotEmpty
     @JsonProperty
     private List<Integer> itemList;
 
     @ElementCollection
     @CollectionTable
     @Column(name="num_set_list", nullable = false)
-    @NotBlank
+    @NotEmpty
     @JsonProperty
     private List<Integer> numSetList;
 
     @ElementCollection
     @CollectionTable
     @Column(name = "skill_list", nullable = false)
-    @NotBlank
+    @NotEmpty
     @JsonProperty
     private List<String> skillList;
 
     @ElementCollection
     @CollectionTable
     @Column(name = "value_list", nullable = false)
-    @NotBlank
+    @NotEmpty
     @JsonProperty
     @ApiModelProperty(value="Im not sure how this data is encoded, it seems to be a list of list of int separated by | and #. e.g. 37#3440000|15#2410000|2410000#600")
-    private List<List<Integer>> valueList;
+    private List<String> valueList;
 
     @ElementCollection
     @CollectionTable
     @Column(name = "value_list1", nullable = false)
-    @NotBlank
+    @NotEmpty
     @JsonProperty
     @ApiModelProperty(value="Im not sure how this data is encoded, it seems to be a list of list of int separated by | and #. e.g. 37#3440000|15#2410000|2410000#600")
-    private List<List<Integer>> valueList1;
+    private List<String> valueList1;
 
     @ElementCollection
     @CollectionTable
     @Column(name = "value_list2", nullable = false)
-    @NotBlank
+    @NotEmpty
     @JsonProperty
     @ApiModelProperty(value="Im not sure how this data is encoded, it seems to be a list of list of int separated by | and #. e.g. 37#3440000|15#2410000|2410000#600")
-    private List<List<Integer>> valueList2;
+    private List<String> valueList2;
 
     @Column(name = "desc", nullable = false)
     @NotBlank
@@ -82,7 +83,7 @@ public class ArtifactSet {
     private String history;
 
     @Column(name = "show_desc", nullable = false)
-    @NotBlank
+    @NotNull
     @JsonProperty
     private Boolean showDesc;
 
@@ -126,27 +127,27 @@ public class ArtifactSet {
         this.skillList = skillList;
     }
 
-    public List<List<Integer>> getValueList() {
+    public List<String> getValueList() {
         return valueList;
     }
 
-    public void setValueList(List<List<Integer>> valueList) {
+    public void setValueList(List<String> valueList) {
         this.valueList = valueList;
     }
 
-    public List<List<Integer>> getValueList1() {
+    public List<String> getValueList1() {
         return valueList1;
     }
 
-    public void setValueList1(List<List<Integer>> valueList1) {
+    public void setValueList1(List<String> valueList1) {
         this.valueList1 = valueList1;
     }
 
-    public List<List<Integer>> getValueList2() {
+    public List<String> getValueList2() {
         return valueList2;
     }
 
-    public void setValueList2(List<List<Integer>> valueList2) {
+    public void setValueList2(List<String> valueList2) {
         this.valueList2 = valueList2;
     }
 

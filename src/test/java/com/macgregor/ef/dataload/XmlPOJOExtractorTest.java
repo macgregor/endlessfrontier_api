@@ -1,8 +1,10 @@
 package com.macgregor.ef.dataload;
 
+import ch.qos.logback.classic.Level;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
 import com.macgregor.ef.exceptions.DataLoadException;
+import io.dropwizard.logging.BootstrapLogging;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -11,6 +13,9 @@ import java.util.List;
 import static org.junit.Assert.assertEquals;
 
 public class XmlPOJOExtractorTest {
+    static {
+        BootstrapLogging.bootstrap(Level.OFF);
+    }
 
     private static final String testFile = "src/test/resources/dataloader/test_model.xml";
     private XmlPOJOExtractor extractor;

@@ -138,4 +138,21 @@ public class TranslationFieldConverterTest {
         String translated = (String)translationFieldConverter.convert(testModel, f);
         assertEquals("untranslated", translated);
     }
+
+    @Test
+    public void testTraslateDoesntThrowNullPointerExceptionWhenTranslationLookupFails() throws CanonicalConversionException {
+        ((MockTranslationFieldConverter) translationFieldConverter).setTranslation(null);
+        Field f = FieldUtils.getField(testModel.getClass(), "simpleKey");
+        String translated = (String)translationFieldConverter.convert(testModel, f);
+        assertEquals("untranslated", translated);
+    }
+
+    @Test
+    public void testTraslateDoesntThrowNullPointerExceptionWhenTranslationLookupFailsAndSourceFieldIsNull() throws CanonicalConversionException {
+        ((MockTranslationFieldConverter) translationFieldConverter).setTranslation(null);
+        testModel.simpleKey = null;
+        Field f = FieldUtils.getField(testModel.getClass(), "simpleKey");
+        String translated = (String)translationFieldConverter.convert(testModel, f);
+        assertEquals(null, translated);
+    }
 }

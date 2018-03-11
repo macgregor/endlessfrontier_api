@@ -18,7 +18,7 @@ import static org.junit.Assert.assertEquals;
 
 public class EndlessFrontierDataLoaderTest {
     static {
-        BootstrapLogging.bootstrap(Level.DEBUG);
+        BootstrapLogging.bootstrap(Level.OFF);
     }
 
     @Rule
@@ -77,39 +77,21 @@ public class EndlessFrontierDataLoaderTest {
     }
 
     @Test
-    public void testLoadDataTranslatesArtifactSets() throws DataLoadException {
-        dataLoader.loadArtifactSets();
-        assertEquals(50, count(ArtifactSet.class));
-        ArtifactSet a = find(ArtifactSet.class, 1);
-        assertEquals("success", a.getDesc());
-    }
-
-    @Test
     public void testLoadDataExtractsPets() throws DataLoadException {
         dataLoader.loadPets();
         assertEquals(157, count(Pet.class));
-    }
 
-    @Test
-    public void testLoadDataTranslatesPets() throws DataLoadException {
-        dataLoader.loadPets();
-        assertEquals(157, count(Pet.class));
-        Pet p = find(Pet.class, 1);
-        assertEquals("success", p.getName());
+        Pet expected = CanonicalTestModels.getTranslatedPet();
+        assertEquals(expected, find(Pet.class, expected.getId()));
     }
 
     @Test
     public void testLoadDataExtractsPetSkills() throws DataLoadException {
         dataLoader.loadPetSkills();
         assertEquals(456, count(PetSkill.class));
-    }
 
-    @Test
-    public void testLoadDataTranslatesPetSkills() throws DataLoadException {
-        dataLoader.loadPetSkills();
-        assertEquals(456, count(PetSkill.class));
-        PetSkill p = find(PetSkill.class, 1);
-        assertEquals("success", p.getDesc());
+        PetSkill expected = CanonicalTestModels.getTranslatedPetSkill();
+        assertEquals(expected, find(PetSkill.class, expected.getId()));
     }
 
     @Test

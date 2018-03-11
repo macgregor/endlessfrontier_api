@@ -12,6 +12,7 @@ import org.slf4j.LoggerFactory;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.ParameterizedType;
+import java.util.Collection;
 import java.util.List;
 
 public class CanonicalModelConverter {
@@ -52,6 +53,8 @@ public class CanonicalModelConverter {
             if(f.getAnnotation(Translate.class) == null){
                 if(List.class.isAssignableFrom(conversionHint)){
                     convertedFieldValue = this.fieldConverter.convertCollection(sourceFieldValue, getGenericListType(destField));
+                } else if (Collection.class.isAssignableFrom(conversionHint)){
+                    throw new CanonicalConversionException(String.format("Unsupported Collection type %s. Currently only List is supported.", conversionHint));
                 } else {
                     convertedFieldValue = this.fieldConverter.convert(sourceFieldValue, conversionHint);
                 }

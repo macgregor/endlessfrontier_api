@@ -3,6 +3,7 @@ package com.macgregor.ef.model.canonical;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModel;
 import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -52,7 +53,7 @@ public class Pet {
     @ElementCollection
     @CollectionTable
     @Column(name = "value1", nullable = false)
-    @NotBlank
+    @NotEmpty
     @JsonProperty
     private List<Float> value1;
 
@@ -64,14 +65,14 @@ public class Pet {
     @ElementCollection
     @CollectionTable
     @Column(name = "value2", nullable = false)
-    @NotBlank
+    @NotEmpty
     @JsonProperty
     private List<Integer> value2;
 
     @ElementCollection
     @CollectionTable
     @Column(name = "value3", nullable = false)
-    @NotBlank
+    @NotEmpty
     @JsonProperty
     private List<Integer> value3;
 
@@ -88,7 +89,7 @@ public class Pet {
     @ElementCollection
     @CollectionTable
     @Column(name = "inc_gold_level", nullable = false)
-    @NotBlank
+    @NotEmpty
     @JsonProperty
     private List<Integer> incGoldLevel;
 
@@ -98,12 +99,12 @@ public class Pet {
     private Integer treasure;
 
     @Column(name = "is_percent", nullable = false)
-    @NotBlank
+    @NotNull
     @JsonProperty
     private Boolean isPercent;
 
     @Column(name = "is_alpha", nullable = false)
-    @NotBlank
+    @NotNull
     @JsonProperty
     private Boolean isAlpha;
 

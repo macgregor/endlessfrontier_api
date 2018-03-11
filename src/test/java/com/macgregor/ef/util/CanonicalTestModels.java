@@ -109,11 +109,17 @@ public final class CanonicalTestModels {
         pet.setValue3(Arrays.asList(0,0,0,0,0));
         pet.setMasterSkill(291);
         pet.setCouple(14);
-        pet.setIncGoldLevel(Arrays.asList(2,4,5,6,10));
+        pet.setIncGoldLevel(Arrays.asList(2,4,6,8,10));
         pet.setTreasure(0);
         pet.setPercent(true);
         pet.setAlpha(false);
 
+        return pet;
+    }
+
+    public static Pet getTranslatedPet(){
+        Pet pet = CanonicalTestModels.getPet();
+        pet.setName("success");
         return pet;
     }
 
@@ -125,8 +131,14 @@ public final class CanonicalTestModels {
         petSkill.setType("SUPPORT");
         petSkill.setDesc("오크종족의 우호도 증가");
         petSkill.setSub(null);
-        petSkill.setMisc(null);
+        petSkill.setMisc(Collections.EMPTY_LIST);
 
+        return petSkill;
+    }
+
+    public static PetSkill getTranslatedPetSkill(){
+        PetSkill petSkill = CanonicalTestModels.getPetSkill();
+        petSkill.setDesc("success");
         return petSkill;
     }
 
@@ -148,7 +160,7 @@ public final class CanonicalTestModels {
         artifact.setAbility2(77);
         artifact.setAbility12(0);
         artifact.setAbility22(0);
-        artifact.setSkillCode3("");
+        artifact.setSkillCode3(null);
         artifact.setAbility3(0);
         artifact.setUpgradeCostType(3);
         artifact.setShowDesc(true);
@@ -171,9 +183,9 @@ public final class CanonicalTestModels {
         artifactSet.setItemList(Arrays.asList(47,48));
         artifactSet.setNumSetList(Arrays.asList(2));
         artifactSet.setSkillList(Arrays.asList("questGoldGain_A","attackSpeed_A"));
-        artifactSet.setValueList(Arrays.asList(Collections.singletonList(3725),Collections.singletonList(6)));
-        artifactSet.setValueList1(Arrays.asList(Collections.singletonList(2880000),Collections.singletonList(7)));
-        artifactSet.setValueList2(Arrays.asList(Collections.singletonList(4425000),Collections.singletonList(8)));
+        artifactSet.setValueList(Arrays.asList("3725","6"));
+        artifactSet.setValueList1(Arrays.asList("2880000","7"));
+        artifactSet.setValueList2(Arrays.asList("4425000","8"));
         artifactSet.setDesc("퀘스트 골드획득 증가#공격속도 증가");
         artifactSet.setHistory(null);
         artifactSet.setShowDesc(true);

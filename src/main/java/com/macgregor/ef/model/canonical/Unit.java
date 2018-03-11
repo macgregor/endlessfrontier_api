@@ -234,7 +234,7 @@ public class Unit {
     @ApiModelProperty(value="Not sure what this represents, always seems to be 'AA' for units")
     private String des;
 
-    @Column(name = "message", nullable = false, length = 1000)
+    @Column(name = "message", nullable = false, length = 5000)
     @NotBlank
     @JsonProperty
     private String message;

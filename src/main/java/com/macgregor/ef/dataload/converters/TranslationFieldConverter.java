@@ -42,11 +42,12 @@ public class TranslationFieldConverter {
             logger.warn(String.format("[%s %010d] - Translation Error: key %s not found in database", obj.getClass().getSimpleName(), System.identityHashCode(obj), processedKey));
         }
 
-        // translation failed, try to just return the original message, should always work, but still need to catch the exception...
         try{
           return FieldUtils.readField(f, obj, true).toString();
         } catch (IllegalAccessException e){
             throw new CanonicalConversionException(String.format("[%s %010d] - Failed to do just about everything with field %s", obj.getClass().getSimpleName(), System.identityHashCode(obj), f.getName()), e);
+        } catch (NullPointerException e){
+            return null;
         }
     }
 

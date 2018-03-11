@@ -16,6 +16,7 @@ public class CanonicalFieldConverter {
     public static final String[] TRUE_STRINGS = new String[]{"yes", "y", "true", "on", "1", "t"};
     public static final String[] FALSE_STRINGS = new String[]{"no", "n", "false", "off", "0", "f"};
     public static final char[] LIST_FIELD_DELIMINATORS = new char[]{',', '#', '|'};
+    public static final char[] LIST_FIELD_ALLOWED_CHARS = new char[]{'_'};
 
     static{
         configureBooleanConverter();
@@ -24,6 +25,7 @@ public class CanonicalFieldConverter {
         configureLongConverter();
         configureFloatConverter();
         configureDoubleConverter();
+        configureStringConverter();
     }
 
     public Object convert(Object field, Class<?> hint) throws CanonicalConversionException{
@@ -36,6 +38,8 @@ public class CanonicalFieldConverter {
 
     public List<Object> convertCollection(Object field, Class<?> hint) throws CanonicalConversionException {
         try {
+            // this is a hack to get the array type of an element, which we need because CoversionUtils doesnt work with Collections
+            // https://stackoverflow.com/questions/13392160/about-java-get-string-class-from-string-class-what-if-string-class-is
             return Arrays.asList((Object[])ConvertUtils.convert(field, Class.forName("[L" + hint.getName() + ";")));
         } catch (ClassNotFoundException e) {
             throw new CanonicalConversionException(String.format("Unable to determine array class from %s", hint.getSimpleName()), e);
@@ -47,6 +51,7 @@ public class CanonicalFieldConverter {
         for(char delim : LIST_FIELD_DELIMINATORS){
             ArrayConverter arrayConverter = new ArrayConverter(clazz, converter, 0);
             arrayConverter.setDelimiter(delim);
+            arrayConverter.setAllowedChars(LIST_FIELD_ALLOWED_CHARS);
             ConvertUtils.register(arrayConverter, clazz);
         }
     }
@@ -91,5 +96,13 @@ public class CanonicalFieldConverter {
         ConvertUtils.register(doubleConverter, Double.class);
         ConvertUtils.register(doubleConverter, Double.TYPE);
         configureArrayConvertersFor(Double[].class, doubleConverter);
+    }
+
+    protected static void configureStringConverter(){
+        StringConverter stringConverter = new StringConverter(null);
+        ConvertUtils.register(stringConverter, Double.class);
+        ConvertUtils.register(stringConverter, Double.TYPE);
+        configureArrayConvertersFor(String[].class, stringConverter);
+
     }
 }

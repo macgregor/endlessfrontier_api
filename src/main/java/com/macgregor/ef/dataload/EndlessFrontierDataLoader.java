@@ -84,6 +84,7 @@ public class EndlessFrontierDataLoader {
         logger.info("==============================================");
         logger.info("=              Data Load Beginning           =");
         logger.info("==============================================");
+        loadTribes();
         loadTranslations(); //Translations has no dependencies while other entities may rely on it to translate fields. Always load first.
         loadUnitSkills();
         loadPetSkills();
@@ -147,6 +148,23 @@ public class EndlessFrontierDataLoader {
         } catch (DataLoadException e) {
             logger.error(String.format("[Data Load %s] Unable to load", PetSkill.class.getSimpleName()), e);
         }
+    }
+
+    public void loadTribes(){
+        List<Tribe> tribes = new ArrayList<>(5);
+        tribes.add(new Tribe(1, "Human"));
+        tribes.add(new Tribe(2, "Elf"));
+        tribes.add(new Tribe(3, "Undead"));
+        tribes.add(new Tribe(4, "Orc"));
+        tribes.add(new Tribe(5, "Dungeon"));
+
+        Session session = sessionFactory.openSession();
+        Transaction tx = session.beginTransaction();
+        for(Tribe t : tribes){
+            session.save(t);
+        }
+        tx.commit();
+        session.close();
     }
 
     private <T> int count(Class<T> type){

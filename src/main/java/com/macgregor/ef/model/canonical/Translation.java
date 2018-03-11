@@ -2,6 +2,7 @@ package com.macgregor.ef.model.canonical;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import org.hibernate.validator.constraints.NotBlank;
 
 import javax.persistence.Column;
@@ -11,17 +12,19 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "translation")
-@ApiModel(value="TranslationXML", description="Table containing Korean to English translation data")
+@ApiModel(value="Translation", description="Table containing Korean to English translation data. All data is already translated so not sure what value this will provide.")
 public class Translation {
 
     @Id
     @Column(name="id", nullable = false)
     @NotBlank
     @JsonProperty
+    @ApiModelProperty(value="Lookup key generally in the form SOME_KEY_PREFIX_{id}, e.g. PET_SKILL_DESC_2.")
     private String id;
 
     @Column(name="value", nullable = true, length = 2000)
     @JsonProperty
+    @ApiModelProperty(value="English translation provided by Ekkor.")
     private String value;
 
     public String getId() {

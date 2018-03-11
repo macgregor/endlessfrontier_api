@@ -138,7 +138,7 @@ public class CanonicalModelConverterTest {
         Artifact artifact = (Artifact)converter.convert(artifactXML);
 
         Artifact expected = CanonicalTestModels.getTranslatedArtifact();
-        expected.setSkillCode3("");
+        expected.setAbilityCode3("");
         assertEquals(expected, artifact);
     }
 
@@ -150,7 +150,7 @@ public class CanonicalModelConverterTest {
         Artifact actual = (Artifact)converter.convert(artifactXML);
 
         Artifact expected = CanonicalTestModels.getTranslatedArtifact();
-        expected.setSkillCode3(null);
+        expected.setAbilityCode3(null);
 
         assertEquals(expected, actual);
     }

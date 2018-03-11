@@ -29,19 +29,19 @@ public class UnitXML extends AbstractXMLModel {
     private String name;
 
     @JacksonXmlProperty(localName = "cost")
-    @CanonicalField
+    @CanonicalField(mapsTo = "unitShopMedalCost")
     private Integer cost;
 
     @JacksonXmlProperty(localName = "shopGem")
-    @CanonicalField
+    @CanonicalField(mapsTo = "unitShopGemCost")
     private Integer shopGem;
 
     @JacksonXmlProperty(localName = "evolveGem")
-    @CanonicalField
+    @CanonicalField(mapsTo = "evolveGemCost")
     private Integer evolveGem;
 
     @JacksonXmlProperty(localName = "coin")
-    @CanonicalField
+    @CanonicalField(mapsTo = "honorShopCoinCost")
     private Integer coin;
 
     @JacksonXmlProperty(localName = "rare")
@@ -53,11 +53,11 @@ public class UnitXML extends AbstractXMLModel {
     private Integer size;
 
     @JacksonXmlProperty(localName = "evolKindNum")
-    @CanonicalField
+    @CanonicalField(mapsTo = "evolutionUnitId")
     private Integer evolKindNum;
 
     @JacksonXmlProperty(localName = "attackType")
-    @CanonicalField
+    @CanonicalField(mapsTo = "basicAttackType")
     private String attackType;
 
     @JacksonXmlProperty(localName = "isAirUnit")
@@ -65,7 +65,7 @@ public class UnitXML extends AbstractXMLModel {
     private String isAirUnit;
 
     @JacksonXmlProperty(localName = "damageType")
-    @CanonicalField
+    @CanonicalField(mapsTo = "basicAttackDamageType")
     private String damageType;
 
     @JacksonXmlProperty(localName = "hasSkill")
@@ -77,7 +77,7 @@ public class UnitXML extends AbstractXMLModel {
     private String skillAttackType;
 
     @JacksonXmlProperty(localName = "skillDamageType")
-    @CanonicalField
+    @CanonicalField(mapsTo = "skillAttackDamageType")
     private String skillDamageType;
 
     @JacksonXmlProperty(localName = "initHp")
@@ -122,19 +122,19 @@ public class UnitXML extends AbstractXMLModel {
     private Float moveSpeed;
 
     @JacksonXmlProperty(localName = "attackSpeed")
-    @CanonicalField
+    @CanonicalField(mapsTo = "basicAttackSpeed")
     private Integer attackSpeed;
 
     @JacksonXmlProperty(localName = "skillSpeed")
-    @CanonicalField
+    @CanonicalField(mapsTo = "skillAttackSpeed")
     private Integer skillSpeed;
 
     @JacksonXmlProperty(localName = "attackRange")
-    @CanonicalField
+    @CanonicalField(mapsTo = "basicAttackRange")
     private Integer attackRange;
 
     @JacksonXmlProperty(localName = "skillRange")
-    @CanonicalField
+    @CanonicalField(mapsTo = "skillAttackRange")
     private Integer skillRange;
 
     @JacksonXmlProperty(localName = "evadePercent")
@@ -191,11 +191,11 @@ public class UnitXML extends AbstractXMLModel {
     private String message;
 
     @JacksonXmlProperty(localName = "skillList")
-    @CanonicalField
+    @CanonicalField(mapsTo = "unitSkillList")
     private String skillList;
 
     @JacksonXmlProperty(localName = "powerList")
-    @CanonicalField
+    @CanonicalField(mapsTo = "unitSkillListModifiers")
     private String powerList;
 
     @JacksonXmlProperty(localName = "rank")
@@ -223,23 +223,23 @@ public class UnitXML extends AbstractXMLModel {
     private Integer ratingPosition;
 
     @JacksonXmlProperty(localName = "trans")
-    @CanonicalField
+    @CanonicalField(mapsTo = "maxTransLevel")
     private Integer trans;
 
     @JacksonXmlProperty(localName = "material1")
-    @CanonicalField
+    @CanonicalField(mapsTo = "transMaterialT1")
     private String material1;
 
     @JacksonXmlProperty(localName = "material2")
-    @CanonicalField
+    @CanonicalField(mapsTo = "transMaterialT2")
     private String material2;
 
     @JacksonXmlProperty(localName = "material3")
-    @CanonicalField
+    @CanonicalField(mapsTo = "transMaterialT3")
     private String material3;
 
     @JacksonXmlProperty(localName = "starBuff")
-    @CanonicalField
+    @CanonicalField(mapsTo = "medalBuff")
     private Integer starBuff;
 
     @JacksonXmlProperty(localName = "jewelBuff")
@@ -251,7 +251,7 @@ public class UnitXML extends AbstractXMLModel {
     private String groundAir;
 
     @JacksonXmlProperty(localName = "offlineSpeed")
-    @CanonicalField
+    @CanonicalField(mapsTo = "offlineMarchSpeedBuff")
     private Float offlineSpeed;
 
     @JacksonXmlProperty(localName = "offlineTime")
@@ -263,15 +263,15 @@ public class UnitXML extends AbstractXMLModel {
     private String hasHeart;
 
     @JacksonXmlProperty(localName = "canDetect")
-    @CanonicalField
+    @CanonicalField(mapsTo = "canDetectCloaked")
     private String canDetect;
 
     @JacksonXmlProperty(localName = "cloaking")
-    @CanonicalField
+    @CanonicalField(mapsTo = "isCloaking")
     private String cloaking;
 
     @JacksonXmlProperty(localName = "starBuffFromPet")
-    @CanonicalField
+    @CanonicalField(mapsTo = "medalBuffFromPet")
     private Integer starBuffFromPet;
 
     @JacksonXmlProperty(localName = "isHonor")
@@ -279,7 +279,7 @@ public class UnitXML extends AbstractXMLModel {
     private Integer isHonor;
 
     @JacksonXmlProperty(localName = "honorNumber")
-    @CanonicalField
+    @CanonicalField(mapsTo = "honorRotationNumber")
     private Integer honorNumber;
 
     public Integer getId() {

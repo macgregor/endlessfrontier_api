@@ -27,11 +27,11 @@ public class ArtifactXML extends AbstractXMLModel{
     private Integer subCode;
 
     @JacksonXmlProperty(localName = "grade")
-    @CanonicalField
+    @CanonicalField(mapsTo = "rank")
     private Integer grade;
 
     @JacksonXmlProperty(localName = "maxLv")
-    @CanonicalField
+    @CanonicalField(mapsTo = "baseMaxLevel")
     private Integer maxLv;
 
     @JacksonXmlProperty(localName = "desc")
@@ -44,7 +44,7 @@ public class ArtifactXML extends AbstractXMLModel{
     private String openCost;
 
     @JacksonXmlProperty(localName = "skillCode1")
-    @CanonicalField
+    @CanonicalField(mapsTo = "abilityCode1")
     private String skillCode1;
 
     @JacksonXmlProperty(localName = "ability1")
@@ -60,7 +60,7 @@ public class ArtifactXML extends AbstractXMLModel{
     private Integer ability21;
 
     @JacksonXmlProperty(localName = "skillCode2")
-    @CanonicalField
+    @CanonicalField(mapsTo = "abilityCode2")
     private String skillCode2;
 
     @JacksonXmlProperty(localName = "ability2")
@@ -76,7 +76,7 @@ public class ArtifactXML extends AbstractXMLModel{
     private Integer ability22;
 
     @JacksonXmlProperty(localName = "skillCode3")
-    @CanonicalField
+    @CanonicalField(mapsTo = "abilityCode3")
     private String skillCode3;
 
     @JacksonXmlProperty(localName = "ability3")

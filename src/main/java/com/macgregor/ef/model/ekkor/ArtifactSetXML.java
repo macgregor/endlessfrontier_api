@@ -15,7 +15,7 @@ public class ArtifactSetXML extends AbstractXMLModel{
     private Integer id;
 
     @JacksonXmlProperty(localName = "title")
-    @CanonicalField
+    @CanonicalField(mapsTo = "name")
     @Translate(key="RELIC_SET_NAME_{id}")
     private String title;
 
@@ -24,11 +24,11 @@ public class ArtifactSetXML extends AbstractXMLModel{
     private String itemList;
 
     @JacksonXmlProperty(localName = "numSetList")
-    @CanonicalField
+    @CanonicalField(mapsTo = "numPiecesRequiedForSetBonusTiers")
     private String numSetList;
 
     @JacksonXmlProperty(localName = "skillList")
-    @CanonicalField
+    @CanonicalField(mapsTo = "abilityCodes")
     private String skillList;
 
     @JacksonXmlProperty(localName = "valueList")

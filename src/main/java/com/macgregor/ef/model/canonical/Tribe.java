@@ -16,6 +16,13 @@ import javax.validation.constraints.NotNull;
 @ApiModel(value="Tribe", description="Tribes in Endless Frontier (e.g. elf, orc, etc.)")
 public class Tribe {
 
+    public Tribe(){}
+
+    public Tribe(Integer id, String name){
+        this.id = id;
+        this.name = name;
+    }
+
     @Id
     @Column(name="id", nullable = false)
     @NotNull

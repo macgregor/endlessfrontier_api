@@ -63,7 +63,7 @@ public class PetXML extends AbstractXMLModel {
     private Integer couple;
 
     @JacksonXmlProperty(localName = "incGoldLevel")
-    @CanonicalField
+    @CanonicalField(mapsTo = "petPointsPerRank")
     private String incGoldLevel;
 
     @JacksonXmlProperty(localName = "treasure")

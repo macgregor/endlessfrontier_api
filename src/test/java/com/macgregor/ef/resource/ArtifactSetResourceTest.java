@@ -43,7 +43,7 @@ public class ArtifactSetResourceTest extends ResourceTest {
         for(int i = 0; i < 100; i++){
             ArtifactSet a = new ArtifactSet();
             a.setId(i);
-            a.setTitle(String.format("%s%d", entityName, i));
+            a.setName(String.format("%s%d", entityName, i));
             artifactSets.add(a);
         }
 
@@ -58,13 +58,13 @@ public class ArtifactSetResourceTest extends ResourceTest {
         List<ArtifactSet> result = resources.target(baseURI).request().get(new GenericType<List<ArtifactSet>>() {});
 
         assertEquals(10, result.size());
-        assertEquals(String.format("%s%d", entityName, 0), result.get(0).getTitle());
+        assertEquals(String.format("%s%d", entityName, 0), result.get(0).getName());
     }
 
     @Test
     public void testFindUnitById() throws Exception {
         ArtifactSet artifact = resources.target(baseURI + "/1").request().get(ArtifactSet.class);
         assertThat(artifact.getId()).isEqualTo(1);
-        assertThat(artifact.getTitle()).isEqualTo(String.format("%s%d", entityName, 1));
+        assertThat(artifact.getName()).isEqualTo(String.format("%s%d", entityName, 1));
     }
 }

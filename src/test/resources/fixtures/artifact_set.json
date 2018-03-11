@@ -1,1 +1,1 @@
-{"id":1,"title":"음양 정령도 세트","itemList":[47,48],"numSetList":[2],"skillList":["questGoldGain_A","attackSpeed_A"],"valueList":["3725","6"],"valueList1":["2880000","7"],"valueList2":["4425000","8"],"desc":"퀘스트 골드획득 증가#공격속도 증가","history":null,"showDesc":true}
+{"id":1,"name":"음양 정령도 세트","desc":"퀘스트 골드획득 증가#공격속도 증가","itemList":[47,48],"numPiecesRequiedForSetBonusTiers":[2],"abilityCodes":["questGoldGain_A","attackSpeed_A"],"showDesc":true,"valueList":["3725","6"],"valueList1":["2880000","7"],"valueList2":["4425000","8"],"history":null}

@@ -1,7 +1,6 @@
 package com.macgregor.ef.model.canonical;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import org.hibernate.validator.constraints.NotBlank;
@@ -13,7 +12,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "unit")
-@ApiModel(value="UnitXML", description="UnitXML model describing units in Endless Frontier (e.g. infantry, Ice Spirit, Sword Dancer, etc.)")
+@ApiModel(value="Unit", description="Model describing units in Endless Frontier (e.g. infantry, Ice Spirit, Sword Dancer, etc.). This also contains the data on non-shop units like dungeon bosses, guild raid bosses, outland battle, etc. Also of note, Senior units seem to be distinct entities, e.g. Lich is id 128 and senior Lich is 129.")
 public class Unit {
 
     @Id
@@ -25,82 +24,106 @@ public class Unit {
     @Column(name = "tribe", nullable = false)
     @NotNull
     @JsonProperty
+    @ApiModelProperty(value="Id of unit tribe", allowableValues = "1 (human), 2 (elf), 3 (undead), 4 (orc), 5 (dungeon")
     private Integer tribe;
-
-    @Column(name = "class_name", nullable = false)
-    @NotBlank
-    @JsonProperty
-    private String className;
 
     @Column(name = "name", nullable = false)
     @NotBlank
     @JsonProperty
+    @ApiModelProperty(value="Display name translated from Korean. Not guaranteed to be in english, there are cases where no translation is provided.")
     private String name;
 
-    @Column(name = "cost", nullable = false)
-    @NotNull
-    @JsonProperty
-    private Integer cost;
-
-    @Column(name = "shop_gem", nullable = false)
-    @NotNull
-    @JsonProperty
-    private Integer shopGem;
-
-    @Column(name = "evolve_gem", nullable = false)
-    @NotNull
-    @JsonProperty
-    private Integer evolveGem;
-
-    @Column(name = "coin", nullable = false)
-    @NotNull
-    @JsonProperty
-    private Integer coin;
-
-    @Column(name = "rare", nullable = false)
-    @NotNull
-    @JsonProperty
-    private Integer rare;
-
-    @Column(name = "size", nullable = false)
-    @NotNull
-    @JsonProperty
-    private Integer size;
-
-    @Column(name = "evol_kind_num", nullable = false)
-    @NotNull
-    @JsonProperty
-    private Integer evolKindNum;
-
-    @Column(name = "attack_type", nullable = false)
+    @Column(name = "message", nullable = false, length = 5000)
     @NotBlank
     @JsonProperty
-    private String attackType;
+    @ApiModelProperty(value="Display message translated from Korean. Not guaranteed to be in english, there are cases where no translation is provided.", allowEmptyValue = true)
+    private String message;
+
+    @Column(name = "rank", nullable = false)
+    @NotNull
+    @JsonProperty
+    @ApiModelProperty(value="Represented as stars (*) in game, e.g. Priest is rank 5, Sr. Priest is rank 6.", allowableValues = "1,2,3,4,5,6")
+    private Integer rank;
+
+    @Column(name = "sex", nullable = false)
+    @NotBlank
+    @JsonProperty
+    @ApiModelProperty(value="Sex of unit: male, female or neutral.", allowableValues = "M,F,N")
+    private String sex;
+
+    @Column(name = "unit_shop_medal_cost", nullable = false)
+    @NotNull
+    @JsonProperty
+    @ApiModelProperty(value="Medal cost to buy unit from unit shop or time shop. Cost of 0 indicates it is not purchaseable", allowableValues = "20000, 15000, 8000, 4000, 1600, 1200, 900, 700, 400, 300, 80, 0")
+    private Integer unitShopMedalCost;
+
+    @Column(name = "unit_shop_gem_cost", nullable = false)
+    @NotNull
+    @JsonProperty
+    @ApiModelProperty(value="Gem cost of the unit in the unit shop. Values of 0 and -1 indicate unit isnt available to purchase with gems.", allowableValues = "-1, 0, 700, 3000, 5700")
+    private Integer unitShopGemCost;
+
+    @Column(name = "evolve_gem_cost", nullable = false)
+    @NotNull
+    @JsonProperty
+    @ApiModelProperty(value="Gem cost to upgrade unit. A value of -1 indicates unit cannot be evolved.", allowableValues = "-1, 200, 300, 500, 2000, 2800")
+    private Integer evolveGemCost;
+
+    @Column(name = "honor_shop_coin_cost", nullable = false)
+    @NotNull
+    @JsonProperty
+    @ApiModelProperty(value="Honor coin cose to purchase unit from honor shop.", allowableValues = "0, 4400")
+    private Integer honorShopCoinCost;
+
+    @Column(name = "evolution_unit_id", nullable = false)
+    @NotNull
+    @JsonProperty
+    @ApiModelProperty(value="Unit.id that this unit will evolve into. A value of -1 indicates no evolution is available.")
+    private Integer evolutionUnitId;
 
     @Column(name = "is_air_unit", nullable = false)
     @NotNull
     @JsonProperty
     private Boolean isAirUnit;
 
-    @Column(name = "damage_type", nullable = false)
-    @NotBlank
-    @JsonProperty
-    private String damageType;
-
-    @Column(name = "has_skill", nullable = false)
+    @Column(name = "ground_air", nullable = false)
     @NotNull
     @JsonProperty
-    private Boolean hasSkill;
+    @ApiModelProperty(value="I think this indicates if an air unit can attack ground units.")
+    private Boolean groundAir;
 
-    @Column(name = "skill_attack_type", nullable = false)
-    @NotBlank
+    @Column(name = "can_detect_cloaked", nullable = false)
+    @NotNull
     @JsonProperty
-    private String skillAttackType;
+    private Boolean canDetectCloaked;
 
-    @Column(name = "skill_damage_type", nullable = false)
-    @NotBlank
+    @Column(name = "is_cloaking", nullable = false)
+    @NotNull
     @JsonProperty
-    private String skillDamageType;
+    private Boolean isCloaking;
+
+    @Column(name = "is_honor", nullable = false)
+    @NotNull
+    @JsonProperty
+    @ApiModelProperty(value="Whether the unit is currently, or ever was, an honor shop unit.")
+    private Boolean isHonor;
+
+    @Column(name = "honor_rotation_number", nullable = false)
+    @NotNull
+    @JsonProperty
+    private Integer honorRotationNumber;
+
+    @Column(name = "max_trans_level", nullable = false)
+    @NotNull
+    @JsonProperty
+    @ApiModelProperty(value="Number or trans levels available to unit, either 0 (cannot trans) or 3.", allowableValues = "0,3")
+    private Integer maxTransLevel;
+
+    @Column(name = "show_book", nullable = false)
+    @NotNull
+    @JsonProperty
+    @ApiModelProperty(value="Whether or not to show the unit in the unit book. Set to false to unreleased units and dungeon units.")
+    private Boolean showBook;
 
     @Column(name = "init_hp", nullable = false)
     @NotNull
@@ -142,35 +165,15 @@ public class Unit {
     @JsonProperty
     private Float incMagDef;
 
-    @Column(name = "num_unit_block", nullable = false)
-    @NotNull
-    @JsonProperty
-    private Integer numUnitBlock;
-
     @Column(name = "move_speed", nullable = false)
     @NotNull
     @JsonProperty
     private Float moveSpeed;
 
-    @Column(name = "attack_speed", nullable = false)
+    @Column(name = "revive_time", nullable = false)
     @NotNull
     @JsonProperty
-    private Integer attackSpeed;
-
-    @Column(name = "skill_speed", nullable = false)
-    @NotNull
-    @JsonProperty
-    private Integer skillSpeed;
-
-    @Column(name = "attack_range", nullable = false)
-    @NotNull
-    @JsonProperty
-    private Integer attackRange;
-
-    @Column(name = "skill_range", nullable = false)
-    @NotNull
-    @JsonProperty
-    private Integer skillRange;
+    private Integer reviveTime;
 
     @Column(name = "evade_percent", nullable = false)
     @NotNull
@@ -181,6 +184,12 @@ public class Unit {
     @NotNull
     @JsonProperty
     private Float blockPercent;
+
+    @Column(name = "num_unit_block", nullable = false)
+    @NotNull
+    @JsonProperty
+    @ApiModelProperty(value="Exact meaning unclear, seems to range from 0 to 3, with Sr. Golem and Sr. Bigfoot having the most at 3", allowableValues = "0,1,2,3")
+    private Integer numUnitBlock;
 
     @Column(name = "critical_percent", nullable = false)
     @NotNull
@@ -202,169 +211,200 @@ public class Unit {
     @JsonProperty
     private Float splashDamage;
 
+    @Column(name = "basic_attack_type", nullable = false)
+    @NotBlank
+    @JsonProperty
+    @ApiModelProperty(allowableValues = "melee, range, rangeGround")
+    private String basicAttackType;
+
+    @Column(name = "basic_attack_damage_type", nullable = false)
+    @NotBlank
+    @JsonProperty
+    @ApiModelProperty(allowableValues = "magical, physical")
+    private String basicAttackDamageType;
+
+    @Column(name = "basic_attack_speed", nullable = false)
+    @NotNull
+    @JsonProperty
+    private Integer basicAttackSpeed;
+
+    @Column(name = "basic_attack_range", nullable = false)
+    @NotNull
+    @JsonProperty
+    private Integer basicAttackRange;
+
+    @Column(name = "skill_attack_type", nullable = false)
+    @NotBlank
+    @JsonProperty
+    @ApiModelProperty(allowableValues = "N, melee, range, rangeGround")
+    private String skillAttackType;
+
+    @Column(name = "skill_attack_damage_type", nullable = false)
+    @NotBlank
+    @JsonProperty
+    @ApiModelProperty(allowableValues = "N, magical, physical")
+    private String skillAttackDamageType;
+
+    @Column(name = "skill_attack_range", nullable = false)
+    @NotNull
+    @JsonProperty
+    private Integer skillAttackRange;
+
+    @Column(name = "skill_attack_speed", nullable = false)
+    @NotNull
+    @JsonProperty
+    private Integer skillAttackSpeed;
+
+    @ElementCollection
+    @CollectionTable
+    @Column(name = "unit_skill_list", nullable = false)
+    @NotEmpty
+    @JsonProperty
+    @ApiModelProperty(value="List of UnitSkill.id that make up the skills listed under \"Unit Skill\" ")
+    private List<Integer> unitSkillList;
+
+    @ElementCollection
+    @CollectionTable
+    @Column(name = "unit_skill_list_modifiers", nullable = false)
+    @NotEmpty
+    @JsonProperty
+    @ApiModelProperty(value="Modifiers for skillList. Shows as the percentage increase under \"Unit Skill\", e.g. skillList [60], powerList[24] will show as \"Quest Gold Increase: 24%\"")
+    private List<Integer> unitSkillListModifiers;
+
+    @ElementCollection
+    @CollectionTable
+    @Column(name = "trans_material_t1", nullable = false)
+    @NotEmpty
+    @JsonProperty
+    @ApiModelProperty(value="Unit materials required for transing from Sr to t1. List of Unit.id. Or, a list of size 1 with the only element being 0 for units ineligible for transing.")
+    private List<Integer> transMaterialT1;
+
+    @ElementCollection
+    @CollectionTable
+    @Column(name = "trans_material_t2", nullable = false)
+    @NotEmpty
+    @JsonProperty
+    @ApiModelProperty(value="Unit materials required for transing from t1 to t2. List of Unit.id. Or, a list of size 1 with the only element being 0 for units ineligible for transing.")
+    private List<Integer> transMaterialT2;
+
+    @ElementCollection
+    @CollectionTable
+    @Column(name = "trans_material_t3", nullable = false)
+    @NotEmpty
+    @JsonProperty
+    @ApiModelProperty(value="Unit materials required for transing from t2 to t3. List of Unit.id. Or, a list of size 1 with the only element being 0 for units ineligible for transing.")
+    private List<Integer> transMaterialT3;
+
+    @Column(name = "medal_buff", nullable = false)
+    @NotNull
+    @JsonProperty
+    @ApiModelProperty(value="Revive medal buff percentage provided by unit, i.e. \"Increase medals earned at the time of revival by 5%.\"")
+    private Integer medalBuff;
+
+    @Column(name = "offline_march_speed_buff", nullable = false)
+    @NotNull
+    @JsonProperty
+    @ApiModelProperty(value="Offline march speed provided by unit, i.e. \"Increase of offline march speed by 5%.\"")
+    private Float offlineMarchSpeedBuff;
+
+    /***********************************************************
+     *  Fields with unknown or unclear meaning below
+     ***********************************************************/
+    @Column(name = "class_name", nullable = false)
+    @NotBlank
+    @JsonProperty
+    @ApiModelProperty(value="This is not the name of the unit, though it is close, sometimes identical. Not sure exactly what it is for.")
+    private String className;
+
+    @Column(name = "rare", nullable = false)
+    @NotNull
+    @JsonProperty
+    @ApiModelProperty(value="Meaning unknown.")
+    private Integer rare;
+
+    @Column(name = "size", nullable = false)
+    @NotNull
+    @JsonProperty
+    @ApiModelProperty(value="Meaning unknown.", allowableValues = "1,2,3,4")
+    private Integer size;
+
     @Column(name = "special_skill", nullable = false)
     @NotNull
     @JsonProperty
-    @JacksonXmlProperty(localName = "specialSkill")
+    @ApiModelProperty(value="I think this is supposed to be \"Skill Attack\" under \"Unit Details\" but data is missing from my source files.", allowableValues = "1")
     private Integer specialSkill;
 
     @Column(name = "passive_skill", nullable = false)
     @NotNull
     @JsonProperty
+    @ApiModelProperty(value="I think this is supposed to be \"Special Ability\" under \"Unit Details\" but data is missing from my source files.", allowableValues = "0, 1, 2, 3, 4, 5, 6, 7")
     private Integer passiveSkill;
-
-    @Column(name = "revive_time", nullable = false)
-    @NotNull
-    @JsonProperty
-    private Integer reviveTime;
 
     @Column(name = "bloody", nullable = false)
     @NotNull
     @JsonProperty
+    @ApiModelProperty(value="Probably something to do with graphics on death. Almost always true except for  subset of undead.")
     private Boolean bloody;
 
     @Column(name = "explode_die", nullable = false)
     @NotNull
     @JsonProperty
+    @ApiModelProperty(value="Probably something to do with graphics on death. Always seems to but true.")
     private Boolean explodeDie;
+
+    @Column(name = "has_skill", nullable = false)
+    @NotNull
+    @JsonProperty
+    @ApiModelProperty(value="Seems to almost always be true, there are some dungeon units and Skeleton unit who have it set to false.")
+    private Boolean hasSkill;
 
     @Column(name = "des", nullable = false)
     @NotBlank
     @JsonProperty
-    @ApiModelProperty(value="Not sure what this represents, always seems to be 'AA' for units")
+    @ApiModelProperty(value="Meaning unknown. Always seems to be \"AA\"", allowableValues = "AA")
     private String des;
-
-    @Column(name = "message", nullable = false, length = 5000)
-    @NotBlank
-    @JsonProperty
-    private String message;
-
-    @ElementCollection
-    @CollectionTable
-    @Column(name = "skill_list", nullable = false)
-    @NotEmpty
-    @JsonProperty
-    private List<Integer> skillList;
-
-    @ElementCollection
-    @CollectionTable
-    @Column(name = "power_list", nullable = false)
-    @NotEmpty
-    @JsonProperty
-    @JacksonXmlProperty(localName = "powerList")
-    private List<Integer> powerList;
-
-    @Column(name = "rank", nullable = false)
-    @NotNull
-    @JsonProperty
-    private Integer rank;
-
-    @Column(name = "sex", nullable = false)
-    @NotBlank
-    @JsonProperty
-    private String sex;
 
     @Column(name = "ortho_grade", nullable = false)
     @NotNull
     @JsonProperty
+    @ApiModelProperty(value="Meaning unknown.")
     private Boolean orthoGrade;
 
     @Column(name = "shop", nullable = false)
     @NotNull
     @JsonProperty
+    @ApiModelProperty(value="Meaning unclear. Might have something to do with what shop (or what section of a shop) the unit appears in. 0 = no hop, 2 = current honor shop units, 4 = previous honor shop units, 1 = everything else. However it also includes Sr. Units which are never purchaseable.", allowableValues = "0, 1, 2, 4")
     private Integer shop;
-
-    @Column(name = "show_book", nullable = false)
-    @NotNull
-    @JsonProperty
-    private Boolean showBook;
 
     @Column(name = "rating_position", nullable = false)
     @NotNull
     @JsonProperty
+    @ApiModelProperty(value="Meaning unknown.")
     private Integer ratingPosition;
-
-    @Column(name = "trans", nullable = false)
-    @NotNull
-    @JsonProperty
-    private Integer trans;
-
-    @ElementCollection
-    @CollectionTable
-    @Column(name = "material1", nullable = false)
-    @NotEmpty
-    @JsonProperty
-    private List<Integer> material1;
-
-    @ElementCollection
-    @CollectionTable
-    @Column(name = "material2", nullable = false)
-    @NotEmpty
-    @JsonProperty
-    private List<Integer> material2;
-
-    @ElementCollection
-    @CollectionTable
-    @Column(name = "material3", nullable = false)
-    @NotEmpty
-    @JsonProperty
-    private List<Integer> material3;
-
-    @Column(name = "star_buff", nullable = false)
-    @NotNull
-    @JsonProperty
-    private Integer starBuff;
 
     @Column(name = "jewel_buff", nullable = false)
     @NotNull
     @JsonProperty
+    @ApiModelProperty(value="Meaning unknown. Always set to 0", allowableValues = "0")
     private Integer jewelBuff;
-
-    @Column(name = "ground_air", nullable = false)
-    @NotNull
-    @JsonProperty
-    private Boolean groundAir;
-
-    @Column(name = "offline_speed", nullable = false)
-    @NotNull
-    @JsonProperty
-    private Float offlineSpeed;
 
     @Column(name = "offline_time", nullable = false)
     @NotNull
     @JsonProperty
+    @ApiModelProperty(value="Meaning unclear. Seems to be unique to Sr. Succubus.")
     private Integer offlineTime;
 
     @Column(name = "has_heart", nullable = false)
     @NotNull
     @JsonProperty
+    @ApiModelProperty(value="Meaning unknown. Probably determines if some skill effects a unit.")
     private Boolean hasHeart;
 
-    @Column(name = "can_detect", nullable = false)
+    @Column(name = "medal_buff_from_pet", nullable = false)
     @NotNull
     @JsonProperty
-    private Boolean canDetect;
-
-    @Column(name = "cloaking", nullable = false)
-    @NotNull
-    @JsonProperty
-    private Boolean cloaking;
-
-    @Column(name = "star_buff_from_pet", nullable = false)
-    @NotNull
-    @JsonProperty
-    private Integer starBuffFromPet;
-
-    @Column(name = "is_honor", nullable = false)
-    @NotNull
-    @JsonProperty
-    @JacksonXmlProperty(localName = "isHonor")
-    private Boolean isHonor;
-
-    @Column(name = "honor_number", nullable = false)
-    @NotNull
-    @JsonProperty
-    private Integer honorNumber;
+    @ApiModelProperty(value="Meaning unknown. Appears to be unused, all units have it set to 0.")
+    private Integer medalBuffFromPet;
 
     public Integer getId() {
         return id;
@@ -382,14 +422,6 @@ public class Unit {
         this.tribe = tribe;
     }
 
-    public String getClassName() {
-        return className;
-    }
-
-    public void setClassName(String className) {
-        this.className = className;
-    }
-
     public String getName() {
         return name;
     }
@@ -398,68 +430,68 @@ public class Unit {
         this.name = name;
     }
 
-    public Integer getCost() {
-        return cost;
+    public String getMessage() {
+        return message;
     }
 
-    public void setCost(Integer cost) {
-        this.cost = cost;
+    public void setMessage(String message) {
+        this.message = message;
     }
 
-    public Integer getShopGem() {
-        return shopGem;
+    public Integer getRank() {
+        return rank;
     }
 
-    public void setShopGem(Integer shopGem) {
-        this.shopGem = shopGem;
+    public void setRank(Integer rank) {
+        this.rank = rank;
     }
 
-    public Integer getEvolveGem() {
-        return evolveGem;
+    public String getSex() {
+        return sex;
     }
 
-    public void setEvolveGem(Integer evolveGem) {
-        this.evolveGem = evolveGem;
+    public void setSex(String sex) {
+        this.sex = sex;
     }
 
-    public Integer getCoin() {
-        return coin;
+    public Integer getUnitShopMedalCost() {
+        return unitShopMedalCost;
     }
 
-    public void setCoin(Integer coin) {
-        this.coin = coin;
+    public void setUnitShopMedalCost(Integer unitShopMedalCost) {
+        this.unitShopMedalCost = unitShopMedalCost;
     }
 
-    public Integer getRare() {
-        return rare;
+    public Integer getUnitShopGemCost() {
+        return unitShopGemCost;
     }
 
-    public void setRare(Integer rare) {
-        this.rare = rare;
+    public void setUnitShopGemCost(Integer unitShopGemCost) {
+        this.unitShopGemCost = unitShopGemCost;
     }
 
-    public Integer getSize() {
-        return size;
+    public Integer getEvolveGemCost() {
+        return evolveGemCost;
     }
 
-    public void setSize(Integer size) {
-        this.size = size;
+    public void setEvolveGemCost(Integer evolveGemCost) {
+        this.evolveGemCost = evolveGemCost;
     }
 
-    public Integer getEvolKindNum() {
-        return evolKindNum;
+    public Integer getHonorShopCoinCost() {
+        return honorShopCoinCost;
     }
 
-    public void setEvolKindNum(Integer evolKindNum) {
-        this.evolKindNum = evolKindNum;
+    public void setHonorShopCoinCost(Integer honorShopCoinCost) {
+        this.honorShopCoinCost = honorShopCoinCost;
     }
 
-    public String getAttackType() {
-        return attackType;
+    public Integer getEvolutionUnitId() {
+        return evolutionUnitId;
     }
 
-    public void setAttackType(String attackType) {
-        this.attackType = attackType;
+    public void setEvolutionUnitId(Integer evolutionUnitId) {
+        this.evolutionUnitId = evolutionUnitId;
     }
 
     public Boolean getAirUnit() {
@@ -470,36 +502,60 @@ public class Unit {
         isAirUnit = airUnit;
     }
 
-    public String getDamageType() {
-        return damageType;
+    public Boolean getGroundAir() {
+        return groundAir;
     }
 
-    public void setDamageType(String damageType) {
-        this.damageType = damageType;
+    public void setGroundAir(Boolean groundAir) {
+        this.groundAir = groundAir;
     }
 
-    public Boolean getHasSkill() {
-        return hasSkill;
+    public Boolean getCanDetectCloaked() {
+        return canDetectCloaked;
     }
 
-    public void setHasSkill(Boolean hasSkill) {
-        this.hasSkill = hasSkill;
+    public void setCanDetectCloaked(Boolean canDetectCloaked) {
+        this.canDetectCloaked = canDetectCloaked;
     }
 
-    public String getSkillAttackType() {
-        return skillAttackType;
+    public Boolean getCloaking() {
+        return isCloaking;
     }
 
-    public void setSkillAttackType(String skillAttackType) {
-        this.skillAttackType = skillAttackType;
+    public void setCloaking(Boolean cloaking) {
+        isCloaking = cloaking;
     }
 
-    public String getSkillDamageType() {
-        return skillDamageType;
+    public Boolean getHonor() {
+        return isHonor;
     }
 
-    public void setSkillDamageType(String skillDamageType) {
-        this.skillDamageType = skillDamageType;
+    public void setHonor(Boolean honor) {
+        isHonor = honor;
+    }
+
+    public Integer getHonorRotationNumber() {
+        return honorRotationNumber;
+    }
+
+    public void setHonorRotationNumber(Integer honorRotationNumber) {
+        this.honorRotationNumber = honorRotationNumber;
+    }
+
+    public Integer getMaxTransLevel() {
+        return maxTransLevel;
+    }
+
+    public void setMaxTransLevel(Integer maxTransLevel) {
+        this.maxTransLevel = maxTransLevel;
+    }
+
+    public Boolean getShowBook() {
+        return showBook;
+    }
+
+    public void setShowBook(Boolean showBook) {
+        this.showBook = showBook;
     }
 
     public Float getInitHp() {
@@ -566,14 +622,6 @@ public class Unit {
         this.incMagDef = incMagDef;
     }
 
-    public Integer getNumUnitBlock() {
-        return numUnitBlock;
-    }
-
-    public void setNumUnitBlock(Integer numUnitBlock) {
-        this.numUnitBlock = numUnitBlock;
-    }
-
     public Float getMoveSpeed() {
         return moveSpeed;
     }
@@ -582,36 +630,12 @@ public class Unit {
         this.moveSpeed = moveSpeed;
     }
 
-    public Integer getAttackSpeed() {
-        return attackSpeed;
+    public Integer getReviveTime() {
+        return reviveTime;
     }
 
-    public void setAttackSpeed(Integer attackSpeed) {
-        this.attackSpeed = attackSpeed;
-    }
-
-    public Integer getSkillSpeed() {
-        return skillSpeed;
-    }
-
-    public void setSkillSpeed(Integer skillSpeed) {
-        this.skillSpeed = skillSpeed;
-    }
-
-    public Integer getAttackRange() {
-        return attackRange;
-    }
-
-    public void setAttackRange(Integer attackRange) {
-        this.attackRange = attackRange;
-    }
-
-    public Integer getSkillRange() {
-        return skillRange;
-    }
-
-    public void setSkillRange(Integer skillRange) {
-        this.skillRange = skillRange;
+    public void setReviveTime(Integer reviveTime) {
+        this.reviveTime = reviveTime;
     }
 
     public Float getEvadePercent() {
@@ -628,6 +652,14 @@ public class Unit {
 
     public void setBlockPercent(Float blockPercent) {
         this.blockPercent = blockPercent;
+    }
+
+    public Integer getNumUnitBlock() {
+        return numUnitBlock;
+    }
+
+    public void setNumUnitBlock(Integer numUnitBlock) {
+        this.numUnitBlock = numUnitBlock;
     }
 
     public Float getCriticalPercent() {
@@ -662,6 +694,150 @@ public class Unit {
         this.splashDamage = splashDamage;
     }
 
+    public String getBasicAttackType() {
+        return basicAttackType;
+    }
+
+    public void setBasicAttackType(String basicAttackType) {
+        this.basicAttackType = basicAttackType;
+    }
+
+    public String getBasicAttackDamageType() {
+        return basicAttackDamageType;
+    }
+
+    public void setBasicAttackDamageType(String basicAttackDamageType) {
+        this.basicAttackDamageType = basicAttackDamageType;
+    }
+
+    public Integer getBasicAttackSpeed() {
+        return basicAttackSpeed;
+    }
+
+    public void setBasicAttackSpeed(Integer basicAttackSpeed) {
+        this.basicAttackSpeed = basicAttackSpeed;
+    }
+
+    public Integer getBasicAttackRange() {
+        return basicAttackRange;
+    }
+
+    public void setBasicAttackRange(Integer basicAttackRange) {
+        this.basicAttackRange = basicAttackRange;
+    }
+
+    public String getSkillAttackType() {
+        return skillAttackType;
+    }
+
+    public void setSkillAttackType(String skillAttackType) {
+        this.skillAttackType = skillAttackType;
+    }
+
+    public String getSkillAttackDamageType() {
+        return skillAttackDamageType;
+    }
+
+    public void setSkillAttackDamageType(String skillAttackDamageType) {
+        this.skillAttackDamageType = skillAttackDamageType;
+    }
+
+    public Integer getSkillAttackRange() {
+        return skillAttackRange;
+    }
+
+    public void setSkillAttackRange(Integer skillAttackRange) {
+        this.skillAttackRange = skillAttackRange;
+    }
+
+    public Integer getSkillAttackSpeed() {
+        return skillAttackSpeed;
+    }
+
+    public void setSkillAttackSpeed(Integer skillAttackSpeed) {
+        this.skillAttackSpeed = skillAttackSpeed;
+    }
+
+    public List<Integer> getUnitSkillList() {
+        return unitSkillList;
+    }
+
+    public void setUnitSkillList(List<Integer> unitSkillList) {
+        this.unitSkillList = unitSkillList;
+    }
+
+    public List<Integer> getUnitSkillListModifiers() {
+        return unitSkillListModifiers;
+    }
+
+    public void setUnitSkillListModifiers(List<Integer> unitSkillListModifiers) {
+        this.unitSkillListModifiers = unitSkillListModifiers;
+    }
+
+    public List<Integer> getTransMaterialT1() {
+        return transMaterialT1;
+    }
+
+    public void setTransMaterialT1(List<Integer> transMaterialT1) {
+        this.transMaterialT1 = transMaterialT1;
+    }
+
+    public List<Integer> getTransMaterialT2() {
+        return transMaterialT2;
+    }
+
+    public void setTransMaterialT2(List<Integer> transMaterialT2) {
+        this.transMaterialT2 = transMaterialT2;
+    }
+
+    public List<Integer> getTransMaterialT3() {
+        return transMaterialT3;
+    }
+
+    public void setTransMaterialT3(List<Integer> transMaterialT3) {
+        this.transMaterialT3 = transMaterialT3;
+    }
+
+    public Integer getMedalBuff() {
+        return medalBuff;
+    }
+
+    public void setMedalBuff(Integer medalBuff) {
+        this.medalBuff = medalBuff;
+    }
+
+    public Float getOfflineMarchSpeedBuff() {
+        return offlineMarchSpeedBuff;
+    }
+
+    public void setOfflineMarchSpeedBuff(Float offlineMarchSpeedBuff) {
+        this.offlineMarchSpeedBuff = offlineMarchSpeedBuff;
+    }
+
+    public String getClassName() {
+        return className;
+    }
+
+    public void setClassName(String className) {
+        this.className = className;
+    }
+
+    public Integer getRare() {
+        return rare;
+    }
+
+    public void setRare(Integer rare) {
+        this.rare = rare;
+    }
+
+    public Integer getSize() {
+        return size;
+    }
+
+    public void setSize(Integer size) {
+        this.size = size;
+    }
+
     public Integer getSpecialSkill() {
         return specialSkill;
     }
@@ -676,14 +852,6 @@ public class Unit {
 
     public void setPassiveSkill(Integer passiveSkill) {
         this.passiveSkill = passiveSkill;
-    }
-
-    public Integer getReviveTime() {
-        return reviveTime;
-    }
-
-    public void setReviveTime(Integer reviveTime) {
-        this.reviveTime = reviveTime;
     }
 
     public Boolean getBloody() {
@@ -702,52 +870,20 @@ public class Unit {
         this.explodeDie = explodeDie;
     }
 
+    public Boolean getHasSkill() {
+        return hasSkill;
+    }
+
+    public void setHasSkill(Boolean hasSkill) {
+        this.hasSkill = hasSkill;
+    }
+
     public String getDes() {
         return des;
     }
 
     public void setDes(String des) {
         this.des = des;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
-    }
-
-    public List<Integer> getSkillList() {
-        return skillList;
-    }
-
-    public void setSkillList(List<Integer> skillList) {
-        this.skillList = skillList;
-    }
-
-    public List<Integer> getPowerList() {
-        return powerList;
-    }
-
-    public void setPowerList(List<Integer> powerList) {
-        this.powerList = powerList;
-    }
-
-    public Integer getRank() {
-        return rank;
-    }
-
-    public void setRank(Integer rank) {
-        this.rank = rank;
-    }
-
-    public String getSex() {
-        return sex;
-    }
-
-    public void setSex(String sex) {
-        this.sex = sex;
     }
 
     public Boolean getOrthoGrade() {
@@ -766,14 +902,6 @@ public class Unit {
         this.shop = shop;
     }
 
-    public Boolean getShowBook() {
-        return showBook;
-    }
-
-    public void setShowBook(Boolean showBook) {
-        this.showBook = showBook;
-    }
-
     public Integer getRatingPosition() {
         return ratingPosition;
     }
@@ -782,68 +910,12 @@ public class Unit {
         this.ratingPosition = ratingPosition;
     }
 
-    public Integer getTrans() {
-        return trans;
-    }
-
-    public void setTrans(Integer trans) {
-        this.trans = trans;
-    }
-
-    public List<Integer> getMaterial1() {
-        return material1;
-    }
-
-    public void setMaterial1(List<Integer> material1) {
-        this.material1 = material1;
-    }
-
-    public List<Integer> getMaterial2() {
-        return material2;
-    }
-
-    public void setMaterial2(List<Integer> material2) {
-        this.material2 = material2;
-    }
-
-    public List<Integer> getMaterial3() {
-        return material3;
-    }
-
-    public void setMaterial3(List<Integer> material3) {
-        this.material3 = material3;
-    }
-
-    public Integer getStarBuff() {
-        return starBuff;
-    }
-
-    public void setStarBuff(Integer starBuff) {
-        this.starBuff = starBuff;
-    }
-
     public Integer getJewelBuff() {
         return jewelBuff;
     }
 
     public void setJewelBuff(Integer jewelBuff) {
         this.jewelBuff = jewelBuff;
-    }
-
-    public Boolean getGroundAir() {
-        return groundAir;
-    }
-
-    public void setGroundAir(Boolean groundAir) {
-        this.groundAir = groundAir;
-    }
-
-    public Float getOfflineSpeed() {
-        return offlineSpeed;
-    }
-
-    public void setOfflineSpeed(Float offlineSpeed) {
-        this.offlineSpeed = offlineSpeed;
     }
 
     public Integer getOfflineTime() {
@@ -862,44 +934,12 @@ public class Unit {
         this.hasHeart = hasHeart;
     }
 
-    public Boolean getCanDetect() {
-        return canDetect;
+    public Integer getMedalBuffFromPet() {
+        return medalBuffFromPet;
     }
 
-    public void setCanDetect(Boolean canDetect) {
-        this.canDetect = canDetect;
-    }
-
-    public Boolean getCloaking() {
-        return cloaking;
-    }
-
-    public void setCloaking(Boolean cloaking) {
-        this.cloaking = cloaking;
-    }
-
-    public Integer getStarBuffFromPet() {
-        return starBuffFromPet;
-    }
-
-    public void setStarBuffFromPet(Integer starBuffFromPet) {
-        this.starBuffFromPet = starBuffFromPet;
-    }
-
-    public Boolean getHonor() {
-        return isHonor;
-    }
-
-    public void setHonor(Boolean honor) {
-        isHonor = honor;
-    }
-
-    public Integer getHonorNumber() {
-        return honorNumber;
-    }
-
-    public void setHonorNumber(Integer honorNumber) {
-        this.honorNumber = honorNumber;
+    public void setMedalBuffFromPet(Integer medalBuffFromPet) {
+        this.medalBuffFromPet = medalBuffFromPet;
     }
 
     @Override
@@ -911,23 +951,31 @@ public class Unit {
 
         if (id != null ? !id.equals(unit.id) : unit.id != null) return false;
         if (tribe != null ? !tribe.equals(unit.tribe) : unit.tribe != null) return false;
-        if (className != null ? !className.equals(unit.className) : unit.className != null) return false;
         if (name != null ? !name.equals(unit.name) : unit.name != null) return false;
-        if (cost != null ? !cost.equals(unit.cost) : unit.cost != null) return false;
-        if (shopGem != null ? !shopGem.equals(unit.shopGem) : unit.shopGem != null) return false;
-        if (evolveGem != null ? !evolveGem.equals(unit.evolveGem) : unit.evolveGem != null) return false;
-        if (coin != null ? !coin.equals(unit.coin) : unit.coin != null) return false;
-        if (rare != null ? !rare.equals(unit.rare) : unit.rare != null) return false;
-        if (size != null ? !size.equals(unit.size) : unit.size != null) return false;
-        if (evolKindNum != null ? !evolKindNum.equals(unit.evolKindNum) : unit.evolKindNum != null) return false;
-        if (attackType != null ? !attackType.equals(unit.attackType) : unit.attackType != null) return false;
+        if (message != null ? !message.equals(unit.message) : unit.message != null) return false;
+        if (rank != null ? !rank.equals(unit.rank) : unit.rank != null) return false;
+        if (sex != null ? !sex.equals(unit.sex) : unit.sex != null) return false;
+        if (unitShopMedalCost != null ? !unitShopMedalCost.equals(unit.unitShopMedalCost) : unit.unitShopMedalCost != null)
+            return false;
+        if (unitShopGemCost != null ? !unitShopGemCost.equals(unit.unitShopGemCost) : unit.unitShopGemCost != null)
+            return false;
+        if (evolveGemCost != null ? !evolveGemCost.equals(unit.evolveGemCost) : unit.evolveGemCost != null)
+            return false;
+        if (honorShopCoinCost != null ? !honorShopCoinCost.equals(unit.honorShopCoinCost) : unit.honorShopCoinCost != null)
+            return false;
+        if (evolutionUnitId != null ? !evolutionUnitId.equals(unit.evolutionUnitId) : unit.evolutionUnitId != null)
+            return false;
         if (isAirUnit != null ? !isAirUnit.equals(unit.isAirUnit) : unit.isAirUnit != null) return false;
-        if (damageType != null ? !damageType.equals(unit.damageType) : unit.damageType != null) return false;
-        if (hasSkill != null ? !hasSkill.equals(unit.hasSkill) : unit.hasSkill != null) return false;
-        if (skillAttackType != null ? !skillAttackType.equals(unit.skillAttackType) : unit.skillAttackType != null)
+        if (groundAir != null ? !groundAir.equals(unit.groundAir) : unit.groundAir != null) return false;
+        if (canDetectCloaked != null ? !canDetectCloaked.equals(unit.canDetectCloaked) : unit.canDetectCloaked != null)
             return false;
-        if (skillDamageType != null ? !skillDamageType.equals(unit.skillDamageType) : unit.skillDamageType != null)
+        if (isCloaking != null ? !isCloaking.equals(unit.isCloaking) : unit.isCloaking != null) return false;
+        if (isHonor != null ? !isHonor.equals(unit.isHonor) : unit.isHonor != null) return false;
+        if (honorRotationNumber != null ? !honorRotationNumber.equals(unit.honorRotationNumber) : unit.honorRotationNumber != null)
             return false;
+        if (maxTransLevel != null ? !maxTransLevel.equals(unit.maxTransLevel) : unit.maxTransLevel != null)
+            return false;
+        if (showBook != null ? !showBook.equals(unit.showBook) : unit.showBook != null) return false;
         if (initHp != null ? !initHp.equals(unit.initHp) : unit.initHp != null) return false;
         if (incHp != null ? !incHp.equals(unit.incHp) : unit.incHp != null) return false;
         if (initDamage != null ? !initDamage.equals(unit.initDamage) : unit.initDamage != null) return false;
@@ -936,73 +984,86 @@ public class Unit {
         if (incPhyDef != null ? !incPhyDef.equals(unit.incPhyDef) : unit.incPhyDef != null) return false;
         if (initMagDef != null ? !initMagDef.equals(unit.initMagDef) : unit.initMagDef != null) return false;
         if (incMagDef != null ? !incMagDef.equals(unit.incMagDef) : unit.incMagDef != null) return false;
-        if (numUnitBlock != null ? !numUnitBlock.equals(unit.numUnitBlock) : unit.numUnitBlock != null) return false;
         if (moveSpeed != null ? !moveSpeed.equals(unit.moveSpeed) : unit.moveSpeed != null) return false;
-        if (attackSpeed != null ? !attackSpeed.equals(unit.attackSpeed) : unit.attackSpeed != null) return false;
-        if (skillSpeed != null ? !skillSpeed.equals(unit.skillSpeed) : unit.skillSpeed != null) return false;
-        if (attackRange != null ? !attackRange.equals(unit.attackRange) : unit.attackRange != null) return false;
-        if (skillRange != null ? !skillRange.equals(unit.skillRange) : unit.skillRange != null) return false;
+        if (reviveTime != null ? !reviveTime.equals(unit.reviveTime) : unit.reviveTime != null) return false;
         if (evadePercent != null ? !evadePercent.equals(unit.evadePercent) : unit.evadePercent != null) return false;
         if (blockPercent != null ? !blockPercent.equals(unit.blockPercent) : unit.blockPercent != null) return false;
+        if (numUnitBlock != null ? !numUnitBlock.equals(unit.numUnitBlock) : unit.numUnitBlock != null) return false;
         if (criticalPercent != null ? !criticalPercent.equals(unit.criticalPercent) : unit.criticalPercent != null)
             return false;
         if (criticalDamage != null ? !criticalDamage.equals(unit.criticalDamage) : unit.criticalDamage != null)
             return false;
         if (splashRange != null ? !splashRange.equals(unit.splashRange) : unit.splashRange != null) return false;
         if (splashDamage != null ? !splashDamage.equals(unit.splashDamage) : unit.splashDamage != null) return false;
+        if (basicAttackType != null ? !basicAttackType.equals(unit.basicAttackType) : unit.basicAttackType != null)
+            return false;
+        if (basicAttackDamageType != null ? !basicAttackDamageType.equals(unit.basicAttackDamageType) : unit.basicAttackDamageType != null)
+            return false;
+        if (basicAttackSpeed != null ? !basicAttackSpeed.equals(unit.basicAttackSpeed) : unit.basicAttackSpeed != null)
+            return false;
+        if (basicAttackRange != null ? !basicAttackRange.equals(unit.basicAttackRange) : unit.basicAttackRange != null)
+            return false;
+        if (skillAttackType != null ? !skillAttackType.equals(unit.skillAttackType) : unit.skillAttackType != null)
+            return false;
+        if (skillAttackDamageType != null ? !skillAttackDamageType.equals(unit.skillAttackDamageType) : unit.skillAttackDamageType != null)
+            return false;
+        if (skillAttackRange != null ? !skillAttackRange.equals(unit.skillAttackRange) : unit.skillAttackRange != null)
+            return false;
+        if (skillAttackSpeed != null ? !skillAttackSpeed.equals(unit.skillAttackSpeed) : unit.skillAttackSpeed != null)
+            return false;
+        if (unitSkillList != null ? !unitSkillList.equals(unit.unitSkillList) : unit.unitSkillList != null)
+            return false;
+        if (unitSkillListModifiers != null ? !unitSkillListModifiers.equals(unit.unitSkillListModifiers) : unit.unitSkillListModifiers != null)
+            return false;
+        if (transMaterialT1 != null ? !transMaterialT1.equals(unit.transMaterialT1) : unit.transMaterialT1 != null)
+            return false;
+        if (transMaterialT2 != null ? !transMaterialT2.equals(unit.transMaterialT2) : unit.transMaterialT2 != null)
+            return false;
+        if (transMaterialT3 != null ? !transMaterialT3.equals(unit.transMaterialT3) : unit.transMaterialT3 != null)
+            return false;
+        if (medalBuff != null ? !medalBuff.equals(unit.medalBuff) : unit.medalBuff != null) return false;
+        if (offlineMarchSpeedBuff != null ? !offlineMarchSpeedBuff.equals(unit.offlineMarchSpeedBuff) : unit.offlineMarchSpeedBuff != null)
+            return false;
+        if (className != null ? !className.equals(unit.className) : unit.className != null) return false;
+        if (rare != null ? !rare.equals(unit.rare) : unit.rare != null) return false;
+        if (size != null ? !size.equals(unit.size) : unit.size != null) return false;
         if (specialSkill != null ? !specialSkill.equals(unit.specialSkill) : unit.specialSkill != null) return false;
         if (passiveSkill != null ? !passiveSkill.equals(unit.passiveSkill) : unit.passiveSkill != null) return false;
-        if (reviveTime != null ? !reviveTime.equals(unit.reviveTime) : unit.reviveTime != null) return false;
         if (bloody != null ? !bloody.equals(unit.bloody) : unit.bloody != null) return false;
         if (explodeDie != null ? !explodeDie.equals(unit.explodeDie) : unit.explodeDie != null) return false;
+        if (hasSkill != null ? !hasSkill.equals(unit.hasSkill) : unit.hasSkill != null) return false;
         if (des != null ? !des.equals(unit.des) : unit.des != null) return false;
-        if (message != null ? !message.equals(unit.message) : unit.message != null) return false;
-        if (skillList != null ? !skillList.equals(unit.skillList) : unit.skillList != null) return false;
-        if (powerList != null ? !powerList.equals(unit.powerList) : unit.powerList != null) return false;
-        if (rank != null ? !rank.equals(unit.rank) : unit.rank != null) return false;
-        if (sex != null ? !sex.equals(unit.sex) : unit.sex != null) return false;
         if (orthoGrade != null ? !orthoGrade.equals(unit.orthoGrade) : unit.orthoGrade != null) return false;
         if (shop != null ? !shop.equals(unit.shop) : unit.shop != null) return false;
-        if (showBook != null ? !showBook.equals(unit.showBook) : unit.showBook != null) return false;
         if (ratingPosition != null ? !ratingPosition.equals(unit.ratingPosition) : unit.ratingPosition != null)
             return false;
-        if (trans != null ? !trans.equals(unit.trans) : unit.trans != null) return false;
-        if (material1 != null ? !material1.equals(unit.material1) : unit.material1 != null) return false;
-        if (material2 != null ? !material2.equals(unit.material2) : unit.material2 != null) return false;
-        if (material3 != null ? !material3.equals(unit.material3) : unit.material3 != null) return false;
-        if (starBuff != null ? !starBuff.equals(unit.starBuff) : unit.starBuff != null) return false;
         if (jewelBuff != null ? !jewelBuff.equals(unit.jewelBuff) : unit.jewelBuff != null) return false;
-        if (groundAir != null ? !groundAir.equals(unit.groundAir) : unit.groundAir != null) return false;
-        if (offlineSpeed != null ? !offlineSpeed.equals(unit.offlineSpeed) : unit.offlineSpeed != null) return false;
         if (offlineTime != null ? !offlineTime.equals(unit.offlineTime) : unit.offlineTime != null) return false;
         if (hasHeart != null ? !hasHeart.equals(unit.hasHeart) : unit.hasHeart != null) return false;
-        if (canDetect != null ? !canDetect.equals(unit.canDetect) : unit.canDetect != null) return false;
-        if (cloaking != null ? !cloaking.equals(unit.cloaking) : unit.cloaking != null) return false;
-        if (starBuffFromPet != null ? !starBuffFromPet.equals(unit.starBuffFromPet) : unit.starBuffFromPet != null)
-            return false;
-        if (isHonor != null ? !isHonor.equals(unit.isHonor) : unit.isHonor != null) return false;
-        return honorNumber != null ? honorNumber.equals(unit.honorNumber) : unit.honorNumber == null;
+        return medalBuffFromPet != null ? medalBuffFromPet.equals(unit.medalBuffFromPet) : unit.medalBuffFromPet == null;
     }
 
     @Override
     public int hashCode() {
         int result = id != null ? id.hashCode() : 0;
         result = 31 * result + (tribe != null ? tribe.hashCode() : 0);
-        result = 31 * result + (className != null ? className.hashCode() : 0);
         result = 31 * result + (name != null ? name.hashCode() : 0);
-        result = 31 * result + (cost != null ? cost.hashCode() : 0);
-        result = 31 * result + (shopGem != null ? shopGem.hashCode() : 0);
-        result = 31 * result + (evolveGem != null ? evolveGem.hashCode() : 0);
-        result = 31 * result + (coin != null ? coin.hashCode() : 0);
-        result = 31 * result + (rare != null ? rare.hashCode() : 0);
-        result = 31 * result + (size != null ? size.hashCode() : 0);
-        result = 31 * result + (evolKindNum != null ? evolKindNum.hashCode() : 0);
-        result = 31 * result + (attackType != null ? attackType.hashCode() : 0);
+        result = 31 * result + (message != null ? message.hashCode() : 0);
+        result = 31 * result + (rank != null ? rank.hashCode() : 0);
+        result = 31 * result + (sex != null ? sex.hashCode() : 0);
+        result = 31 * result + (unitShopMedalCost != null ? unitShopMedalCost.hashCode() : 0);
+        result = 31 * result + (unitShopGemCost != null ? unitShopGemCost.hashCode() : 0);
+        result = 31 * result + (evolveGemCost != null ? evolveGemCost.hashCode() : 0);
+        result = 31 * result + (honorShopCoinCost != null ? honorShopCoinCost.hashCode() : 0);
+        result = 31 * result + (evolutionUnitId != null ? evolutionUnitId.hashCode() : 0);
         result = 31 * result + (isAirUnit != null ? isAirUnit.hashCode() : 0);
-        result = 31 * result + (damageType != null ? damageType.hashCode() : 0);
-        result = 31 * result + (hasSkill != null ? hasSkill.hashCode() : 0);
-        result = 31 * result + (skillAttackType != null ? skillAttackType.hashCode() : 0);
-        result = 31 * result + (skillDamageType != null ? skillDamageType.hashCode() : 0);
+        result = 31 * result + (groundAir != null ? groundAir.hashCode() : 0);
+        result = 31 * result + (canDetectCloaked != null ? canDetectCloaked.hashCode() : 0);
+        result = 31 * result + (isCloaking != null ? isCloaking.hashCode() : 0);
+        result = 31 * result + (isHonor != null ? isHonor.hashCode() : 0);
+        result = 31 * result + (honorRotationNumber != null ? honorRotationNumber.hashCode() : 0);
+        result = 31 * result + (maxTransLevel != null ? maxTransLevel.hashCode() : 0);
+        result = 31 * result + (showBook != null ? showBook.hashCode() : 0);
         result = 31 * result + (initHp != null ? initHp.hashCode() : 0);
         result = 31 * result + (incHp != null ? incHp.hashCode() : 0);
         result = 31 * result + (initDamage != null ? initDamage.hashCode() : 0);
@@ -1011,48 +1072,46 @@ public class Unit {
         result = 31 * result + (incPhyDef != null ? incPhyDef.hashCode() : 0);
         result = 31 * result + (initMagDef != null ? initMagDef.hashCode() : 0);
         result = 31 * result + (incMagDef != null ? incMagDef.hashCode() : 0);
-        result = 31 * result + (numUnitBlock != null ? numUnitBlock.hashCode() : 0);
         result = 31 * result + (moveSpeed != null ? moveSpeed.hashCode() : 0);
-        result = 31 * result + (attackSpeed != null ? attackSpeed.hashCode() : 0);
-        result = 31 * result + (skillSpeed != null ? skillSpeed.hashCode() : 0);
-        result = 31 * result + (attackRange != null ? attackRange.hashCode() : 0);
-        result = 31 * result + (skillRange != null ? skillRange.hashCode() : 0);
+        result = 31 * result + (reviveTime != null ? reviveTime.hashCode() : 0);
         result = 31 * result + (evadePercent != null ? evadePercent.hashCode() : 0);
         result = 31 * result + (blockPercent != null ? blockPercent.hashCode() : 0);
+        result = 31 * result + (numUnitBlock != null ? numUnitBlock.hashCode() : 0);
         result = 31 * result + (criticalPercent != null ? criticalPercent.hashCode() : 0);
         result = 31 * result + (criticalDamage != null ? criticalDamage.hashCode() : 0);
         result = 31 * result + (splashRange != null ? splashRange.hashCode() : 0);
         result = 31 * result + (splashDamage != null ? splashDamage.hashCode() : 0);
+        result = 31 * result + (basicAttackType != null ? basicAttackType.hashCode() : 0);
+        result = 31 * result + (basicAttackDamageType != null ? basicAttackDamageType.hashCode() : 0);
+        result = 31 * result + (basicAttackSpeed != null ? basicAttackSpeed.hashCode() : 0);
+        result = 31 * result + (basicAttackRange != null ? basicAttackRange.hashCode() : 0);
+        result = 31 * result + (skillAttackType != null ? skillAttackType.hashCode() : 0);
+        result = 31 * result + (skillAttackDamageType != null ? skillAttackDamageType.hashCode() : 0);
+        result = 31 * result + (skillAttackRange != null ? skillAttackRange.hashCode() : 0);
+        result = 31 * result + (skillAttackSpeed != null ? skillAttackSpeed.hashCode() : 0);
+        result = 31 * result + (unitSkillList != null ? unitSkillList.hashCode() : 0);
+        result = 31 * result + (unitSkillListModifiers != null ? unitSkillListModifiers.hashCode() : 0);
+        result = 31 * result + (transMaterialT1 != null ? transMaterialT1.hashCode() : 0);
+        result = 31 * result + (transMaterialT2 != null ? transMaterialT2.hashCode() : 0);
+        result = 31 * result + (transMaterialT3 != null ? transMaterialT3.hashCode() : 0);
+        result = 31 * result + (medalBuff != null ? medalBuff.hashCode() : 0);
+        result = 31 * result + (offlineMarchSpeedBuff != null ? offlineMarchSpeedBuff.hashCode() : 0);
+        result = 31 * result + (className != null ? className.hashCode() : 0);
+        result = 31 * result + (rare != null ? rare.hashCode() : 0);
+        result = 31 * result + (size != null ? size.hashCode() : 0);
         result = 31 * result + (specialSkill != null ? specialSkill.hashCode() : 0);
         result = 31 * result + (passiveSkill != null ? passiveSkill.hashCode() : 0);
-        result = 31 * result + (reviveTime != null ? reviveTime.hashCode() : 0);
         result = 31 * result + (bloody != null ? bloody.hashCode() : 0);
         result = 31 * result + (explodeDie != null ? explodeDie.hashCode() : 0);
+        result = 31 * result + (hasSkill != null ? hasSkill.hashCode() : 0);
         result = 31 * result + (des != null ? des.hashCode() : 0);
-        result = 31 * result + (message != null ? message.hashCode() : 0);
-        result = 31 * result + (skillList != null ? skillList.hashCode() : 0);
-        result = 31 * result + (powerList != null ? powerList.hashCode() : 0);
-        result = 31 * result + (rank != null ? rank.hashCode() : 0);
-        result = 31 * result + (sex != null ? sex.hashCode() : 0);
         result = 31 * result + (orthoGrade != null ? orthoGrade.hashCode() : 0);
         result = 31 * result + (shop != null ? shop.hashCode() : 0);
-        result = 31 * result + (showBook != null ? showBook.hashCode() : 0);
         result = 31 * result + (ratingPosition != null ? ratingPosition.hashCode() : 0);
-        result = 31 * result + (trans != null ? trans.hashCode() : 0);
-        result = 31 * result + (material1 != null ? material1.hashCode() : 0);
-        result = 31 * result + (material2 != null ? material2.hashCode() : 0);
-        result = 31 * result + (material3 != null ? material3.hashCode() : 0);
-        result = 31 * result + (starBuff != null ? starBuff.hashCode() : 0);
         result = 31 * result + (jewelBuff != null ? jewelBuff.hashCode() : 0);
-        result = 31 * result + (groundAir != null ? groundAir.hashCode() : 0);
-        result = 31 * result + (offlineSpeed != null ? offlineSpeed.hashCode() : 0);
         result = 31 * result + (offlineTime != null ? offlineTime.hashCode() : 0);
         result = 31 * result + (hasHeart != null ? hasHeart.hashCode() : 0);
-        result = 31 * result + (canDetect != null ? canDetect.hashCode() : 0);
-        result = 31 * result + (cloaking != null ? cloaking.hashCode() : 0);
-        result = 31 * result + (starBuffFromPet != null ? starBuffFromPet.hashCode() : 0);
-        result = 31 * result + (isHonor != null ? isHonor.hashCode() : 0);
-        result = 31 * result + (honorNumber != null ? honorNumber.hashCode() : 0);
+        result = 31 * result + (medalBuffFromPet != null ? medalBuffFromPet.hashCode() : 0);
         return result;
     }
 
@@ -1061,21 +1120,23 @@ public class Unit {
         return "Unit{" +
                 "id=" + id +
                 ", tribe=" + tribe +
-                ", className='" + className + '\'' +
                 ", name='" + name + '\'' +
-                ", cost=" + cost +
-                ", shopGem=" + shopGem +
-                ", evolveGem=" + evolveGem +
-                ", coin=" + coin +
-                ", rare=" + rare +
-                ", size=" + size +
-                ", evolKindNum=" + evolKindNum +
-                ", attackType='" + attackType + '\'' +
+                ", message='" + message + '\'' +
+                ", rank=" + rank +
+                ", sex='" + sex + '\'' +
+                ", unitShopMedalCost=" + unitShopMedalCost +
+                ", unitShopGemCost=" + unitShopGemCost +
+                ", evolveGemCost=" + evolveGemCost +
+                ", honorShopCoinCost=" + honorShopCoinCost +
+                ", evolutionUnitId=" + evolutionUnitId +
                 ", isAirUnit=" + isAirUnit +
-                ", damageType='" + damageType + '\'' +
-                ", hasSkill=" + hasSkill +
-                ", skillAttackType=" + skillAttackType +
-                ", skillDamageType='" + skillDamageType + '\'' +
+                ", groundAir=" + groundAir +
+                ", canDetectCloaked=" + canDetectCloaked +
+                ", isCloaking=" + isCloaking +
+                ", isHonor=" + isHonor +
+                ", honorRotationNumber=" + honorRotationNumber +
+                ", maxTransLevel=" + maxTransLevel +
+                ", showBook=" + showBook +
                 ", initHp=" + initHp +
                 ", incHp=" + incHp +
                 ", initDamage=" + initDamage +
@@ -1084,48 +1145,46 @@ public class Unit {
                 ", incPhyDef=" + incPhyDef +
                 ", initMagDef=" + initMagDef +
                 ", incMagDef=" + incMagDef +
-                ", numUnitBlock=" + numUnitBlock +
                 ", moveSpeed=" + moveSpeed +
-                ", attackSpeed=" + attackSpeed +
-                ", skillSpeed=" + skillSpeed +
-                ", attackRange=" + attackRange +
-                ", skillRange=" + skillRange +
+                ", reviveTime=" + reviveTime +
                 ", evadePercent=" + evadePercent +
                 ", blockPercent=" + blockPercent +
+                ", numUnitBlock=" + numUnitBlock +
                 ", criticalPercent=" + criticalPercent +
                 ", criticalDamage=" + criticalDamage +
                 ", splashRange=" + splashRange +
                 ", splashDamage=" + splashDamage +
+                ", basicAttackType='" + basicAttackType + '\'' +
+                ", basicAttackDamageType='" + basicAttackDamageType + '\'' +
+                ", basicAttackSpeed=" + basicAttackSpeed +
+                ", basicAttackRange=" + basicAttackRange +
+                ", skillAttackType='" + skillAttackType + '\'' +
+                ", skillAttackDamageType='" + skillAttackDamageType + '\'' +
+                ", skillAttackRange=" + skillAttackRange +
+                ", skillAttackSpeed=" + skillAttackSpeed +
+                ", unitSkillList=" + unitSkillList +
+                ", unitSkillListModifiers=" + unitSkillListModifiers +
+                ", transMaterialT1=" + transMaterialT1 +
+                ", transMaterialT2=" + transMaterialT2 +
+                ", transMaterialT3=" + transMaterialT3 +
+                ", medalBuff=" + medalBuff +
+                ", offlineMarchSpeedBuff=" + offlineMarchSpeedBuff +
+                ", className='" + className + '\'' +
+                ", rare=" + rare +
+                ", size=" + size +
                 ", specialSkill=" + specialSkill +
                 ", passiveSkill=" + passiveSkill +
-                ", reviveTime=" + reviveTime +
                 ", bloody=" + bloody +
                 ", explodeDie=" + explodeDie +
+                ", hasSkill=" + hasSkill +
                 ", des='" + des + '\'' +
-                ", message='" + message + '\'' +
-                ", skillList=" + skillList +
-                ", powerList=" + powerList +
-                ", rank=" + rank +
-                ", sex='" + sex + '\'' +
                 ", orthoGrade=" + orthoGrade +
                 ", shop=" + shop +
-                ", showBook=" + showBook +
                 ", ratingPosition=" + ratingPosition +
-                ", trans=" + trans +
-                ", material1=" + material1 +
-                ", material2=" + material2 +
-                ", material3=" + material3 +
-                ", starBuff=" + starBuff +
                 ", jewelBuff=" + jewelBuff +
-                ", groundAir=" + groundAir +
-                ", offlineSpeed=" + offlineSpeed +
                 ", offlineTime=" + offlineTime +
                 ", hasHeart=" + hasHeart +
-                ", canDetect=" + canDetect +
-                ", cloaking=" + cloaking +
-                ", starBuffFromPet=" + starBuffFromPet +
-                ", isHonor=" + isHonor +
-                ", honorNumber=" + honorNumber +
+                ", medalBuffFromPet=" + medalBuffFromPet +
                 '}';
     }
 }
